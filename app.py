@@ -6,7 +6,7 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
-@app.route("/a")
+@app.route("/")
 def hello():
     return "<h1>Hellocc</h1>"
 
