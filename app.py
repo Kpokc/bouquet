@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "<h1>Helloc   c</h1>"
+    return "<h1>Hellocc</h1>"
 
 
 if __name__ == "__main__":
