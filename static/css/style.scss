@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgba(167, 167, 167, 0.4);
+}
+
+// Top Menu to Center *
+.top-main-menu {
+    text-align: center;
+    .brand-logo {
+        left: 0;
+    }
+    //top buttons hover
+    .top-menu:hover {
+        background-color: #2bbbad !important;
+    }
+}
+
+// Top Menu to Center *
+nav ul li {
+    float: none;
+    display: inline-block;
+}
+
+// Floating Action Button
+.fixed-action-btn {
+    position: absolute;
+    bottom: -28px;
+}

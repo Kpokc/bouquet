@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: aqua;
+  background-color: rgba(167, 167, 167, 0.4);
 }
 
 .top-main-menu {
@@ -21,8 +21,13 @@ body {
   background-color: #2bbbad !important;
 }
 
-.top-main-menu nav ul li {
+nav ul li {
   float: none;
   display: inline-block;
+}
+
+.fixed-action-btn {
+  position: absolute;
+  bottom: -28px;
 }
 /*# sourceMappingURL=style.css.map */
