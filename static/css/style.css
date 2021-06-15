@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background-color: rgba(161, 167, 167, 0.4);
+}
+
+.top-main-menu {
+  text-align: center;
+}
+
+.top-main-menu .brand-logo {
+  left: 0;
+}
+
+.top-main-menu .top-menu:hover {
+  background-color: #2bbbad !important;
+}
+
+.top-main-menu nav ul li {
+  float: none;
+  display: inline-block;
+}
+/*# sourceMappingURL=style.css.map */
