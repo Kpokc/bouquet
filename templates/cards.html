@@ -2,12 +2,15 @@
 {% block content %}
 
 <!-- Horizontal card -->
+
 <div class="row">
+
     <div class="col l8 m12 s12">
         {% for post in posts %}
         <div class="card horizontal hoverable">
             <div class="card-image">
-                <img src="{{ post.img_src }}">
+                <img
+                    src="{{ post.img_src }}">
             </div>
             <div class="card-stacked">
                 <div class="card-title">
