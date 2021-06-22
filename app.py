@@ -27,6 +27,11 @@ def welcome():
     return render_template("cards.html", posts=posts)
 
 
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
