@@ -6,17 +6,17 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix teal-text text-darken-4">category</i>
-          <input id="category" name="category" type="text" class="validate">
+          <input id="category" name="category" type="text" class="validate teal-text text-darken-4" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
           <label for="category">Select Category</label>
         </div>
         <div class="input-field col s12">
           <i class="material-icons prefix teal-text text-darken-4">title</i>
-          <input id="title" name="title" type="tel" class="validate">
-          <label for="title">Select Task</label>
+          <input id="title" name="title" type="tel" class="validate teal-text text-darken-4" minlength="5" maxlength="75" pattern="^[a-zA-Z0-9]{5,15}$" required>
+          <label for="title">Title</label>
         </div>
         <div class="input-field col s12">
             <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
-            <textarea id="textarea1" name="textarea1" class="materialize-textarea"></textarea>
+            <textarea id="textarea1" name="textarea1" class="materialize-textarea teal-text text-darken-4"></textarea>
             <label for="textarea1">Textarea</label>
           </div>
       </div>
