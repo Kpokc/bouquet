@@ -32,6 +32,11 @@ def profile():
     return render_template("profile.html")
 
 
+@app.route("/add_post")
+def add_post():
+    return render_template("add_post.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

@@ -20,6 +20,10 @@ body {
     }
 }
 
+.top-menu:hover {
+    background-color: #2bbbad !important;
+}
+
 // Top Menu to Center *
 nav ul li {
     float: none;
@@ -40,4 +44,9 @@ nav ul li {
 // mobile menu button
 #menu {
     top: 90%;
+}
+
+/* label color */
+.input-field label {
+    color: #37474f;
 }
