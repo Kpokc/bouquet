@@ -27,6 +27,17 @@ def welcome():
     return render_template("cards.html", posts=posts)
 
 
+@app.route("/read_post/<post_id>")
+def read_post(post_id):
+    """
+        Single post on a new page
+    """
+    post = mongo.db.post.find_one(
+        {"_id": ObjectId(post_id)}
+    )
+    return render_template("read_post.html", post=post)
+
+
 @app.route("/profile")
 def profile():
     return render_template("profile.html")

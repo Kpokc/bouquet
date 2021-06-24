@@ -6,51 +6,21 @@
 <div class="row">
 
     <div class="col l8 m12 s12">
-        {% for post in posts %}
-        <div class="card horizontal hoverable">
-            <div class="card-image">
-                <img
-                    src="">
-            </div>
-            <div class="card-stacked">
-                <div class="card-title">
-                    <p>{{ post._id }}</p>
-                    <p>{{ post.title }}</p>
-                    <p>{{ post.short_description }}</p>
-                </div>
-                <div class="card-content">
-                    <p>{{ post.content }}</p>
-                </div>
-                <div class="card-author">
-                    <p>
-                        {{ post.user_id }}
-                        <span style="float:right;">{{ post.date }}</span>
-                    </p>
-                </div>
-                <div class="card-action">
-                    <a href="{{ url_for('read_post', post_id=post._id) }}">Read Post</a>
-
-                    <!-- red action button -->
-                    <div class="fixed-action-btn">
-                        <a class="btn-floating btn-large red">
-                            <i class="large material-icons">mode_edit</i>
-                        </a>
-                        <ul>
-                            <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-                            <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a>
-                            </li>
-                            <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-                            <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="https://lorempixel.com/100/190/nature/6">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content-to-read">
+        <h2 class="header">{{ post.title }}</h2>
+          <p>{{ post.content }}</p>
         </div>
-        {% endfor %}
+        <div class="card-action">
+          <a href="#">Back</a>
+        </div>
+      </div>
     </div>
-
-    
+    </div>
 
     <!-- aside titles -->
     <aside>
