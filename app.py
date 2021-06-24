@@ -1,10 +1,10 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect)
+    redirect, request, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-
+from datetime import date, datetime
 if os.path.exists("env.py"):
     import env
 
@@ -36,16 +36,35 @@ def read_post(post_id):
         {"_id": ObjectId(post_id)}
     )
     return render_template("read_post.html", post=post)
+    # #, methods=["GET","POST"]
+
+
+today = date.today()
+now = datetime.now()
+@app.route("/add_post", methods=["GET","POST"])
+def add_post():
+    if request.method == "POST":
+        post = {
+            "user_id": "N/A",
+            "category": request.form.get("category"),
+            "title": request.form.get("title"),
+            "content": request.form.get("content"),
+            "date" : today.strftime("%B %d, %Y"),
+            "time": now,
+            "img_src": request.form.get("img_src")
+        }
+        mongo.db.post.insert_one(post)
+        #flash("Task Successfully Added")
+        return redirect(url_for("welcome"))
+
+    categories = mongo.db.categories.find()
+    return render_template("add_post.html", categories=categories)
 
 
 @app.route("/profile")
 def profile():
     return render_template("profile.html")
 
-
-@app.route("/add_post")
-def add_post():
-    return render_template("add_post.html")
 
 
 @app.route("/login")
