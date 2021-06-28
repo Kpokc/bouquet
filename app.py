@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, url_for)
+    redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from datetime import date, datetime
@@ -23,6 +23,9 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/welcome")
 def welcome():
+    """
+        index page
+    """
     posts = mongo.db.post.find()
     return render_template("cards.html", posts=posts)
 
@@ -30,19 +33,21 @@ def welcome():
 @app.route("/read_post/<post_id>")
 def read_post(post_id):
     """
-        Single post on a new page
+        Read single post on a new page
     """
     post = mongo.db.post.find_one(
         {"_id": ObjectId(post_id)}
     )
     return render_template("read_post.html", post=post)
-    # #, methods=["GET","POST"]
 
 
-today = date.today()
-now = datetime.now()
 @app.route("/add_post", methods=["GET","POST"])
 def add_post():
+    """
+        Add post do DB
+    """
+    today = date.today()
+    now = datetime.now()
     if request.method == "POST":
         post = {
             "user_id": "N/A",
@@ -54,7 +59,7 @@ def add_post():
             "img_src": request.form.get("img_src")
         }
         mongo.db.post.insert_one(post)
-        #flash("Task Successfully Added")
+        flash("Post Successfully Added!")
         return redirect(url_for("welcome"))
 
     categories = mongo.db.categories.find()
@@ -67,13 +72,44 @@ def profile():
 
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET","POST"])
 def login():
+    """
+        Login function
+    """
+    if request.method == "POST":
+        get_user = mongo.db.user.find_one(
+            {"username": request.form.get("username")}
+        )
+
     return render_template("login.html")
 
 
-@app.route("/signup")
+@app.route("/signup", methods=["GET","POST"])
 def signup():
+    """
+        Signup function
+    """
+    if request.method == "POST":
+        get_user = mongo.db.user.find_one(
+            {"username": request.form.get("username")}
+        )
+
+        if get_user:
+            flash("User already exists!")
+            return redirect(url_for("signup"))
+
+        signup = {
+            "username": request.form.get("username"),
+            "password": request.form.get("password")
+        }
+        mongo.db.user.insert(signup)
+
+        #Add user into cookie
+        session["user"] = request.form.get("username")
+        flash("We are glad that you joined us!")
+        return redirect(url_for("welcome"))
+
     return render_template("signup.html")
 
 
