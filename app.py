@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from datetime import date, datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
@@ -81,6 +82,19 @@ def login():
         get_user = mongo.db.user.find_one(
             {"username": request.form.get("username")}
         )
+    
+        if get_user:
+            if check_password_hash(get_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username")
+                a = request.form.get("username")
+                flash("Welcome {}".format(request.form.get("username")))
+                return redirect(url_for("welcome", username=session["user"]))
+            else:
+                flash("Incorrect Username and/or Password!")
+                return redirect(url_for("login"))
+        else:
+            flash("Incorrect Username and/or Password!")
+            return redirect(url_for("login"))
 
     return render_template("login.html")
 
@@ -101,7 +115,7 @@ def signup():
 
         signup = {
             "username": request.form.get("username"),
-            "password": request.form.get("password")
+            "password": generate_password_hash(request.form.get("password"))
         }
         mongo.db.user.insert(signup)
 
