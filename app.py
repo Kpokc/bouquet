@@ -127,6 +127,13 @@ def signup():
     return render_template("signup.html")
 
 
+@app.route("/logout")
+def logout():
+    flash("You have been logged out!")
+    session.pop("user")
+    return redirect(url_for("welcome"))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
