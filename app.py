@@ -67,10 +67,16 @@ def add_post():
     return render_template("add_post.html", categories=categories)
 
 
-@app.route("/profile")
-def profile():
-    return render_template("profile.html")
+@app.route("/mypage/<username>")
+def mypage(username):
+    username = mongo.db.user.find_one(
+        {"username": session["user"]})
 
+    if session["user"]:
+        print(username)
+        return render_template("mypage.html", username=username)
+
+    return redirect(url_for("login"))
 
 
 @app.route("/login", methods=["GET","POST"])

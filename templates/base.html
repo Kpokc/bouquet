@@ -23,7 +23,7 @@
                       <ul class="hide-on-med-and-down">
                         <li><a class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('welcome') }}">Home</a></li>
                         <li><a class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('add_post') }}">Add Post</a></li>
-                        <li><a class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('profile') }}">Profile</a></li>
+                        <li><a class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('mypage', username=session['user']) }}">My Page</a></li>
                         <li><a class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('login') }}">Login</a></li>
                         <li><a class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('signup') }}">Sign Up</a></li>
                         <li><a class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('logout') }}">Log Out</a></li>
@@ -36,7 +36,7 @@
       <ul class="sidenav" id="mobile-demo">
         <li><a href="#" class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('welcome')}}">Home</a></li>
         <li><a href="#" class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('add_post') }}">Add Post</a></li>
-        <li><a href="#" class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('profile') }}">Profile</a></li>
+        <li><a href="#" class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('mypage', username=session['user']) }}">My Page</a></li>
         <li><a href="#" class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('login') }}">Login</a></li>
         <li><a href="#" class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('signup') }}">Sign Up</a></li>
         <li><a href="#" class="top-menu waves-effect waves-light btn blue-grey darken-1" href="{{ url_for('logout') }}">Log Out</a></li>
