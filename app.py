@@ -52,8 +52,12 @@ def add_post():
     today = date.today()
     now = datetime.now()
     if request.method == "POST":
+        # Get user info by his sessions name 
+        user_id = mongo.db.user.find_one(
+            {"username": session["user"]}
+        )
         post = {
-            "user_id": "N/A",
+            "user_id": str(user_id["_id"]), # get user id
             "category": request.form.get("category"),
             "title": request.form.get("title"),
             "content": request.form.get("content"),
