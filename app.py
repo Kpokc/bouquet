@@ -65,7 +65,16 @@ def add_post():
             "time": now,
             "img_src": request.form.get("img_src")
         }
-        mongo.db.post.insert_one(post)
+        # get inserted post id 
+        post_id = mongo.db.post.insert_one(post)
+        # create likes and dizs table
+        liks_dizs = {
+            "unit_id": str(post_id.inserted_id),
+            "like": 0,
+            "dislike": 0
+        }
+        mongo.db.liks_diz.insert_one(liks_dizs)
+        # print(post_id.inserted_id )
         flash("Post Successfully Added!")
         return redirect(url_for("welcome"))
 
