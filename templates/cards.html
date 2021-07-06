@@ -10,20 +10,29 @@
         <div class="card horizontal hoverable">
             <div class="card-image">
                 <img
-                    src="">
+                    src="{{ post.img_src }}">
             </div>
             <div class="card-stacked">
                 <div class="card-title">
-                    <p>{{ post._id }}</p>
-                    <p>{{ post.title }}</p>
-                    <p>{{ post.short_description }}</p>
+                    <p>
+                        {% for category in categories %}
+                            {% if post.category == category._id|string %}
+                                {{ category.title|upper }}
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    <strong>{{ post.title }}</strong>
                 </div>
                 <div class="card-content">
                     <p>{{ post.content }}</p>
                 </div>
                 <div class="card-author">
                     <p>
-                        {{ post.user_id }}
+                        {% for user in users %}
+                            {% if post.user_id == user._id|string %}
+                                {{ user.username }}
+                            {% endif %}
+                        {% endfor %}
                         <span style="float:right;">{{ post.date }}</span>
                     </p>
                 </div>

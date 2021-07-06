@@ -28,7 +28,9 @@ def welcome():
         index page
     """
     posts = mongo.db.post.find()
-    return render_template("cards.html", posts=posts)
+    categories = list(mongo.db.categories.find())
+    users = list(mongo.db.user.find())
+    return render_template("cards.html", posts=posts, categories=categories, users=users)
 
 
 @app.route("/read_post/<post_id>")
