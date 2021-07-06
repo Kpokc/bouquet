@@ -7,28 +7,29 @@
 
     <div class="col l8 m12 s12">
         {% for post in posts %}
+        <a href="{{ url_for('read_post', post_id=post._id) }}">
         <div class="card horizontal hoverable">
             <div class="card-image">
 
                 {% for category in categories %}
                     {% if post.category == category._id|string %}
-                        <img src="{{ category.img_src }}" alt=""/>
+                        <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
                     {% endif %}
                 {% endfor %}
 
             </div>
             <div class="card-stacked">
                 <div class="card-title">
-                    <p>
+                    <small>
                         {% for category in categories %}
                             {% if post.category == category._id|string %}
                                 {{ category.title|upper }}
                             {% endif %}
                         {% endfor %}
-                    </p>
+                    </small><br>
                     <strong>{{ post.title }}</strong>
                 </div>
-                <div class="card-content">
+                <div class="card-content" style="word-wrap: break-word;">
                     <p>{{ post.content }}</p>
                 </div>
                 <div class="card-author">
@@ -42,7 +43,7 @@
                     </p>
                 </div>
                 <div class="card-action">
-                    <a href="{{ url_for('read_post', post_id=post._id) }}">Read Post</a>
+                    <!-- <a href="{{ url_for('read_post', post_id=post._id) }}">Read Post</a> -->
 
                     <!-- red action button -->
                     <div class="fixed-action-btn">
@@ -61,6 +62,7 @@
                 </div>
             </div>
         </div>
+    </a>
         {% endfor %}
     </div>
 
