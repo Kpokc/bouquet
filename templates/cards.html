@@ -9,8 +9,13 @@
         {% for post in posts %}
         <div class="card horizontal hoverable">
             <div class="card-image">
-                <img
-                    src="{{ post.img_src }}">
+
+                {% for category in categories %}
+                    {% if post.category == category._id|string %}
+                        <img src="{{ category.img_src }}" alt=""/>
+                    {% endif %}
+                {% endfor %}
+
             </div>
             <div class="card-stacked">
                 <div class="card-title">
