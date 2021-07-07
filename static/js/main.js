@@ -9,8 +9,6 @@ $(document).ready(function(){
         var content = $(this).text().substring(0, 165);
         var content_length = $(this).text().length;
 
-        console.log(content_length);
-
         if (content_length > 165) {
             $(this).text(content + "...")
         }

@@ -82,6 +82,15 @@ def add_post():
     return render_template("add_post.html", categories=categories)
 
 
+@app.route("/delete_post/<post_id>")
+def delete_post(post_id):
+    mongo.db.post.remove({
+        "_id":ObjectId(post_id)
+    })
+    flash("Post was Deleted!")
+    return redirect(url_for("welcome"))
+
+
 @app.route("/mypage/<username>")
 def mypage(username):
     username = mongo.db.user.find_one(
