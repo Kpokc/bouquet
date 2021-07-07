@@ -31,7 +31,12 @@ def welcome():
     """
         index page
     """
-    posts = mongo.db.post.find()
+    posts = list(mongo.db.post.find().sort("time", -1))
+
+    for post in posts:
+        # (nl to br) replace new line with page break
+        post["content"] = post["content"].replace('\n', '<br />')
+
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
     return render_template("cards.html", posts=posts, categories=categories, users=users)
@@ -46,7 +51,12 @@ def read_post(post_id):
         {"_id": ObjectId(post_id)}
     )
 
-    return render_template("read_post.html", post=post)
+    # (nl to br) replace new line with page break
+    post["content"] = post["content"].replace('\n', '<br />')
+
+    categories = list(mongo.db.categories.find())
+    users = list(mongo.db.user.find())
+    return render_template("read_post.html", post=post, categories=categories, users=users)
 
 
 @app.route("/add_post", methods=["GET","POST"])

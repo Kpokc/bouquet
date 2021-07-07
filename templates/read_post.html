@@ -7,13 +7,38 @@
 
     <div class="col l8 m12 s12">
     <div class="card horizontal">
-      <div class="card-image">
-        <img src="https://lorempixel.com/100/190/nature/6">
-      </div>
+        {% if post.img_src != " " %}
+            <div class="card-image">
+                {% for category in categories %}
+                    {% if post.category == category._id|string %}
+                        <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
       <div class="card-stacked">
-        <div class="card-content-to-read">
-        <h2 class="header">{{ post.title }}</h2>
-          <p>{{ post.content }}</p>
+        <div class="card-title">
+            <small>
+                {% for category in categories %}
+                    {% if post.category == category._id|string %}
+                        {{ category.title|upper }}
+                    {% endif %}
+                {% endfor %}
+            </small><br>
+            <strong>{{ post.title }}</strong>
+        </div>
+        <div id="read" class="card-content" style="word-wrap: break-word;">
+            <p id="text-to-read">{{ post.content }}</p>
+        </div>
+        <div class="card-author">
+            <p>
+                {% for user in users %}
+                    {% if post.user_id == user._id|string %}
+                        {{ user.username }}
+                    {% endif %}
+                {% endfor %}
+                <span style="float:right;">{{ post.date }}</span>
+            </p>
         </div>
         <div class="card-action">
           <a href="{{ url_for('welcome') }}" class="waves-effect waves-light btn grey lighten-1">Back</a>

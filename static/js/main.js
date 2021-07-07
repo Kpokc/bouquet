@@ -3,14 +3,27 @@ $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton({direction: 'left'});
     $('select').formSelect();
     
-    // Get length of posts content and hide part of it
+    // convert text to html (nl to br) python lines 37, 55
+    $(".card-content").children("#text-to-read").each(function(){
+        var div = $(this);
+        div.html(div.text())
+    })
+    
+
+    // Get length of posts content and hide some
     $(".card-content").each(function(){
 
-        var content = $(this).text().substring(0, 165);
-        var content_length = $(this).text().length;
+        var id_atribute = $(this).attr("id")
 
-        if (content_length > 165) {
-            $(this).text(content + "...")
+        // If post is not opened for reading hide text
+        if (id_atribute != "read") {
+
+            var content = $(this).text().substring(0, 165);
+            var content_length = $(this).text().length;
+
+            if (content_length > 165) {
+                $(this).text(content + "...")
+        }
         }
     })
 
