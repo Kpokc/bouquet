@@ -92,7 +92,12 @@ def edit_post(post_id):
         Edit post
     """
     if request.method == "POST":
+        # Get user info by his sessions name 
+        user_id = mongo.db.user.find_one(
+            {"username": session["user"]}
+        )
         post = {
+            "user_id": str(user_id["_id"]), # add user id
             "category": request.form.get("category"),
             "title": request.form.get("title"),
             "content": request.form.get("content"),
