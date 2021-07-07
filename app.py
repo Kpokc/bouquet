@@ -21,6 +21,10 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+today = date.today()
+now = datetime.now()
+
+
 @app.route("/")
 @app.route("/welcome")
 def welcome():
@@ -41,6 +45,7 @@ def read_post(post_id):
     post = mongo.db.post.find_one(
         {"_id": ObjectId(post_id)}
     )
+
     return render_template("read_post.html", post=post)
 
 
@@ -49,15 +54,13 @@ def add_post():
     """
         Add post do DB
     """
-    today = date.today()
-    now = datetime.now()
     if request.method == "POST":
         # Get user info by his sessions name 
         user_id = mongo.db.user.find_one(
             {"username": session["user"]}
         )
         post = {
-            "user_id": str(user_id["_id"]), # get user id
+            "user_id": str(user_id["_id"]), # add user id
             "category": request.form.get("category"),
             "title": request.form.get("title"),
             "content": request.form.get("content"),
@@ -78,12 +81,44 @@ def add_post():
         flash("Post Successfully Added!")
         return redirect(url_for("welcome"))
 
+
     categories = mongo.db.categories.find()
     return render_template("add_post.html", categories=categories)
 
 
+@app.route("/edit_post/<post_id>", methods=["GET","POST"])
+def edit_post(post_id):
+    """
+        Edit post
+    """
+    if request.method == "POST":
+        post = {
+            "category": request.form.get("category"),
+            "title": request.form.get("title"),
+            "content": request.form.get("content"),
+            "date" : today.strftime("%B %d, %Y"),
+            "time": now,
+            "img_src": request.form.get("img_src")
+        }
+        mongo.db.post.update({"_id": ObjectId(post_id)}, post)
+        flash("Post was Updated!")
+
+        return redirect(url_for("welcome"))
+
+
+    post = mongo.db.post.find_one(
+        {"_id": ObjectId(post_id)}
+    )
+    categories = mongo.db.categories.find()
+
+    return render_template("edit_post.html", post=post, categories=categories)
+
+
 @app.route("/delete_post/<post_id>")
 def delete_post(post_id):
+    """
+        Delete post
+    """
     mongo.db.post.remove({
         "_id":ObjectId(post_id)
     })
@@ -159,6 +194,9 @@ def signup():
 
 @app.route("/logout")
 def logout():
+    """
+        Log out
+    """
     flash("You have been logged out!")
     session.pop("user")
     return redirect(url_for("welcome"))
