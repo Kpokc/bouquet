@@ -36,6 +36,9 @@ def welcome():
     for post in posts:
         # (nl to br) replace new line with page break
         post["content"] = post["content"].replace('\n', '<br />')
+        # \t to tab (8 spaces)
+        tab = "&nbsp;" * 8
+        post["content"] = post["content"].replace('\t', tab)
 
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
@@ -53,6 +56,10 @@ def read_post(post_id):
 
     # (nl to br) replace new line with page break
     post["content"] = post["content"].replace('\n', '<br />')
+    # \t to tab (8 spaces)
+    tab = "&nbsp;" * 8
+    post["content"] = post["content"].replace('\t', tab)
+
 
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
