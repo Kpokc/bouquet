@@ -94,6 +94,16 @@ def add_post():
             "dislike": 0
         }
         mongo.db.liks_diz.insert_one(liks_dizs)
+        # create complaint and dizs table
+        complaint = {
+            "unit_id": str(post_id.inserted_id),
+            "user_id": "N/A",
+            "date" : "N/A",
+            "time": "N/A",
+            "comment": "N/A",
+            "status": 0
+        }
+        mongo.db.complaint.insert_one(complaint)
         # print(post_id.inserted_id )
         flash("Post Successfully Added!")
         return redirect(url_for("welcome"))
