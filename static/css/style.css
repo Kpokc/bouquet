@@ -48,4 +48,8 @@ nav ul li {
 .input-field label {
   color: #37474f;
 }
+
+.card, .horizontal, .hoverable {
+  word-break: break-word;
+}
 /*# sourceMappingURL=style.css.map */

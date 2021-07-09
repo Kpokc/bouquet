@@ -141,8 +141,21 @@ def delete_post(post_id):
     """
         Delete post
     """
+    # Delete post
     mongo.db.post.remove({
         "_id":ObjectId(post_id)
+    })
+    # Delete related posts
+    mongo.db.liks_diz.remove({
+        "unit_id": str(ObjectId(post_id))
+    })
+    # Delete related comments
+    mongo.db.comments.remove({
+        "unit_id": str(ObjectId(post_id))
+    })
+    # Delete related complaint
+    mongo.db.complaint.remove({
+        "unit_id": str(ObjectId(post_id))
     })
     flash("Post was Deleted!")
     return redirect(url_for("welcome"))
