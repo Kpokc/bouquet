@@ -221,6 +221,25 @@ def comment(post_id):
         return redirect(url_for("read_post", post_id=post_id))
 
 
+@app.route("/delete_comment/<comment_id>", methods=["GET","POST"])
+def delete_comment(comment_id):
+    """
+        Delete comment
+    """
+    print(comment_id)
+    comment = mongo.db.comments.find_one(
+        {"_id": ObjectId(comment_id)}
+    )
+
+    print(comment["post_id"])
+    #Delete post
+    mongo.db.comments.remove({
+        "_id":ObjectId(comment_id)
+    })
+    
+    return redirect(url_for("read_post", post_id=comment["post_id"]))
+
+
 @app.route("/mypage/<username>")
 def mypage(username):
     username = mongo.db.user.find_one(
