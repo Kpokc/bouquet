@@ -60,10 +60,10 @@ def read_post(post_id):
     tab = "&nbsp;" * 8
     post["content"] = post["content"].replace('\t', tab)
 
-
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
-    return render_template("read_post.html", post=post, categories=categories, users=users)
+    comments = list(mongo.db.comments.find())
+    return render_template("read_post.html", post=post, categories=categories, users=users, comments=comments)
 
 
 @app.route("/add_post", methods=["GET","POST"])
@@ -76,28 +76,6 @@ def add_post():
         user_id = mongo.db.user.find_one(
             {"username": session["user"]}
         )
-
-        # # create likes table
-        # like = {
-        # }
-        # likes = mongo.db.likes.insert_one(like)
-
-        # # create likes table
-        # dislike = {
-        # }
-        # dislikes = mongo.db.dislikes.insert_one(dislike)
-
-        # # create complaint table
-        # complaint = {
-        #     "unit_id": "N/A",
-        #     "user_id": "N/A",
-        #     "date" : "N/A",
-        #     "time": "N/A",
-        #     "comment": "N/A",
-        #     "status": 0
-        # }
-        # user_complaint = mongo.db.complaint.insert_one(complaint)
-
         post = {
             "user_id": str(user_id["_id"]), # add user id
             "category": request.form.get("category"),
@@ -108,33 +86,6 @@ def add_post():
             "img_src": request.form.get("img_src"),
         }
         mongo.db.post.insert_one(post)
-        # get inserted post id 
-        # post_id = mongo.db.post.insert_one(post)
-        # # create like and dislike table
-        # like_dislike = {
-        #     "unit_id": str(post_id.inserted_id),
-        #     "user_id": "1 or -1"
-        # }
-        #mongo.db.likes_dislikes.insert_one(like_dislike)
-        # # create comments table
-        # comment = {
-        #     "unit_id": str(post_id.inserted_id),
-        #     "user_id": "comment",
-        #     "date": today.strftime("%B %d, %Y"),
-        #     "time": now
-        # }
-        # mongo.db.comments.insert_one(comment)
-        # create complaint table
-        # complaint = {
-        #     "unit_id": str(post_id.inserted_id),
-        #     "user_id": "N/A",
-        #     "date" : "N/A",
-        #     "time": "N/A",
-        #     "comment": "N/A",
-        #     "status": 0
-        # }
-        # mongo.db.complaint.insert_one(complaint)
-        # print(post_id.inserted_id )
         flash("Post Successfully Added!")
         return redirect(url_for("welcome"))
 
@@ -248,6 +199,26 @@ def pined(post_id):
     mongo.db.pined.insert_one(pin)
 
     return redirect(url_for("welcome"))
+
+
+@app.route("/comment/<post_id>", methods=["GET","POST"])
+def comment(post_id):
+
+    if request.method == "POST":
+        # Get user info by his sessions name 
+        user_id = mongo.db.user.find_one(
+            {"username": session["user"]}
+        )
+        comment = ({
+            "user_id": str(user_id["_id"]),
+            "post_id": post_id,
+            "comment": request.form.get("comment"),
+            "date" : today.strftime("%B %d, %Y"),
+            "time": now
+        })
+        mongo.db.comments.insert_one(comment)
+
+        return redirect(url_for("read_post", post_id=post_id))
 
 
 @app.route("/mypage/<username>")

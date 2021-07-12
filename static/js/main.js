@@ -2,6 +2,7 @@ $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
     $('.fixed-action-btn').floatingActionButton({direction: 'left'});
     $('select').formSelect();
+    $('.modal').modal();
     
     // convert text to html (nl to br) python lines 37, 55
     $(".card-content").children("#text-to-read").each(function(){

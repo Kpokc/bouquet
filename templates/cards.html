@@ -61,14 +61,16 @@
                             <i class="large material-icons">mode_edit</i>
                         </a>
                         <ul>
-                            <!-- Like -->
-                            <li><a href="{{ url_for('like', post_id=post._id) }}" class="btn-floating red"><i class="far fa-thumbs-up"></i></a></li>
-                            <!-- Dislike -->
-                            <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating yellow darken-1"><i class="far fa-thumbs-down"></i></a>
-                            </li>
-                            <li><a class="btn-floating green"><i class="fas fa-link"></i></i></a></li>
-                            <!-- Pin/Unpin -->
-                            <li><a href="{{ url_for('pined', post_id=post._id) }}" class="btn-floating blue"><i class="fas fa-thumbtack"></i></a></li>
+                            {% if session.user %}
+                                <!-- Like -->
+                                <li><a href="{{ url_for('like', post_id=post._id) }}" class="btn-floating red"><i class="far fa-thumbs-up"></i></a></li>
+                                <!-- Dislike -->
+                                <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating yellow darken-1"><i class="far fa-thumbs-down"></i></a>
+                                </li>
+                                <!-- Pin/Unpin -->
+                                <li><a href="{{ url_for('pined', post_id=post._id) }}" class="btn-floating blue"><i class="fas fa-thumbtack"></i></a></li>
+                            {% endif %}
+                            <li><a class="btn-floating green"><i class="far fa-copy"></i></a></li>
                         </ul>
                     </div>
 

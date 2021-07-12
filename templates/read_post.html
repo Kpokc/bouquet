@@ -42,6 +42,29 @@
         </div>
         <div class="card-action">
           <a href="{{ url_for('welcome') }}" class="waves-effect waves-light btn grey lighten-1">Back</a>
+            <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Comment</a>
+
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                <h4>Comment</h4>
+                <!-- add comment -->
+                <div class="row">
+                    <form class="col s12" method="POST" action="{{ url_for('comment', post_id=post._id) }}">
+                        <div class="input-field col s12">
+                        <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
+                        <textarea id="comment" name="comment" class="materialize-textarea teal-text text-darken-4" minlength="5" maxlength="3000" required></textarea>
+                        <label for="comment">Your Comment</label>
+                        </div>
+                        <button class="top-menu waves-effect waves-light btn blue-grey darken-1" type="submit" name="action">Add Post
+                            <i class="material-icons right">send</i>
+                          </button> 
+                    </form>
+                </div>
+                </div>
+            </div>
+
            <!-- red action button -->
            <div class="fixed-action-btn">
             <a class="btn-floating btn-large red">
@@ -58,6 +81,36 @@
         </div>
       </div>
     </div>
+
+        <!-- Comment section -->
+        <div class="col l10 s10 m10 offset-l1 offset-s1 offset-m1">
+            <h4 class="header">Comments</h4>
+
+            {% for comment in comments%}
+                {% if comment.post_id == post._id|string %}
+            <div class="card horizontal">
+                <div class="card-stacked">
+                    {% for user in users%}
+                            {% if comment.user_id == user._id|string %}
+                                <p>{{ user.username }} <span>{{ comment.date }}</span></p>
+                            {% endif %}
+                        <!-- <a href="#" class="right">Comment</a> -->
+                        {% endfor %}
+                        <hr>
+                    <div class="card-content">
+                        
+                        <p>{{ comment.comment}}</p>
+                    </div>
+                    <hr>
+
+                    <div class="card-action">
+                        
+                    </div>
+                </div>
+            </div>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 
     <!-- aside titles -->
