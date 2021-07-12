@@ -76,6 +76,28 @@ def add_post():
         user_id = mongo.db.user.find_one(
             {"username": session["user"]}
         )
+
+        # # create likes table
+        # like = {
+        # }
+        # likes = mongo.db.likes.insert_one(like)
+
+        # # create likes table
+        # dislike = {
+        # }
+        # dislikes = mongo.db.dislikes.insert_one(dislike)
+
+        # # create complaint table
+        # complaint = {
+        #     "unit_id": "N/A",
+        #     "user_id": "N/A",
+        #     "date" : "N/A",
+        #     "time": "N/A",
+        #     "comment": "N/A",
+        #     "status": 0
+        # }
+        # user_complaint = mongo.db.complaint.insert_one(complaint)
+
         post = {
             "user_id": str(user_id["_id"]), # add user id
             "category": request.form.get("category"),
@@ -83,27 +105,35 @@ def add_post():
             "content": request.form.get("content"),
             "date" : today.strftime("%B %d, %Y"),
             "time": now,
-            "img_src": request.form.get("img_src")
+            "img_src": request.form.get("img_src"),
         }
+        mongo.db.post.insert_one(post)
         # get inserted post id 
-        post_id = mongo.db.post.insert_one(post)
-        # create likes and dizs table
-        liks_dizs = {
-            "unit_id": str(post_id.inserted_id),
-            "like": 0,
-            "dislike": 0
-        }
-        mongo.db.liks_diz.insert_one(liks_dizs)
-        # create complaint and dizs table
-        complaint = {
-            "unit_id": str(post_id.inserted_id),
-            "user_id": "N/A",
-            "date" : "N/A",
-            "time": "N/A",
-            "comment": "N/A",
-            "status": 0
-        }
-        mongo.db.complaint.insert_one(complaint)
+        # post_id = mongo.db.post.insert_one(post)
+        # # create like and dislike table
+        # like_dislike = {
+        #     "unit_id": str(post_id.inserted_id),
+        #     "user_id": "1 or -1"
+        # }
+        #mongo.db.likes_dislikes.insert_one(like_dislike)
+        # # create comments table
+        # comment = {
+        #     "unit_id": str(post_id.inserted_id),
+        #     "user_id": "comment",
+        #     "date": today.strftime("%B %d, %Y"),
+        #     "time": now
+        # }
+        # mongo.db.comments.insert_one(comment)
+        # create complaint table
+        # complaint = {
+        #     "unit_id": str(post_id.inserted_id),
+        #     "user_id": "N/A",
+        #     "date" : "N/A",
+        #     "time": "N/A",
+        #     "comment": "N/A",
+        #     "status": 0
+        # }
+        # mongo.db.complaint.insert_one(complaint)
         # print(post_id.inserted_id )
         flash("Post Successfully Added!")
         return redirect(url_for("welcome"))
@@ -156,7 +186,7 @@ def delete_post(post_id):
         "_id":ObjectId(post_id)
     })
     # Delete related posts
-    mongo.db.liks_diz.remove({
+    mongo.db.likes_dislike.remove({
         "unit_id": str(ObjectId(post_id))
     })
     # Delete related comments
@@ -168,6 +198,36 @@ def delete_post(post_id):
         "unit_id": str(ObjectId(post_id))
     })
     flash("Post was Deleted!")
+    return redirect(url_for("welcome"))
+
+
+@app.route("/like/<post_id>", methods=["GET","POST"])
+def like(post_id):
+    # Get user info by his sessions name 
+    user_id = mongo.db.user.find_one(
+        {"username": session["user"]}
+    )
+    like = ({
+        "user_id": str(user_id["_id"]),
+        "post_id": post_id
+    })
+    mongo.db.likes.insert_one(like)
+
+    return redirect(url_for("welcome"))
+
+
+@app.route("/dislike/<post_id>", methods=["GET","POST"])
+def dislike(post_id):
+    # Get user info by his sessions name 
+    user_id = mongo.db.user.find_one(
+        {"username": session["user"]}
+    )
+    dislike = ({
+        "user_id": str(user_id["_id"]),
+        "post_id": post_id
+    })
+    mongo.db.dislikes.insert_one(dislike)
+
     return redirect(url_for("welcome"))
 
 
