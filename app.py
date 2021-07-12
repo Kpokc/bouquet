@@ -185,17 +185,21 @@ def delete_post(post_id):
     mongo.db.post.remove({
         "_id":ObjectId(post_id)
     })
-    # Delete related posts
-    mongo.db.likes_dislike.remove({
-        "unit_id": str(ObjectId(post_id))
+    # Deleted likes posts
+    mongo.db.likes.remove({
+        "post_id": str(ObjectId(post_id))
+    })
+    # Deleted dislikes posts
+    mongo.db.dislikes.remove({
+        "post_id": str(ObjectId(post_id))
     })
     # Delete related comments
     mongo.db.comments.remove({
-        "unit_id": str(ObjectId(post_id))
+        "post_id": str(ObjectId(post_id))
     })
     # Delete related complaint
     mongo.db.complaint.remove({
-        "unit_id": str(ObjectId(post_id))
+        "post_id": str(ObjectId(post_id))
     })
     flash("Post was Deleted!")
     return redirect(url_for("welcome"))
@@ -227,6 +231,21 @@ def dislike(post_id):
         "post_id": post_id
     })
     mongo.db.dislikes.insert_one(dislike)
+
+    return redirect(url_for("welcome"))
+
+
+@app.route("/pined/<post_id>", methods=["GET","POST"])
+def pined(post_id):
+    # Get user info by his sessions name 
+    user_id = mongo.db.user.find_one(
+        {"username": session["user"]}
+    )
+    pin = ({
+        "user_id": str(user_id["_id"]),
+        "post_id": post_id
+    })
+    mongo.db.pined.insert_one(pin)
 
     return redirect(url_for("welcome"))
 
