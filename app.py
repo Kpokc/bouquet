@@ -89,7 +89,6 @@ def add_post():
         flash("Post Successfully Added!")
         return redirect(url_for("welcome"))
 
-
     categories = mongo.db.categories.find()
     return render_template("add_post.html", categories=categories)
 
@@ -117,7 +116,6 @@ def edit_post(post_id):
         flash("Post was Updated!")
 
         return redirect(url_for("welcome"))
-
 
     post = mongo.db.post.find_one(
         {"_id": ObjectId(post_id)}
@@ -158,6 +156,9 @@ def delete_post(post_id):
 
 @app.route("/like/<post_id>", methods=["GET","POST"])
 def like(post_id):
+    """
+        Like post
+    """
     # Get user info by his sessions name 
     user_id = mongo.db.user.find_one(
         {"username": session["user"]}
@@ -173,6 +174,9 @@ def like(post_id):
 
 @app.route("/dislike/<post_id>", methods=["GET","POST"])
 def dislike(post_id):
+    """
+        Dislike post
+    """
     # Get user info by his sessions name 
     user_id = mongo.db.user.find_one(
         {"username": session["user"]}
@@ -188,6 +192,9 @@ def dislike(post_id):
 
 @app.route("/pined/<post_id>", methods=["GET","POST"])
 def pined(post_id):
+    """
+        Pin post to read later
+    """
     # Get user info by his sessions name 
     user_id = mongo.db.user.find_one(
         {"username": session["user"]}
@@ -203,7 +210,9 @@ def pined(post_id):
 
 @app.route("/comment/<post_id>", methods=["GET","POST"])
 def comment(post_id):
-
+    """
+        Add comment
+    """
     if request.method == "POST":
         # Get user info by his sessions name 
         user_id = mongo.db.user.find_one(
@@ -223,26 +232,29 @@ def comment(post_id):
 
 @app.route("/edit_comment/<comment_id>", methods=["GET","POST"])
 def edit_comment(comment_id):
+    """
+        Edit comment
+    """
+    if request.method == "POST":
+        # Get user info by his sessions name 
+        user_id = mongo.db.user.find_one(
+            {"username": session["user"]}
+        )
+        old_comment = mongo.db.comments.find_one(
+            {"_id": ObjectId(comment_id) }
+        )
+        comment = ({
+            "user_id": str(user_id["_id"]),
+            "post_id": old_comment["post_id"],
+            "comment": request.form.get("comment"),
+            "date" : old_comment["date"],
+            "time": old_comment["time"]
+        })
+        mongo.db.comments.update({"_id": ObjectId(comment_id)}, comment)
 
-    # if request.method == "POST":
-    #     # Get user info by his sessions name 
-    #     user_id = mongo.db.user.find_one(
-    #         {"username": session["user"]}
-    #     )
-    #     post_id = mongo.db.comments.find_one({
-    #         {"_id": ObjectId(comment_id)}
-    #     })
-        # comment = ({
-        #     "user_id": str(user_id["_id"]),
-        #     "post_id": post_id["post_id"],
-        #     "comment": request.form.get("comment"),
-        #     "date" : post_id["date"],
-        #     "time": post_id["time"]
-        # })
-        # mongo.db.comments.update({"_id": ObjectId(comment_id)}, comment)
-    post_id = mongo.db.comments.find_one({
-             {"_id": ObjectId(comment_id)}
-         })
+    post_id = mongo.db.comments.find_one(
+        {"_id": ObjectId(comment_id)}
+    )
 
     return redirect(url_for("read_post", post_id=post_id["post_id"]))
 
