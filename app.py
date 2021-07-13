@@ -169,7 +169,8 @@ def like(post_id):
     })
     mongo.db.likes.insert_one(like)
 
-    return redirect(url_for("welcome"))
+    # return nothing
+    return ('', 204)
 
 
 @app.route("/dislike/<post_id>", methods=["GET","POST"])
@@ -187,7 +188,8 @@ def dislike(post_id):
     })
     mongo.db.dislikes.insert_one(dislike)
 
-    return redirect(url_for("welcome"))
+    # return nothing
+    return ('', 204)
 
 
 @app.route("/pined/<post_id>", methods=["GET","POST"])
@@ -205,7 +207,8 @@ def pined(post_id):
     })
     mongo.db.pined.insert_one(pin)
 
-    return redirect(url_for("welcome"))
+    # return nothing
+    return ('', 204)
 
 
 @app.route("/comment/<post_id>", methods=["GET","POST"])
