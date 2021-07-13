@@ -52,4 +52,9 @@ nav ul li {
 .card, .horizontal, .hoverable {
   word-break: break-word;
 }
+
+.dislike-hand {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
 /*# sourceMappingURL=style.css.map */

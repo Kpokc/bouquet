@@ -54,3 +54,8 @@ nav ul li {
 .card, .horizontal, .hoverable {
     word-break: break-word;
 }
+
+// Dislike hand rotate
+.dislike-hand {
+    transform: rotateY(180deg);
+}

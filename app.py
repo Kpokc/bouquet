@@ -40,9 +40,16 @@ def welcome():
         tab = "&nbsp;" * 8
         post["content"] = post["content"].replace('\t', tab)
 
+    if session["user"]:
+        user = mongo.db.user.find_one(
+            {"username": session["user"]}
+        )
+
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
-    return render_template("cards.html", posts=posts, categories=categories, users=users)
+    likes = list(mongo.db.likes.find())
+    dislikes = list(mongo.db.dislikes.find())
+    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, user_id=user["_id"])
 
 
 @app.route("/read_post/<post_id>")
@@ -63,7 +70,9 @@ def read_post(post_id):
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
     comments = list(mongo.db.comments.find())
-    return render_template("read_post.html", post=post, categories=categories, users=users, comments=comments)
+    likes = list(mongo.db.likes.find())
+    dislikes = list(mongo.db.dislikes.find())
+    return render_template("read_post.html", post=post, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes)
 
 
 @app.route("/add_post", methods=["GET","POST"])
