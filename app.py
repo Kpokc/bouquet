@@ -221,6 +221,32 @@ def comment(post_id):
         return redirect(url_for("read_post", post_id=post_id))
 
 
+@app.route("/edit_comment/<comment_id>", methods=["GET","POST"])
+def edit_comment(comment_id):
+
+    # if request.method == "POST":
+    #     # Get user info by his sessions name 
+    #     user_id = mongo.db.user.find_one(
+    #         {"username": session["user"]}
+    #     )
+    #     post_id = mongo.db.comments.find_one({
+    #         {"_id": ObjectId(comment_id)}
+    #     })
+        # comment = ({
+        #     "user_id": str(user_id["_id"]),
+        #     "post_id": post_id["post_id"],
+        #     "comment": request.form.get("comment"),
+        #     "date" : post_id["date"],
+        #     "time": post_id["time"]
+        # })
+        # mongo.db.comments.update({"_id": ObjectId(comment_id)}, comment)
+    post_id = mongo.db.comments.find_one({
+             {"_id": ObjectId(comment_id)}
+         })
+
+    return redirect(url_for("read_post", post_id=post_id["post_id"]))
+
+
 @app.route("/delete_comment/<comment_id>", methods=["GET","POST"])
 def delete_comment(comment_id):
     """

@@ -47,11 +47,11 @@
         {% if session.user %}
             <a class="waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Comment</a>
         {% endif %}
-            <!-- Modal Structure -->
+            <!-- Add Comment Modal -->
             <div id="modal1" class="modal">
                 <div class="modal-content">
                 <h4>Comment</h4>
-                <!-- add comment -->
+                <!-- add comment form -->
                 <div class="row">
                     <form class="col s12" method="POST" action="{{ url_for('comment', post_id=post._id) }}">
                         <div class="input-field col s12">
@@ -59,7 +59,7 @@
                         <textarea id="comment" name="comment" class="materialize-textarea teal-text text-darken-4" minlength="5" maxlength="3000" required></textarea>
                         <label for="comment">Your Comment</label>
                         </div>
-                        <button class="top-menu waves-effect waves-light btn blue-grey darken-1" type="submit" name="action">Add Post
+                        <button class="top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">Comment
                             <i class="material-icons right">send</i>
                           </button> 
                     </form>
@@ -115,7 +115,27 @@
                             {% if user._id|string == post.user_id %}
                                 {% if user.username == session.user %}
                                     <a href="{{ url_for('delete_comment', comment_id=comment._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Delete</a>
-                                    <a href="#!" class="waves-effect waves-light btn-small blue-grey darken-1">Edite</a>
+                                    <a href="#{{comment._id|string}}"  class="waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edite</a>
+                                    <!-- Edite Comment Modal -->
+                                    <div id="{{comment._id|string}}" class="modal">
+                                        <div class="modal-content">
+                                            <h4>Edit</h4>
+                                                <!-- edit comment form -->
+                                                <div class="row">
+                                                    <form class="col s12" method="POST" action="#!">
+                                                        <div class="input-field col s12">
+                                                            <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
+                                                            <textarea id="comment" name="comment" class="materialize-textarea teal-text text-darken-4" minlength="5" maxlength="3000" required>{{ comment.comment }}</textarea>
+                                                            <label for="comment">Your Comment</label>
+                                                        </div>
+                                                        <button class="top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">Edit
+                                                        <i class="material-icons right">send</i>
+                                                        </button> 
+                                                    </form>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
@@ -129,6 +149,7 @@
             
         </div>
     </div>
+
 
     <!-- aside titles -->
     <aside>
