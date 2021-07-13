@@ -42,10 +42,11 @@
             </p>
         </div>
         <div class="card-action">
-          <a href="{{ url_for('welcome') }}" class="waves-effect waves-light btn grey lighten-1">Back</a>
+          <a href="{{ url_for('welcome') }}" class="waves-effect waves-light btn-small blue-grey darken-1">Back</a>
             <!-- Modal Trigger -->
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Comment</a>
-
+        {% if session.user %}
+            <a class="waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Comment</a>
+        {% endif %}
             <!-- Modal Structure -->
             <div id="modal1" class="modal">
                 <div class="modal-content">
@@ -68,15 +69,20 @@
 
            <!-- red action button -->
            <div class="fixed-action-btn">
-            <a class="btn-floating btn-large red">
+            <a class="btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating red "><i class="material-icons">insert_chart</i></a></li>
-                <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a>
-                </li>
-                <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-                <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+                {% if session.user %}
+                    <!-- Like -->
+                    <li><a href="{{ url_for('like', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up"></i></a></li>
+                    <!-- Dislike -->
+                    <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down"></i></a>
+                    </li>
+                    <!-- Pin/Unpin -->
+                    <li><a href="{{ url_for('pined', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="fas fa-thumbtack"></i></a></li>
+                {% endif %}
+                <li><a class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-copy"></i></a></li>
             </ul>
         </div>
         </div>
@@ -85,7 +91,6 @@
 
         <!-- Comment section -->
         <div class="col l10 s10 m10 offset-l1 offset-s1 offset-m1">
-            <h4 class="header">Comments</h4>
 
             {% for comment in comments%}
                 {% if comment.post_id == post._id|string %}
@@ -109,7 +114,8 @@
                         {% for user in users %}
                             {% if user._id|string == post.user_id %}
                                 {% if user.username == session.user %}
-                                    <a href="{{ url_for('delete_comment', comment_id=comment._id) }}" class="waves-effect waves-light btn grey lighten-1">Delete Post</a>
+                                    <a href="{{ url_for('delete_comment', comment_id=comment._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Delete</a>
+                                    <a href="#!" class="waves-effect waves-light btn-small blue-grey darken-1">Edite</a>
                                 {% endif %}
                             {% endif %}
                         {% endfor %}
