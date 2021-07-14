@@ -40,16 +40,11 @@ def welcome():
         tab = "&nbsp;" * 8
         post["content"] = post["content"].replace('\t', tab)
 
-    if session["user"]:
-        user = mongo.db.user.find_one(
-            {"username": session["user"]}
-        )
-
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
     likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
-    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, user_id=user["_id"])
+    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes)
 
 
 @app.route("/read_post/<post_id>")
@@ -168,15 +163,34 @@ def like(post_id):
     """
         Like post
     """
-    # Get user info by his sessions name 
-    user_id = mongo.db.user.find_one(
-        {"username": session["user"]}
-    )
-    like = ({
-        "user_id": str(user_id["_id"]),
-        "post_id": post_id
-    })
-    mongo.db.likes.insert_one(like)
+    dislikes = list(mongo.db.dislikes.find())
+    likes = list(mongo.db.likes.find())
+
+    if len(dislikes) > 0:
+        for dislike in dislikes:
+            if dislike["user_id"] == session["user"] and dislike["post_id"] == post_id:
+                mongo.db.dislikes.delete_one({
+                    "_id": ObjectId(dislike["_id"])
+                })
+
+    if len(likes) > 0:
+        for like in likes:
+            if like["user_id"] == session["user"] and like["post_id"] == post_id:
+                flash("Only one like per post!")
+                return redirect(url_for("welcome"))
+            else:
+                like = ({
+                    "user_id": session["user"],
+                    "post_id": post_id
+                })
+                mongo.db.likes.insert_one(like)
+
+    else:
+        like = ({
+            "user_id": session["user"],
+            "post_id": post_id
+        })
+        mongo.db.likes.insert_one(like)
 
     # return nothing
     return ('', 204)
@@ -187,15 +201,33 @@ def dislike(post_id):
     """
         Dislike post
     """
-    # Get user info by his sessions name 
-    user_id = mongo.db.user.find_one(
-        {"username": session["user"]}
-    )
-    dislike = ({
-        "user_id": str(user_id["_id"]),
-        "post_id": post_id
-    })
-    mongo.db.dislikes.insert_one(dislike)
+    dislikes = list(mongo.db.dislikes.find())
+    likes = list(mongo.db.likes.find())
+
+    if len(likes) > 0:
+        for like in likes:
+            if like["user_id"] == session["user"] and like["post_id"] == post_id:
+                mongo.db.likes.delete_one({
+                    "_id": ObjectId(like["_id"])
+                })
+                
+    if len(dislikes) > 0:
+        for dislike in dislikes:
+            if dislike["user_id"] == session["user"] and dislike["post_id"] == post_id:
+                flash("Only one dislike per post!")
+                return redirect(url_for("welcome"))
+            else:
+                dislike = ({
+                    "user_id": session["user"],
+                    "post_id": post_id
+                })
+                mongo.db.dislikes.insert_one(dislike)
+    else:
+        dislike = ({
+            "user_id": session["user"],
+            "post_id": post_id
+        })
+        mongo.db.dislikes.insert_one(dislike)
 
     # return nothing
     return ('', 204)
@@ -207,11 +239,11 @@ def pined(post_id):
         Pin post to read later
     """
     # Get user info by his sessions name 
-    user_id = mongo.db.user.find_one(
-        {"username": session["user"]}
-    )
+    # user_id = mongo.db.user.find_one(
+    #     {"username": session["user"]}
+    # )
     pin = ({
-        "user_id": str(user_id["_id"]),
+        "user_id": session["user"],
         "post_id": post_id
     })
     mongo.db.pined.insert_one(pin)
