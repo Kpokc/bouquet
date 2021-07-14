@@ -44,7 +44,8 @@ def welcome():
     users = list(mongo.db.user.find())
     likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
-    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes)
+    pinned = list(mongo.db.pinned.find())
+    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, pinned=pinned)
 
 
 @app.route("/read_post/<post_id>")
@@ -67,7 +68,8 @@ def read_post(post_id):
     comments = list(mongo.db.comments.find())
     likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
-    return render_template("read_post.html", post=post, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes)
+    pinned = list(mongo.db.pinned.find())
+    return render_template("read_post.html", post=post, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned)
 
 
 @app.route("/add_post", methods=["GET","POST"])
@@ -201,6 +203,13 @@ def like(post_id):
     return ('', 204)
 
 
+def check_like(post_id):
+    likes = list(mongo.db.likes.find())
+
+    return post_id
+
+
+
 @app.route("/dislike/<post_id>", methods=["GET","POST"])
 def dislike(post_id):
     """
@@ -244,19 +253,19 @@ def dislike(post_id):
     return ('', 204)
 
 
-@app.route("/pined/<post_id>", methods=["GET","POST"])
-def pined(post_id):
+@app.route("/pinned/<post_id>", methods=["GET","POST"])
+def pinned(post_id):
     """
         Pin post to read later
     """
-    pined = list(mongo.db.pined.find())
+    pinned = list(mongo.db.pinned.find())
     # Check if there is data in the pined table. 
-    if len(pined) > 0:
-        for pin in pined:
+    if len(pinned) > 0:
+        for pin in pinned:
             # Check if this post has been pined by current user.
             if pin["username"] == session["user"] and pin["post_id"] == post_id:
                 # Delete from pinned.
-                mongo.db.pined.delete_one({
+                mongo.db.pinned.delete_one({
                     "_id": ObjectId(pin["_id"])
                 })
             else:
@@ -265,14 +274,14 @@ def pined(post_id):
                     "username": session["user"],
                     "post_id": post_id
                 })
-                mongo.db.pined.insert_one(pin)
+                mongo.db.pinned.insert_one(pin)
     else:
         # Add to pinned if table is empty.
         pin = ({
             "username": session["user"],
             "post_id": post_id
         })
-        mongo.db.pined.insert_one(pin)
+        mongo.db.pinned.insert_one(pin)
 
     # return nothing
     return ('', 204)
