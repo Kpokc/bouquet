@@ -40,16 +40,12 @@ def welcome():
         tab = "&nbsp;" * 8
         post["content"] = post["content"].replace('\t', tab)
 
-    if session["user"]:
-        user = mongo.db.user.find_one(
-            {"username": session["user"]}
-        )
-
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
     likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
-    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, user_id=user["_id"])
+    pined = list(mongo.db.pined.find())
+    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, pined=pined)
 
 
 @app.route("/read_post/<post_id>")
@@ -169,11 +165,11 @@ def like(post_id):
         Like post
     """
     # Get user info by his sessions name 
-    user_id = mongo.db.user.find_one(
-        {"username": session["user"]}
-    )
+    # user_id = mongo.db.user.find_one(
+    #     {"username": session["user"]}
+    # )
     like = ({
-        "user_id": str(user_id["_id"]),
+        "user_id": session["user"],
         "post_id": post_id
     })
     mongo.db.likes.insert_one(like)
@@ -188,11 +184,11 @@ def dislike(post_id):
         Dislike post
     """
     # Get user info by his sessions name 
-    user_id = mongo.db.user.find_one(
-        {"username": session["user"]}
-    )
+    # user_id = mongo.db.user.find_one(
+    #     {"username": session["user"]}
+    # )
     dislike = ({
-        "user_id": str(user_id["_id"]),
+        "user_id": session["user"],
         "post_id": post_id
     })
     mongo.db.dislikes.insert_one(dislike)
@@ -207,11 +203,11 @@ def pined(post_id):
         Pin post to read later
     """
     # Get user info by his sessions name 
-    user_id = mongo.db.user.find_one(
-        {"username": session["user"]}
-    )
+    # user_id = mongo.db.user.find_one(
+    #     {"username": session["user"]}
+    # )
     pin = ({
-        "user_id": str(user_id["_id"]),
+        "user_id": session["user"],
         "post_id": post_id
     })
     mongo.db.pined.insert_one(pin)
