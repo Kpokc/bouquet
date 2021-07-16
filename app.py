@@ -44,8 +44,13 @@ def welcome():
     users = list(mongo.db.user.find())
     likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
+<<<<<<< HEAD
     pined = list(mongo.db.pined.find())
     return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, pined=pined)
+=======
+    pinned = list(mongo.db.pinned.find())
+    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, pinned=pinned)
+>>>>>>> f12759bd4f22ad7430891922052820550b97d50e
 
 
 @app.route("/read_post/<post_id>")
@@ -68,7 +73,8 @@ def read_post(post_id):
     comments = list(mongo.db.comments.find())
     likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
-    return render_template("read_post.html", post=post, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes)
+    pinned = list(mongo.db.pinned.find())
+    return render_template("read_post.html", post=post, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned)
 
 
 @app.route("/add_post", methods=["GET","POST"])
@@ -164,6 +170,7 @@ def like(post_id):
     """
         Like post
     """
+<<<<<<< HEAD
     # Get user info by his sessions name 
     # user_id = mongo.db.user.find_one(
     #     {"username": session["user"]}
@@ -173,9 +180,51 @@ def like(post_id):
         "post_id": post_id
     })
     mongo.db.likes.insert_one(like)
+=======
+    dislikes = list(mongo.db.dislikes.find())
+    likes = list(mongo.db.likes.find())
+
+    # Check if user had disliked this post before if so delete
+    if len(dislikes) > 0:
+        for dislike in dislikes:
+            if dislike["username"] == session["user"] and dislike["post_id"] == post_id:
+                mongo.db.dislikes.delete_one({
+                    "_id": ObjectId(dislike["_id"])
+                })
+    
+    # Check if there is data in the likes table. 
+    if len(likes) > 0:
+        for like in likes:
+            # Check if this post has been liked by current user.
+            if like["username"] == session["user"] and like["post_id"] == post_id:
+                # Notify user that this post was already liked
+                flash("Only one like per post!")
+                return redirect(url_for("welcome"))
+            else:
+                # Add to likes if not in the table
+                like = ({
+                    "username": session["user"],
+                    "post_id": post_id
+                })
+                mongo.db.likes.insert_one(like)
+    else:
+        # Add to likes if table is empty.
+        like = ({
+            "username": session["user"],
+            "post_id": post_id
+        })
+        mongo.db.likes.insert_one(like)
+>>>>>>> f12759bd4f22ad7430891922052820550b97d50e
 
     # return nothing
     return ('', 204)
+
+
+def check_like(post_id):
+    likes = list(mongo.db.likes.find())
+
+    return post_id
+
 
 
 @app.route("/dislike/<post_id>", methods=["GET","POST"])
@@ -183,6 +232,7 @@ def dislike(post_id):
     """
         Dislike post
     """
+<<<<<<< HEAD
     # Get user info by his sessions name 
     # user_id = mongo.db.user.find_one(
     #     {"username": session["user"]}
@@ -192,16 +242,52 @@ def dislike(post_id):
         "post_id": post_id
     })
     mongo.db.dislikes.insert_one(dislike)
+=======
+    dislikes = list(mongo.db.dislikes.find())
+    likes = list(mongo.db.likes.find())
+
+    # Check if user had liked this post before if so delete
+    if len(likes) > 0:
+        for like in likes:
+            if like["username"] == session["user"] and like["post_id"] == post_id:
+                mongo.db.likes.delete_one({
+                    "_id": ObjectId(like["_id"])
+                })
+
+    # Check if there is data in the dislikes table. 
+    if len(dislikes) > 0:
+        for dislike in dislikes:
+            # Check if this post has been disliked by current user.
+            if dislike["username"] == session["user"] and dislike["post_id"] == post_id:
+                # Notify user that this post was already disliked
+                flash("Only one dislike per post!")
+                return redirect(url_for("welcome"))
+            else:
+                # Add to dislikes if not in the table
+                dislike = ({
+                    "username": session["user"],
+                    "post_id": post_id
+                })
+                mongo.db.dislikes.insert_one(dislike)
+    else:
+        # Add to dislikes if table is empty.
+        dislike = ({
+            "username": session["user"],
+            "post_id": post_id
+        })
+        mongo.db.dislikes.insert_one(dislike)
+>>>>>>> f12759bd4f22ad7430891922052820550b97d50e
 
     # return nothing
     return ('', 204)
 
 
-@app.route("/pined/<post_id>", methods=["GET","POST"])
-def pined(post_id):
+@app.route("/pinned/<post_id>", methods=["GET","POST"])
+def pinned(post_id):
     """
         Pin post to read later
     """
+<<<<<<< HEAD
     # Get user info by his sessions name 
     # user_id = mongo.db.user.find_one(
     #     {"username": session["user"]}
@@ -211,6 +297,32 @@ def pined(post_id):
         "post_id": post_id
     })
     mongo.db.pined.insert_one(pin)
+=======
+    pinned = list(mongo.db.pinned.find())
+    # Check if there is data in the pined table. 
+    if len(pinned) > 0:
+        for pin in pinned:
+            # Check if this post has been pined by current user.
+            if pin["username"] == session["user"] and pin["post_id"] == post_id:
+                # Delete from pinned.
+                mongo.db.pinned.delete_one({
+                    "_id": ObjectId(pin["_id"])
+                })
+            else:
+                # Add to pinned if not in the table.
+                pin = ({
+                    "username": session["user"],
+                    "post_id": post_id
+                })
+                mongo.db.pinned.insert_one(pin)
+    else:
+        # Add to pinned if table is empty.
+        pin = ({
+            "username": session["user"],
+            "post_id": post_id
+        })
+        mongo.db.pinned.insert_one(pin)
+>>>>>>> f12759bd4f22ad7430891922052820550b97d50e
 
     # return nothing
     return ('', 204)
