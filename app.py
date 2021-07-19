@@ -44,13 +44,8 @@ def welcome():
     users = list(mongo.db.user.find())
     likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
-<<<<<<< HEAD
-    pined = list(mongo.db.pined.find())
-    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, pined=pined)
-=======
     pinned = list(mongo.db.pinned.find())
     return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, pinned=pinned)
->>>>>>> f12759bd4f22ad7430891922052820550b97d50e
 
 
 @app.route("/read_post/<post_id>")
@@ -170,17 +165,6 @@ def like(post_id):
     """
         Like post
     """
-<<<<<<< HEAD
-    # Get user info by his sessions name 
-    # user_id = mongo.db.user.find_one(
-    #     {"username": session["user"]}
-    # )
-    like = ({
-        "user_id": session["user"],
-        "post_id": post_id
-    })
-    mongo.db.likes.insert_one(like)
-=======
     dislikes = list(mongo.db.dislikes.find())
     likes = list(mongo.db.likes.find())
 
@@ -214,7 +198,6 @@ def like(post_id):
             "post_id": post_id
         })
         mongo.db.likes.insert_one(like)
->>>>>>> f12759bd4f22ad7430891922052820550b97d50e
 
     # return nothing
     return ('', 204)
@@ -232,17 +215,6 @@ def dislike(post_id):
     """
         Dislike post
     """
-<<<<<<< HEAD
-    # Get user info by his sessions name 
-    # user_id = mongo.db.user.find_one(
-    #     {"username": session["user"]}
-    # )
-    dislike = ({
-        "user_id": session["user"],
-        "post_id": post_id
-    })
-    mongo.db.dislikes.insert_one(dislike)
-=======
     dislikes = list(mongo.db.dislikes.find())
     likes = list(mongo.db.likes.find())
 
@@ -276,10 +248,29 @@ def dislike(post_id):
             "post_id": post_id
         })
         mongo.db.dislikes.insert_one(dislike)
->>>>>>> f12759bd4f22ad7430891922052820550b97d50e
 
     # return nothing
     return ('', 204)
+
+
+
+@app.template_filter('check')
+def check(s):
+    """
+        this filter is checking if post was pinned by current user
+    """
+    pinned = list(mongo.db.pinned.find())
+    pin_id = "notok"
+
+    # s[0:s.find("/")] -- username
+    # s[s.find("/")+1:len(s)] -- post_id
+    if len(pinned) > 0:
+        for pin in pinned:
+            if pin["username"] == s[0:s.find("/")]:
+                if pin["post_id"] == s[s.find("/")+1:len(s)]:
+                    pin_id = "ok"
+
+    return pin_id
 
 
 @app.route("/pinned/<post_id>", methods=["GET","POST"])
@@ -287,23 +278,15 @@ def pinned(post_id):
     """
         Pin post to read later
     """
-<<<<<<< HEAD
-    # Get user info by his sessions name 
-    # user_id = mongo.db.user.find_one(
-    #     {"username": session["user"]}
-    # )
-    pin = ({
-        "user_id": session["user"],
-        "post_id": post_id
-    })
-    mongo.db.pined.insert_one(pin)
-=======
+    insert = True
     pinned = list(mongo.db.pinned.find())
-    # Check if there is data in the pined table. 
+    
+    #Check if there is data in the pined table. 
     if len(pinned) > 0:
         for pin in pinned:
             # Check if this post has been pined by current user.
             if pin["username"] == session["user"] and pin["post_id"] == post_id:
+                print(pin["_id"])
                 # Delete from pinned.
                 mongo.db.pinned.delete_one({
                     "_id": ObjectId(pin["_id"])
@@ -322,7 +305,6 @@ def pinned(post_id):
             "post_id": post_id
         })
         mongo.db.pinned.insert_one(pin)
->>>>>>> f12759bd4f22ad7430891922052820550b97d50e
 
     # return nothing
     return ('', 204)
