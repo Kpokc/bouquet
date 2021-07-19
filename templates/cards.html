@@ -48,8 +48,19 @@
                     {% for user in users %}
                         {% if user._id|string == post.user_id %}
                             {% if user.username == session.user %}
+                                <!-- Edit Post -->
                                 <a href="{{ url_for('edit_post', post_id=post._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Edit Post</a>
-                                <a href="{{ url_for('delete_post', post_id=post._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Delete Post</a>
+                                <!-- Delete Post Modal -->
+                                <a class="waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Delete Post</a>
+                                <div id="modal1" class="modal">
+                                    <div class="modal-content">
+                                    <h5>Delete Post?</h5>
+                                    <div class="row">
+                                        <a href="{{ url_for('delete_post', post_id=post._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                        <a href="/" class="waves-effect waves-light btn-small blue-grey darken-1">No</a>
+                                    </div>
+                                    </div>
+                                </div>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
