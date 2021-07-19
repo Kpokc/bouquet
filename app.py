@@ -1,4 +1,5 @@
 import os
+import random
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -35,6 +36,7 @@ def welcome():
     likes = list(mongo.db.likes.find())
     comments = list(mongo.db.comments.find())
 
+    # list of likes id
     most_liked_post = []
     i = 0
     for post in posts:
@@ -46,7 +48,7 @@ def welcome():
         most_liked_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
 
-
+    # list of comments id
     most_commented_post = most_liked_post
 
     for number in range(len(most_liked_post)):
@@ -69,13 +71,16 @@ def welcome():
     most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
     most_commented = most_commented_post[len(most_commented_post)-1][0]
 
+    show_random_post = random.choice(most_commented_post)
+    random_post = show_random_post[0]
+
 
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
     return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, 
-                                        pinned=pinned, most_liked=most_liked, most_commented=most_commented)
+                                        pinned=pinned, most_liked=most_liked, most_commented=most_commented, random_post=random_post)
 
 
 @app.route("/read_post/<post_id>")
@@ -129,6 +134,10 @@ def read_post(post_id):
 
     most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
     most_commented = most_commented_post[len(most_commented_post)-1][0]
+
+
+    show_random_post = random.choice(most_commented_post)
+    random_post = show_random_post[0]
                 
 
     # (nl to br) replace new line with page break
@@ -143,7 +152,7 @@ def read_post(post_id):
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
     return render_template("read_post.html", posts=posts, post_to_read=post_to_read, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned,
-                                            most_liked=most_liked, most_commented=most_commented)
+                                            most_liked=most_liked, most_commented=most_commented, random_post=random_post)
 
 
 @app.route("/add_post", methods=["GET","POST"])

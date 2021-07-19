@@ -4,6 +4,7 @@
             <!-- Add most liked post -->
             {% for post in posts %}
                 {% if post._id|string == most_liked %}
+                    Most Liked Post
                     <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
                         <li class="collection-item avatar">
                             {% for category in categories %}
@@ -27,6 +28,30 @@
             <!-- Add most comented post -->
             {% for post in posts %}
                 {% if post._id|string == most_commented %}
+                    Most Commented Post
+                    <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
+                        <li class="collection-item avatar">
+                            {% for category in categories %}
+                                {% if post.category == category._id|string %}
+                                    <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="title">{{ post.title }}</span>
+                            {% for user in users %}
+                                {% if user._id|string == post.user_id %}
+                                    <p>{{ user.username }}
+                                        {{ post.date }}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </li>
+                    </a>
+                {% endif %}
+            {% endfor %}
+            <!-- Add random post -->
+            {% for post in posts %}
+                {% if post._id|string == random_post %}
+                    Random Post
                     <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
                         <li class="collection-item avatar">
                             {% for category in categories %}
