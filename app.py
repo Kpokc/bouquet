@@ -32,20 +32,35 @@ def welcome():
         index page
     """
     posts = list(mongo.db.post.find().sort("time", -1))
+    likes = list(mongo.db.likes.find())
 
+    most_liked_post = []
+    i = 0
     for post in posts:
         # (nl to br) replace new line with page break
         post["content"] = post["content"].replace('\n', '<br />')
         # \t to tab (8 spaces)
         tab = "&nbsp;" * 8
         post["content"] = post["content"].replace('\t', tab)
+        most_liked_post.insert(i, [str(post["_id"]), 0])
+        i =+ 1
+
+    for number in range(len(most_liked_post)):
+        for like in likes:
+            if like["post_id"] == most_liked_post[number][0]:
+                most_liked_post[number][1] += 1
+                
+
+    most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
+    # print(most_liked_post[len(most_liked_post)-1][0])
+    most_liked = most_liked_post[len(most_liked_post)-1][0]
 
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
-    likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
-    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, pinned=pinned)
+    return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, 
+                                        pinned=pinned, most_liked=most_liked)
 
 
 @app.route("/read_post/<post_id>")
@@ -57,6 +72,30 @@ def read_post(post_id):
         {"_id": ObjectId(post_id)}
     )
 
+    posts = list(mongo.db.post.find().sort("time", -1))
+    likes = list(mongo.db.likes.find())
+
+    most_liked_post = []
+    i = 0
+    for post in posts:
+        # (nl to br) replace new line with page break
+        post["content"] = post["content"].replace('\n', '<br />')
+        # \t to tab (8 spaces)
+        tab = "&nbsp;" * 8
+        post["content"] = post["content"].replace('\t', tab)
+        most_liked_post.insert(i, [str(post["_id"]), 0])
+        i =+ 1
+
+    for number in range(len(most_liked_post)):
+        for like in likes:
+            if like["post_id"] == most_liked_post[number][0]:
+                most_liked_post[number][1] += 1
+                
+
+    most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
+    # print(most_liked_post[len(most_liked_post)-1][0])
+    most_liked = most_liked_post[len(most_liked_post)-1][0]
+
     # (nl to br) replace new line with page break
     post["content"] = post["content"].replace('\n', '<br />')
     # \t to tab (8 spaces)
@@ -66,10 +105,10 @@ def read_post(post_id):
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
     comments = list(mongo.db.comments.find())
-    likes = list(mongo.db.likes.find())
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
-    return render_template("read_post.html", post=post, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned)
+    return render_template("read_post.html", posts=posts, post=post, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned,
+                                            most_liked=most_liked)
 
 
 @app.route("/add_post", methods=["GET","POST"])
@@ -165,8 +204,37 @@ def like(post_id):
     """
         Like post
     """
+    insert = True
+
     dislikes = list(mongo.db.dislikes.find())
     likes = list(mongo.db.likes.find())
+
+    if len(likes) == 0:
+        # Add to likes if table is empty.
+        like = ({
+            "username": session["user"],
+            "post_id": post_id
+        })
+        mongo.db.likes.insert_one(like)
+
+    
+    # Check if there is data in the likes table. 
+    if len(likes) > 0:
+        for like in likes:
+            # Check if this post has been liked by current user.
+            if like["username"] == session["user"] and like["post_id"] == post_id:
+                like_id = str(like["_id"])
+                insert = False
+            else:
+                insert = True
+    
+
+    if insert == False:
+        # Delete like from db
+        mongo.db.likes.delete_one({
+            "_id": ObjectId(like_id)
+        })
+
 
     # Check if user had disliked this post before if so delete
     if len(dislikes) > 0:
@@ -175,23 +243,9 @@ def like(post_id):
                 mongo.db.dislikes.delete_one({
                     "_id": ObjectId(dislike["_id"])
                 })
-    
-    # Check if there is data in the likes table. 
-    if len(likes) > 0:
-        for like in likes:
-            # Check if this post has been liked by current user.
-            if like["username"] == session["user"] and like["post_id"] == post_id:
-                # Notify user that this post was already liked
-                flash("Only one like per post!")
-                return redirect(url_for("welcome"))
-            else:
-                # Add to likes if not in the table
-                like = ({
-                    "username": session["user"],
-                    "post_id": post_id
-                })
-                mongo.db.likes.insert_one(like)
-    else:
+
+
+    if insert == True and len(likes) > 0:
         # Add to likes if table is empty.
         like = ({
             "username": session["user"],
@@ -203,20 +257,26 @@ def like(post_id):
     return ('', 204)
 
 
-def check_like(post_id):
-    likes = list(mongo.db.likes.find())
-
-    return post_id
-
-
 
 @app.route("/dislike/<post_id>", methods=["GET","POST"])
 def dislike(post_id):
     """
         Dislike post
     """
+    insert = True
+
     dislikes = list(mongo.db.dislikes.find())
     likes = list(mongo.db.likes.find())
+
+
+    if len(dislikes) == 0:
+        # Add to dislikes if table is empty.
+        dislike = ({
+            "username": session["user"],
+            "post_id": post_id
+        })
+        mongo.db.dislikes.insert_one(dislike)
+
 
     # Check if user had liked this post before if so delete
     if len(likes) > 0:
@@ -226,28 +286,33 @@ def dislike(post_id):
                     "_id": ObjectId(like["_id"])
                 })
 
+
     # Check if there is data in the dislikes table. 
     if len(dislikes) > 0:
         for dislike in dislikes:
             # Check if this post has been disliked by current user.
             if dislike["username"] == session["user"] and dislike["post_id"] == post_id:
-                # Notify user that this post was already disliked
-                flash("Only one dislike per post!")
-                return redirect(url_for("welcome"))
+                dislike_id = str(dislike["_id"])
+                insert = False
             else:
-                # Add to dislikes if not in the table
-                dislike = ({
-                    "username": session["user"],
-                    "post_id": post_id
-                })
-                mongo.db.dislikes.insert_one(dislike)
-    else:
+                insert = True
+    
+
+    if insert == False:
+        # Delete like from db
+        mongo.db.dislikes.delete_one({
+            "_id": ObjectId(dislike_id)
+        })
+    
+
+    if insert == True and len(dislikes) > 0:
         # Add to dislikes if table is empty.
         dislike = ({
             "username": session["user"],
             "post_id": post_id
         })
         mongo.db.dislikes.insert_one(dislike)
+    
 
     # return nothing
     return ('', 204)

@@ -1,38 +1,28 @@
 <aside>
         <div class="col l4 m12 s12">
             <ul class="collection z-depth-1">
-                <li class="collection-item avatar">
-                    <img src="images/yuna.jpg" alt="" class="circle">
-                    <span class="title">Title</span>
-                    <p>First Line <br>
-                        Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle">folder</i>
-                    <span class="title">Title</span>
-                    <p>First Line <br>
-                        Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle green">insert_chart</i>
-                    <span class="title">Title</span>
-                    <p>First Line <br>
-                        Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
-                <li class="collection-item avatar">
-                    <i class="material-icons circle red">play_arrow</i>
-                    <span class="title">Title</span>
-                    <p>First Line <br>
-                        Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
+            <!-- Add most liked post -->
+            {% for post in posts %}
+            <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
+                {% if post._id|string == most_liked %}
+                    <li class="collection-item avatar">
+                        {% for category in categories %}
+                            {% if post.category == category._id|string %}
+                                <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                            {% endif %}
+                        {% endfor %}
+                        <span class="title">{{ post.title }}</span>
+                        {% for user in users %}
+                            {% if user._id|string == post.user_id %}
+                                <p>{{ user.username }}
+                                    {{ post.date }}
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                {% endif %}
+            </a>
+            {% endfor %}
             </ul>
         </div>
     </aside>
