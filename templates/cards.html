@@ -64,28 +64,39 @@
                             {% if session.user %}
 
                                 {% if likes|length > 0 %}
-                                    {% for like in likes %}
-                                        {% if post._id|string == like.post_id %}
-                                            {% if session.user == like.username%}
-                                                <!-- Like -->
-                                                <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor%}
+                                    <!-- Below pass to liked username and post id  -->
+                                    <!-- {% set liked = session.user %} -->
+                                    <!-- {% set liked = liked + "/" + post._id|string %} -->
+
+                                    <!-- sned request to check if user had pinned this post  -->
+                                    {% if liked | check_like == "ok" %}
+                                        <!-- Like -->
+                                        <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                    {% else %}
+                                       <!-- Like -->
+                                        <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                    {% endif%}
+
                                 {% else %}
                                     <!-- Like -->
-                                    <li><a href="{{ url_for('like', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>               
+                                    <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
                                 {% endif%}
 
+
                                 {% if dislikes|length > 0 %}
-                                    {% for dislike in dislikes %}
-                                        {% if session.user == dislike.username%}
-                                            {% if post._id|string == dislike.post_id %}
-                                                <!-- Dislike -->
-                                                <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor%}
+                                    <!-- Below pass to disliked username and post id  -->
+                                    <!-- {% set disliked = session.user %} -->
+                                    <!-- {% set disliked = disliked + "/" + post._id|string %} -->
+
+                                    <!-- sned request to check if user had pinned this post  -->
+                                    {% if disliked | check_dislike == "ok" %}
+                                        <!-- Dislike -->
+                                        <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                    {% else %}
+                                       <!-- Dislike -->
+                                        <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                    {% endif%}
+
                                 {% else %}
                                     <!-- Dislike -->
                                     <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
@@ -93,13 +104,12 @@
 
 
                                 {% if pinned|length > 0 %}
-
                                     <!-- Below pass to pinpost username and post id  -->
                                     <!-- {% set pinpost = session.user %} -->
                                     <!-- {% set pinpost = pinpost + "/" + post._id|string %} -->
 
                                     <!-- sned request to check if user had pinned this post  -->
-                                    {% if pinpost | check == "ok" %}
+                                    {% if pinpost | check_pin == "ok" %}
                                         <!-- Pin/Unpin -->
                                     <li><a href="{{ url_for('pinned',post_id=post._id) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="fas fa-thumbtack"></i></a></li>
                                     {% else %}
@@ -111,6 +121,7 @@
                                         <!-- Pin/Unpin -->
                                         <li><a href="{{ url_for('pinned',post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="fas fa-thumbtack"></i></a></li>
                                 {% endif%}
+
 
                             {% endif %}
                             

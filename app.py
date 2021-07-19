@@ -254,7 +254,7 @@ def dislike(post_id):
 
 
 
-@app.template_filter('check')
+@app.template_filter('check_pin')
 def check(s):
     """
         this filter is checking if post was pinned by current user
@@ -273,12 +273,51 @@ def check(s):
     return pin_id
 
 
+@app.template_filter('check_like')
+def check(s):
+    """
+        this filter is checking if post was pinned by current user
+    """
+    likes = list(mongo.db.likes.find())
+    like_id = "not_liked"
+
+    # s[0:s.find("/")] -- username
+    # s[s.find("/")+1:len(s)] -- post_id
+    if len(likes) > 0:
+        for like in likes:
+            if like["username"] == s[0:s.find("/")]:
+                if like["post_id"] == s[s.find("/")+1:len(s)]:
+                    like_id = "ok"
+
+    return like_id
+
+
+@app.template_filter('check_dislike')
+def check(s):
+    """
+        this filter is checking if post was pinned by current user
+    """
+    likes = list(mongo.db.dislikes.find())
+    like_id = "not_disliked"
+
+    # s[0:s.find("/")] -- username
+    # s[s.find("/")+1:len(s)] -- post_id
+    if len(likes) > 0:
+        for like in likes:
+            if like["username"] == s[0:s.find("/")]:
+                if like["post_id"] == s[s.find("/")+1:len(s)]:
+                    like_id = "ok"
+
+    return like_id
+
+
 @app.route("/pinned/<post_id>", methods=["GET","POST"])
 def pinned(post_id):
     """
-        Pin post to read later
+        Pin post
     """
     insert = True
+    
     pinned = list(mongo.db.pinned.find())
     
     #Check if there is data in the pined table. 
@@ -291,15 +330,11 @@ def pinned(post_id):
                 mongo.db.pinned.delete_one({
                     "_id": ObjectId(pin["_id"])
                 })
-            else:
-                # Add to pinned if not in the table.
-                pin = ({
-                    "username": session["user"],
-                    "post_id": post_id
-                })
-                mongo.db.pinned.insert_one(pin)
-    else:
-        # Add to pinned if table is empty.
+                insert = False
+
+
+    if insert == True:
+        # Add to pinned if not in the table.
         pin = ({
             "username": session["user"],
             "post_id": post_id
