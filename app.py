@@ -68,9 +68,15 @@ def read_post(post_id):
     """
         Read single post on a new page
     """
-    post = mongo.db.post.find_one(
+    post_to_read = mongo.db.post.find_one(
         {"_id": ObjectId(post_id)}
     )
+
+    # (nl to br) replace new line with page break
+    post_to_read["content"] = post_to_read["content"].replace('\n', '<br />')
+    # \t to tab (8 spaces)
+    tab = "&nbsp;" * 8
+    post_to_read["content"] = post_to_read["content"].replace('\t', tab)
 
     posts = list(mongo.db.post.find().sort("time", -1))
     likes = list(mongo.db.likes.find())
@@ -83,6 +89,7 @@ def read_post(post_id):
         # \t to tab (8 spaces)
         tab = "&nbsp;" * 8
         post["content"] = post["content"].replace('\t', tab)
+
         most_liked_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
 
@@ -107,7 +114,7 @@ def read_post(post_id):
     comments = list(mongo.db.comments.find())
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
-    return render_template("read_post.html", posts=posts, post=post, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned,
+    return render_template("read_post.html", posts=posts, post_to_read=post_to_read, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned,
                                             most_liked=most_liked)
 
 

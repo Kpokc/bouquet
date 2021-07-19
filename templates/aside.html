@@ -3,25 +3,25 @@
             <ul class="collection z-depth-1">
             <!-- Add most liked post -->
             {% for post in posts %}
-            <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
                 {% if post._id|string == most_liked %}
-                    <li class="collection-item avatar">
-                        {% for category in categories %}
-                            {% if post.category == category._id|string %}
-                                <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
-                            {% endif %}
-                        {% endfor %}
-                        <span class="title">{{ post.title }}</span>
-                        {% for user in users %}
-                            {% if user._id|string == post.user_id %}
-                                <p>{{ user.username }}
-                                    {{ post.date }}
-                                </p>
-                            {% endif %}
-                        {% endfor %}
-                    </li>
+                    <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
+                        <li class="collection-item avatar">
+                            {% for category in categories %}
+                                {% if post.category == category._id|string %}
+                                    <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="title">{{ post.title }}</span>
+                            {% for user in users %}
+                                {% if user._id|string == post.user_id %}
+                                    <p>{{ user.username }}
+                                        {{ post.date }}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </li>
+                    </a>
                 {% endif %}
-            </a>
             {% endfor %}
             </ul>
         </div>
