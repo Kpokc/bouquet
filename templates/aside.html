@@ -23,6 +23,29 @@
                     </a>
                 {% endif %}
             {% endfor %}
+            <hr>
+            <!-- Add most comented post -->
+            {% for post in posts %}
+                {% if post._id|string == most_commented %}
+                    <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
+                        <li class="collection-item avatar">
+                            {% for category in categories %}
+                                {% if post.category == category._id|string %}
+                                    <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="title">{{ post.title }}</span>
+                            {% for user in users %}
+                                {% if user._id|string == post.user_id %}
+                                    <p>{{ user.username }}
+                                        {{ post.date }}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </li>
+                    </a>
+                {% endif %}
+            {% endfor %}
             </ul>
         </div>
     </aside>

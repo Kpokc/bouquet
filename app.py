@@ -33,6 +33,7 @@ def welcome():
     """
     posts = list(mongo.db.post.find().sort("time", -1))
     likes = list(mongo.db.likes.find())
+    comments = list(mongo.db.comments.find())
 
     most_liked_post = []
     i = 0
@@ -45,22 +46,36 @@ def welcome():
         most_liked_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
 
+
+    most_commented_post = most_liked_post
+
     for number in range(len(most_liked_post)):
         for like in likes:
             if like["post_id"] == most_liked_post[number][0]:
                 most_liked_post[number][1] += 1
-                
+
 
     most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
     # print(most_liked_post[len(most_liked_post)-1][0])
     most_liked = most_liked_post[len(most_liked_post)-1][0]
+
+
+    for number in range(len(most_commented_post)):
+        for comment in comments:
+            if comment["post_id"] == most_commented_post[number][0]:
+                most_commented_post[number][1] += 1
+
+
+    most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
+    most_commented = most_commented_post[len(most_commented_post)-1][0]
+
 
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
     return render_template("cards.html", posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, 
-                                        pinned=pinned, most_liked=most_liked)
+                                        pinned=pinned, most_liked=most_liked, most_commented=most_commented)
 
 
 @app.route("/read_post/<post_id>")
@@ -80,6 +95,7 @@ def read_post(post_id):
 
     posts = list(mongo.db.post.find().sort("time", -1))
     likes = list(mongo.db.likes.find())
+    comments = list(mongo.db.comments.find())
 
     most_liked_post = []
     i = 0
@@ -92,16 +108,28 @@ def read_post(post_id):
 
         most_liked_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
+    
+    most_commented_post = most_liked_post
 
     for number in range(len(most_liked_post)):
         for like in likes:
             if like["post_id"] == most_liked_post[number][0]:
                 most_liked_post[number][1] += 1
-                
+    
 
     most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
     # print(most_liked_post[len(most_liked_post)-1][0])
     most_liked = most_liked_post[len(most_liked_post)-1][0]
+
+    for number in range(len(most_commented_post)):
+        for comment in comments:
+            if comment["post_id"] == most_commented_post[number][0]:
+                most_commented_post[number][1] += 1
+
+
+    most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
+    most_commented = most_commented_post[len(most_commented_post)-1][0]
+                
 
     # (nl to br) replace new line with page break
     post["content"] = post["content"].replace('\n', '<br />')
@@ -115,7 +143,7 @@ def read_post(post_id):
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
     return render_template("read_post.html", posts=posts, post_to_read=post_to_read, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned,
-                                            most_liked=most_liked)
+                                            most_liked=most_liked, most_commented=most_commented)
 
 
 @app.route("/add_post", methods=["GET","POST"])
