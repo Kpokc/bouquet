@@ -8,6 +8,10 @@ body {
     background-color: rgba(167, 167, 167, 0.4);
 }
 
+a {
+    color: inherit;
+}
+
 // Top Menu to Center *
 .top-main-menu {
     text-align: center;
@@ -51,11 +55,56 @@ nav ul li {
     color: #37474f;
 }
 
+// Post push down
 .card, .horizontal, .hoverable {
     word-break: break-word;
+}
+
+.card.horizontal {
+    margin-bottom: 40px;
+}
+
+// Category image
+.card.horizontal .card-image {
+    max-width: 80%;
+    padding-left: 25px;
+    padding-top: 10px;
+}
+
+.card-img {
+    width: 100px;
+}
+
+.card.horizontal .card-stacked {
+    padding-top: 5px;
+    padding-right: 25px;
+}
+
+// if post or comment liked / disliked / pinned
+.active-btn {
+    background-color: #1a73e8 !important;
+}
+
+// Pinned button
+.not-pinned {
+    transform: rotate(45deg);
 }
 
 // Dislike hand rotate
 .dislike-hand {
     transform: rotateY(180deg);
+}
+
+// Aside section - three posts
+.collection .collection-item.avatar {
+    padding-left: 20px;
+}
+
+.padding-removed {
+    padding-bottom: none !important;
+}
+
+.recomended-title p {
+    padding-top: 5px;
+    padding-left: 10px;
 }

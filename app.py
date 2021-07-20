@@ -102,6 +102,13 @@ def read_post(post_id):
     likes = list(mongo.db.likes.find())
     comments = list(mongo.db.comments.find())
 
+    for comment in comments:
+        # (nl to br) replace new line with page break
+        comment["comment"] = comment["comment"].replace('\n', '<br />')
+        # \t to tab (8 spaces)
+        tab = "&nbsp;" * 8
+        comment["comment"] = comment["comment"].replace('\t', tab)
+
     most_liked_post = []
     i = 0
     for post in posts:
@@ -148,7 +155,6 @@ def read_post(post_id):
 
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
-    comments = list(mongo.db.comments.find())
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
     return render_template("read_post.html", posts=posts, post_to_read=post_to_read, categories=categories, users=users, comments=comments, likes=likes, dislikes=dislikes, pinned=pinned,
@@ -489,6 +495,7 @@ def edit_comment(comment_id):
         old_comment = mongo.db.comments.find_one(
             {"_id": ObjectId(comment_id) }
         )
+
         comment = ({
             "user_id": str(user_id["_id"]),
             "post_id": old_comment["post_id"],
