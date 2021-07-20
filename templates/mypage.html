@@ -3,15 +3,399 @@
 
 <div class="col s12 m8 offset-m2 l6 offset-l3">
     <div class="card-panel grey lighten-5 z-depth-1">
-      <div class="row valign-wrapper">
-        <div class="col s2">
-          <img src="data:image/jpeg;base64,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" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+      <div class="row">
+        <div class="col l2">
+            <p>Hi, {{ username.username }}! </p>
+            <button class="top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">My Posts
+                  <i class="material-icons right">send</i>
+            </button>
+            <button class="top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">My Comments
+                  <i class="material-icons right">send</i>
+            </button>
+            <button class="top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">Pinned Posts
+                  <i class="material-icons right">send</i>
+            </button>
         </div>
-        <div class="col s10">
-            <p>Hi, {{ username.username }} </p>
-          <span class="black-text">
-            This is a square image. Add the "circle" class to it to make it appear circular.
-          </span>
+        <div class="col l10">
+
+            <!-- My posts section -->
+            <div class="my-posts">
+                <!-- Horizontal card -->
+                <div class="row">
+
+                    <div class="col l10 m12 s12">
+                    {% for post in posts %}
+                        {% if post.user_id == username._id|string %}
+                        
+                          <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
+                          <div class="card horizontal hoverable">
+                              <div class="card-image">
+
+                                  {% for category in categories %}
+                                      {% if post.category == category._id|string %}
+                                          <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                                      {% endif %}
+                                  {% endfor %}
+
+                              </div>
+                              <div class="card-stacked">
+                                  <div class="card-title">
+                                      <small>
+                                          {% for category in categories %}
+                                              {% if post.category == category._id|string %}
+                                                  {{ category.title|upper }}
+                                              {% endif %}
+                                          {% endfor %}
+                                      </small><br>
+                                      <hr class="card-line">
+                                      <strong>{{ post.title }}</strong>
+                                  </div>
+                                  <div class="card-content" style="word-wrap: break-word;">
+                                      <p id="text-to-read">{{ post.content }}</p>
+                                  </div>
+                                  <div class="card-author">
+                                      <p>
+                                          {% for user in users %}
+                                              {% if post.user_id == user._id|string %}
+                                                  {{ user.username }}
+                                              {% endif %}
+                                          {% endfor %}
+                                          <span style="float:right;">{{ post.date }}</span>
+                                      </p>
+                                  </div>
+                                  <hr class="card-line">
+                                  <div class="card-action">
+                                      {% for user in users %}
+                                          {% if user._id|string == post.user_id %}
+                                              {% if user.username == session.user %}
+                                                  <!-- Edit Post -->
+                                                  <a href="{{ url_for('edit_post', post_id=post._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Edit Post</a>
+                                                  <!-- Delete Post Modal -->
+                                                  <a class="waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Delete Post</a>
+                                                  <div id="modal1" class="modal">
+                                                      <div class="modal-content">
+                                                      <h5>Delete Post?</h5>
+                                                      <div class="row">
+                                                          <a href="{{ url_for('delete_post', post_id=post._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                                          <a href="/" class="waves-effect waves-light btn-small blue-grey darken-1">No</a>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                              {% endif %}
+                                          {% endif %}
+                                      {% endfor %}
+                                      <!-- <a href="{{ url_for('read_post', post_id=post._id) }}">Read Post</a> -->
+
+                                      <!-- red action button -->
+                                      <div class="fixed-action-btn">
+                                          <a class="btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
+                                              <i class="large material-icons">mode_edit</i>
+                                          </a>
+                                          <ul>
+                                              {% if session.user %}
+
+                                                  {% if likes|length > 0 %}
+                                                      <!-- Below pass to liked username and post id  -->
+                                                      <!-- {% set liked = session.user %} -->
+                                                      <!-- {% set liked = liked + "/" + post._id|string %} -->
+
+                                                      <!-- sned request to check if user had pinned this post  -->
+                                                      {% if liked | check_like == "ok" %}
+                                                          <!-- Like -->
+                                                          <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                                      {% else %}
+                                                        <!-- Like -->
+                                                          <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                                      {% endif%}
+
+                                                  {% else %}
+                                                      <!-- Like -->
+                                                      <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                                  {% endif%}
+
+
+                                                  {% if dislikes|length > 0 %}
+                                                      <!-- Below pass to disliked username and post id  -->
+                                                      <!-- {% set disliked = session.user %} -->
+                                                      <!-- {% set disliked = disliked + "/" + post._id|string %} -->
+
+                                                      <!-- sned request to check if user had pinned this post  -->
+                                                      {% if disliked | check_dislike == "ok" %}
+                                                          <!-- Dislike -->
+                                                          <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                      {% else %}
+                                                        <!-- Dislike -->
+                                                          <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                      {% endif%}
+
+                                                  {% else %}
+                                                      <!-- Dislike -->
+                                                      <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                  {% endif%}
+
+
+                                                  {% if pinned|length > 0 %}
+                                                      <!-- Below pass to pinpost username and post id  -->
+                                                      <!-- {% set pinpost = session.user %} -->
+                                                      <!-- {% set pinpost = pinpost + "/" + post._id|string %} -->
+
+                                                      <!-- sned request to check if user had pinned this post  -->
+                                                      {% if pinpost | check_pin == "ok" %}
+                                                          <!-- Pin/Unpin -->
+                                                      <li><a href="{{ url_for('pinned',post_id=post._id) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="fas fa-thumbtack"></i></a></li>
+                                                      {% else %}
+                                                          <!-- Pin/Unpin -->
+                                                          <li><a href="{{ url_for('pinned',post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="fas fa-thumbtack"></i></a></li>
+                                                      {% endif%}
+
+                                                  {% else %}
+                                                          <!-- Pin/Unpin -->
+                                                          <li><a href="{{ url_for('pinned',post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="fas fa-thumbtack"></i></a></li>
+                                                  {% endif%}
+
+
+                                              {% endif %}
+                                              
+                                              
+                                              <li><a class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-copy"></i></a></li>
+                                          
+                                          </ul>
+                                      </div>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                      {% endif %}
+                    {% endfor %}
+                    </div>
+                  <!-- End of my posts section -->
+
+                  <!-- Pinned posts section -->
+            <div class="my-pinned-posts">
+                <!-- Horizontal card -->
+                <div class="row">
+                    <div class="col l10 m12 s12">
+                    {% for post in posts %}
+                      {% for pin in pinned %}
+                        {% if post._id|string == pin.post_id %}
+                          {% if pin.username == username.username%}
+                          <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
+                          <div class="card horizontal hoverable">
+                              <div class="card-image">
+
+                                  {% for category in categories %}
+                                      {% if post.category == category._id|string %}
+                                          <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                                      {% endif %}
+                                  {% endfor %}
+
+                              </div>
+                              <div class="card-stacked">
+                                  <div class="card-title">
+                                      <small>
+                                          {% for category in categories %}
+                                              {% if post.category == category._id|string %}
+                                                  {{ category.title|upper }}
+                                              {% endif %}
+                                          {% endfor %}
+                                      </small><br>
+                                      <hr class="card-line">
+                                      <strong>{{ post.title }}</strong>
+                                  </div>
+                                  <div class="card-content" style="word-wrap: break-word;">
+                                      <p id="text-to-read">{{ post.content }}</p>
+                                  </div>
+                                  <div class="card-author">
+                                      <p>
+                                          {% for user in users %}
+                                              {% if post.user_id == user._id|string %}
+                                                  {{ user.username }}
+                                              {% endif %}
+                                          {% endfor %}
+                                          <span style="float:right;">{{ post.date }}</span>
+                                      </p>
+                                  </div>
+                                  <hr class="card-line">
+                                  <div class="card-action">
+                                      {% for user in users %}
+                                          {% if user._id|string == post.user_id %}
+                                              {% if user.username == session.user %}
+                                                  <!-- Edit Post -->
+                                                  <a href="{{ url_for('edit_post', post_id=post._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Edit Post</a>
+                                                  <!-- Delete Post Modal -->
+                                                  <a class="waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Delete Post</a>
+                                                  <div id="modal1" class="modal">
+                                                      <div class="modal-content">
+                                                      <h5>Delete Post?</h5>
+                                                      <div class="row">
+                                                          <a href="{{ url_for('delete_post', post_id=post._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                                          <a href="/" class="waves-effect waves-light btn-small blue-grey darken-1">No</a>
+                                                      </div>
+                                                      </div>
+                                                  </div>
+                                              {% endif %}
+                                          {% endif %}
+                                      {% endfor %}
+                                      <!-- <a href="{{ url_for('read_post', post_id=post._id) }}">Read Post</a> -->
+
+                                      <!-- red action button -->
+                                      <div class="fixed-action-btn">
+                                          <a class="btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
+                                              <i class="large material-icons">mode_edit</i>
+                                          </a>
+                                          <ul>
+                                              {% if session.user %}
+
+                                                  {% if likes|length > 0 %}
+                                                      <!-- Below pass to liked username and post id  -->
+                                                      <!-- {% set liked = session.user %} -->
+                                                      <!-- {% set liked = liked + "/" + post._id|string %} -->
+
+                                                      <!-- sned request to check if user had pinned this post  -->
+                                                      {% if liked | check_like == "ok" %}
+                                                          <!-- Like -->
+                                                          <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                                      {% else %}
+                                                        <!-- Like -->
+                                                          <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                                      {% endif%}
+
+                                                  {% else %}
+                                                      <!-- Like -->
+                                                      <li><a href="{{ url_for('like', post_id=post._id ) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                                  {% endif%}
+
+
+                                                  {% if dislikes|length > 0 %}
+                                                      <!-- Below pass to disliked username and post id  -->
+                                                      <!-- {% set disliked = session.user %} -->
+                                                      <!-- {% set disliked = disliked + "/" + post._id|string %} -->
+
+                                                      <!-- sned request to check if user had pinned this post  -->
+                                                      {% if disliked | check_dislike == "ok" %}
+                                                          <!-- Dislike -->
+                                                          <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                      {% else %}
+                                                        <!-- Dislike -->
+                                                          <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                      {% endif%}
+
+                                                  {% else %}
+                                                      <!-- Dislike -->
+                                                      <li><a href="{{ url_for('dislike', post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                  {% endif%}
+
+
+                                                  {% if pinned|length > 0 %}
+                                                      <!-- Below pass to pinpost username and post id  -->
+                                                      <!-- {% set pinpost = session.user %} -->
+                                                      <!-- {% set pinpost = pinpost + "/" + post._id|string %} -->
+
+                                                      <!-- sned request to check if user had pinned this post  -->
+                                                      {% if pinpost | check_pin == "ok" %}
+                                                          <!-- Pin/Unpin -->
+                                                      <li><a href="{{ url_for('pinned',post_id=post._id) }}" class="btn-floating waves-effect waves-light btn red darken-1"><i class="fas fa-thumbtack"></i></a></li>
+                                                      {% else %}
+                                                          <!-- Pin/Unpin -->
+                                                          <li><a href="{{ url_for('pinned',post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="fas fa-thumbtack"></i></a></li>
+                                                      {% endif%}
+
+                                                  {% else %}
+                                                          <!-- Pin/Unpin -->
+                                                          <li><a href="{{ url_for('pinned',post_id=post._id) }}" class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="fas fa-thumbtack"></i></a></li>
+                                                  {% endif%}
+
+
+                                              {% endif %}
+                                              
+                                              
+                                              <li><a class="btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-copy"></i></a></li>
+                                          
+                                          </ul>
+                                      </div>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                      {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                    </div>
+                  <!-- End of pinned posts section -->
+
+                  <!-- Comment section -->
+                  <div class="row">
+                    <div class="col l10 s10 m10 offset-l1 offset-s1 offset-m1">
+                        {% for comment in comments%}
+                            {% if comment.user_id == username._id|string %}
+                            <div class="card horizontal">
+                            <div class="card-stacked">
+                                {% for user in users%}
+                                    {% if comment.user_id == user._id|string %}
+                                        <p>{{ user.username }} <span>{{ comment.date }}</span></p>
+                                    {% endif %}
+                                    <!-- <a href="#" class="right">Comment</a> -->
+                                {% endfor %}
+                                    <hr>
+                                <div class="card-content">
+                                    <p>{{ comment.comment}}</p>
+                                </div>
+                                <hr>
+                                <div class="card-action">
+                                    {% for user in users %}
+                                        {% if user._id|string == comment.user_id %}
+                                            {% if user.username == session.user %}
+                                                <a href="#{{comment._id|string}}"  class="waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edite</a>
+                                                <!-- Edite Comment Modal -->
+                                                <div id="{{comment._id|string}}" class="modal">
+                                                    <div class="modal-content">
+                                                        <h4>Edit</h4>
+                                                            <!-- edit comment form -->
+                                                            <div class="row">
+                                                                <form class="col s12" method="POST" action="{{ url_for('edit_comment', comment_id=comment._id) }}">
+                                                                    <div class="input-field col s12">
+                                                                        <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
+                                                                        <textarea id="comment" name="comment" class="materialize-textarea teal-text text-darken-4" minlength="5" maxlength="3000" required>{{ comment.comment }}</textarea>
+                                                                        <label for="comment">Your Comment</label>
+                                                                    </div>
+                                                                    <button class="top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">Edit
+                                                                    <i class="material-icons right">send</i>
+                                                                    </button> 
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+                                            <!-- Delete Post Modal -->
+                                            <a class="waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal2">Delete</a>
+                                            <div id="modal2" class="modal">
+                                                <div class="modal-content">
+                                                <h5>Delete Comment?</h5>
+                                                <div class="row">
+                                                    <a href="{{ url_for('delete_comment', comment_id=comment._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                                    <a href="/" class="waves-effect waves-light btn-small blue-grey darken-1">No</a>
+                                                </div>
+                                                </div>
+                                            </div>
+                                                
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <!-- Comment for comment
+                                    <div class="card horizontal">sssssssss</div> -->
+                                </div>
+                            </div>
+                            </div>
+                           {% endif %}
+                        {% endfor %}
+                        
+                    </div>
+                  </div>
+                  <!-- end of Comments section-->
+            </div>
         </div>
       </div>
     </div>

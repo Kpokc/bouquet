@@ -530,8 +530,23 @@ def mypage(username):
         {"username": session["user"]})
 
     if session["user"]:
-        print(username)
-        return render_template("mypage.html", username=username)
+        posts = list(mongo.db.post.find().sort("time", -1))
+        likes = list(mongo.db.likes.find())
+        comments = list(mongo.db.comments.find())
+        categories = list(mongo.db.categories.find())
+        users = list(mongo.db.user.find())
+        dislikes = list(mongo.db.dislikes.find())
+        pinned = list(mongo.db.pinned.find())
+
+        for post in posts:
+            # (nl to br) replace new line with page break
+            post["content"] = post["content"].replace('\n', '<br />')
+            # \t to tab (8 spaces)
+            tab = "&nbsp;" * 8
+            post["content"] = post["content"].replace('\t', tab)
+
+        return render_template("mypage.html", username=username, posts=posts, categories=categories, users=users, likes=likes, dislikes=dislikes, 
+                                        pinned=pinned, comments=comments)
 
     return redirect(url_for("login"))
 
