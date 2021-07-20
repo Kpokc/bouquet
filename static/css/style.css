@@ -121,4 +121,14 @@ nav ul li {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
 }
+
+.modal {
+  width: 33%;
+  text-align: center;
+}
+
+.modal a {
+  margin-top: 15px;
+  width: 100px;
+}
 /*# sourceMappingURL=style.css.map */

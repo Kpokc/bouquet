@@ -24,6 +24,7 @@ a {
     }
 }
 
+// hover effect for each button
 .top-menu:hover {
     background-color: #2bbbad !important;
 }
@@ -128,4 +129,17 @@ nav ul li {
 
 .back-btn {
     transform: rotate(180deg);
+}
+
+// \. Add / Edit post selection
+
+// Delete modal windows
+
+.modal {
+    width: 33%;
+    text-align: center;
+    a {
+        margin-top: 15px;
+        width: 100px;
+    }
 }
