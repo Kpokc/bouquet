@@ -9,6 +9,13 @@ $(document).ready(function(){
         var div = $(this);
         div.html(div.text())
     })
+
+    // If comment canceled clear textarea and close modal
+    $(".comment-btn").click(function(e){
+        $("#comment").val("");
+        $('.modal').modal();
+        e.preventDefault();
+    })
     
     /// allow to use tab in textarea 
     /// code sample https://stackoverflow.com/questions/6140632/how-to-handle-tab-in-textarea

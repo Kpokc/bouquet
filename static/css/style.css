@@ -114,7 +114,7 @@ nav ul li {
 }
 
 .edit-post-btn {
-  width: 130px;
+  width: 140px;
 }
 
 .back-btn {
@@ -130,5 +130,9 @@ nav ul li {
 .modal a {
   margin-top: 15px;
   width: 100px;
+}
+
+.post-title {
+  margin-left: 20px;
 }
 /*# sourceMappingURL=style.css.map */

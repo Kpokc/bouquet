@@ -210,7 +210,8 @@ def edit_post(post_id):
         mongo.db.post.update({"_id": ObjectId(post_id)}, post)
         flash("Post was Updated!")
 
-        return redirect(url_for("welcome"))
+        print(post_id)
+        return redirect(url_for("read_post", post_id=post_id))
 
     post = mongo.db.post.find_one(
         {"_id": ObjectId(post_id)}

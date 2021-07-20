@@ -16,7 +16,7 @@
             </div>
         {% endif %}
       <div class="card-stacked">
-        <div class="card-title">
+        <div class="card-title post-title">
             <small>
                 {% for category in categories %}
                     {% if post_to_read.category == category._id|string %}
@@ -40,10 +40,12 @@
             </p>
         </div>
         <div class="card-action">
-          <a href="{{ url_for('welcome') }}" class="waves-effect waves-light btn-small blue-grey darken-1">Back</a>
+          <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('welcome') }}"><i class="back-btn material-icons left">send</i>Home</a>
             <!-- Modal Trigger -->
         {% if session.user %}
-            <a class="waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Comment</a>
+            <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Comment</a>
+            <!-- Edit Post -->
+            <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post_to_read._id) }}">Edit Post</a>
         {% endif %}
             <!-- Add Comment Modal -->
             <div id="modal1" class="modal">
@@ -57,9 +59,12 @@
                         <textarea id="comment" name="comment" class="materialize-textarea teal-text text-darken-4" minlength="5" maxlength="3000" required></textarea>
                         <label for="comment">Your Comment</label>
                         </div>
+                        <button class="comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">Cancel
+                            <i class="material-icons left back-btn">send</i>
+                        </button> 
                         <button class="top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">Comment
                             <i class="material-icons right">send</i>
-                          </button> 
+                        </button> 
                     </form>
                 </div>
                 </div>
