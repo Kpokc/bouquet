@@ -98,8 +98,23 @@ nav ul li {
   padding-bottom: none !important;
 }
 
-.recomended-title p {
+.recommended-title p {
   padding-top: 5px;
   padding-left: 10px;
+}
+
+#content {
+  min-height: 250px;
+  border: 1px solid;
+  padding: 5px;
+}
+
+.edit-post-btn {
+  width: 130px;
+}
+
+.back-btn {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 /*# sourceMappingURL=style.css.map */

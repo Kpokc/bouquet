@@ -36,22 +36,13 @@
                 <label for="content">Your Post</label>
             </div>
         </div>
-        <!-- Img url -->
-        <div class="row">
-          <div class="input-field col s12">
-              <i class="material-icons prefix teal-text text-darken-4">image</i>
-              <input value="{{ post.img_src }}" id="img_src" name="img_src" type="tel" class="validate teal-text text-darken-4" minlength="5" maxlength="1025">
-              <label for="img_src">Image Url</label>
-          </div>
-      </div>
-
         <div class="row">
             <div class="col s12 center-align">
-                <a href="{{ url_for('welcome') }}" class="top-menu waves-effect waves-light btn-small blue-grey darken-1">
-                    <i class="material-icons left">send</i>
+                <a href="{{ url_for('welcome') }}" class="edit-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">
+                    <i class="back-btn material-icons left">send</i>
                     Back
                 </a>
-                <button class="top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">Add Post
+                <button class="edit-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1" type="submit" name="action">Add Post
                   <i class="material-icons right">send</i>
                 </button>
             </div>
