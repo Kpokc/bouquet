@@ -103,6 +103,10 @@ nav ul li {
   padding-left: 10px;
 }
 
+.text-area-span {
+  padding-left: 5px;
+}
+
 #content {
   min-height: 250px;
   border: 1px solid;

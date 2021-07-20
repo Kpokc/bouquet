@@ -27,7 +27,8 @@
                                                 {% for user in users %}
                                                     {% if user._id|string == post.user_id %}
                                                         <p>
-                                                            {{ user.username }} {{ post.date }}
+                                                            <span style="float:left;">{{ user.username }}</span> 
+                                                            <span style="float:right;">{{ post.date }}</span>
                                                         </p>
                                                     {% endif %}
                                                 {% endfor %}
@@ -68,7 +69,8 @@
                                                 {% for user in users %}
                                                     {% if user._id|string == post.user_id %}
                                                         <p>
-                                                            {{ user.username }} {{ post.date }}
+                                                            <span style="float:left;">{{ user.username }}</span> 
+                                                            <span style="float:right;">{{ post.date }}</span>
                                                         </p>
                                                     {% endif %}
                                                 {% endfor %}
@@ -108,7 +110,8 @@
                                                 {% for user in users %}
                                                     {% if user._id|string == post.user_id %}
                                                         <p>
-                                                        {{ user.username }} {{ post.date }}
+                                                            <span style="float:left;">{{ user.username }}</span> 
+                                                            <span style="float:right;">{{ post.date }}</span>
                                                         </p>
                                                     {% endif %}
                                                 {% endfor %}
