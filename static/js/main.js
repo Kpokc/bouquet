@@ -10,7 +10,7 @@ $(document).ready(function(){
         div.html(div.text())
     })
 
-    // If comment canceled clear textarea and close modal
+    // If comment/delete aborted, clear textarea and close modal
     $(".comment-btn").click(function(e){
         $("#comment").val("");
         $('.modal').modal();

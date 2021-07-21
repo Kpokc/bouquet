@@ -36,7 +36,7 @@ nav ul li {
 
 .fixed-action-btn {
   position: absolute;
-  bottom: -28px;
+  bottom: -50px;
 }
 
 .container {
@@ -58,7 +58,7 @@ nav ul li {
 }
 
 .card.horizontal {
-  margin-bottom: 40px;
+  margin-bottom: 65px;
 }
 
 .card.horizontal .card-image {
@@ -81,8 +81,8 @@ nav ul li {
 }
 
 .not-pinned {
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  -webkit-transform: rotate(45deg) !important;
+          transform: rotate(45deg) !important;
 }
 
 .dislike-hand {
@@ -134,5 +134,9 @@ nav ul li {
 
 .post-title {
   margin-left: 20px;
+}
+
+.card-action {
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

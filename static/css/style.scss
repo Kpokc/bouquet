@@ -38,7 +38,7 @@ nav ul li {
 // Floating Action Button
 .fixed-action-btn {
     position: absolute;
-    bottom: -28px;
+    bottom: -50px;
 }
 
 .container {
@@ -62,7 +62,7 @@ nav ul li {
 }
 
 .card.horizontal {
-    margin-bottom: 40px;
+    margin-bottom: 65px;
 }
 
 // Category image
@@ -88,7 +88,7 @@ nav ul li {
 
 // Pinned button
 .not-pinned {
-    transform: rotate(45deg);
+    transform: rotate(45deg) !important;
 }
 
 // Dislike hand rotate
@@ -150,4 +150,8 @@ nav ul li {
 
 .post-title {
     margin-left: 20px;
+}
+
+.card-action {
+    text-align: center;
 }
