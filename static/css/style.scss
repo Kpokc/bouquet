@@ -171,3 +171,24 @@ nav ul li {
 .my-page-btn {
     width: 170px;
 }
+
+// \. My page
+
+// Flash message
+
+.flash-message {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2100;
+    background-color: #fbfbfb;
+    border-radius: 5px;
+    border: 2px solid #bdb9b9;
+    min-height: 200px;
+    text-align: center;
+    padding: 8px;
+    h4 {
+        padding: 8px;
+    }
+}

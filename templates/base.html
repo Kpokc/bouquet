@@ -63,12 +63,14 @@
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
-                    <div class="row flashes">
-                        <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+                    <div class="flash-message flashes z-depth-2">
+                        <h4 class="center-align">{{ message }}</h4><br>
+                        <img src="https://img.icons8.com/ultraviolet/120/000000/ok.png"/>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
+
     </section>
       
         {% block content %}

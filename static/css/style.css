@@ -151,4 +151,23 @@ nav ul li {
 .my-page-btn {
   width: 170px;
 }
+
+.flash-message {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 2100;
+  background-color: #fbfbfb;
+  border-radius: 5px;
+  border: 2px solid #bdb9b9;
+  min-height: 200px;
+  text-align: center;
+  padding: 8px;
+}
+
+.flash-message h4 {
+  padding: 8px;
+}
 /*# sourceMappingURL=style.css.map */

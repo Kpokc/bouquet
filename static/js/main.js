@@ -40,6 +40,10 @@ $(document).ready(function(){
         }
         $(section).siblings().css("display","none")
     })
+
+    setTimeout(function() {
+        $('.flash-message').fadeOut('slow');
+    }, 1000);
     
     /// allow to use tab in textarea 
     /// code sample https://stackoverflow.com/questions/6140632/how-to-handle-tab-in-textarea
