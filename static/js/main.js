@@ -13,7 +13,7 @@ $(document).ready(function(){
     // If comment/delete aborted, clear textarea and close modal
     $(".comment-btn").click(function(e){
         $("#comment").val("");
-        $('.modal').modal();
+        $('.modal').modal("close");
         e.preventDefault();
     })
 
@@ -27,6 +27,18 @@ $(document).ready(function(){
         $temp.val(value).select();
         document.execCommand("copy");
         $temp.remove();
+    })
+
+    // My page show/hide sections
+    $(".my-page-btn").click(function(){
+        var get_id = $(this).attr("id")
+        var section = document.getElementsByClassName(get_id)
+        $(section).css("display","block")
+        // if section is empty
+        if($(section).html().length < 1000){
+            $(section).html("<h4>Sorry No Results!</h4>")
+        }
+        $(section).siblings().css("display","none")
     })
     
     /// allow to use tab in textarea 

@@ -189,7 +189,7 @@
                         {% for user in users %}
                             {% if user._id|string == comment.user_id %}
                                 {% if user.username == session.user %}
-                                    <a href="#{{comment._id|string}}"  class="waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edit</a>
+                                    <a href="#{{comment._id|string}}"  class="top-menu waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edit</a>
                                     <!-- Edite Comment Modal -->
                                     <div id="{{comment._id|string}}" class="modal">
                                         <div class="modal-content">
@@ -213,14 +213,14 @@
                                             </div>
                                     </div>
 
-                                <!-- Delete Post Modal -->
-                                <a class="waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal3">Delete</a>
+                                <!-- Delete Comment Modal -->
+                                <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal3">Delete</a>
                                 <div id="modal3" class="modal">
                                     <div class="modal-content">
                                     <h5>Delete Comment?</h5>
                                     <div class="row">
-                                        <a class="comment-btn waves-effect waves-light btn-small blue-grey darken-1">No</a>
-                                        <a href="{{ url_for('delete_comment', comment_id=comment._id) }}" class="waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                        <a class="top-menu comment-btn waves-effect waves-light btn-small blue-grey darken-1">No</a>
+                                        <a href="{{ url_for('delete_comment', comment_id=comment._id) }}" class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
                                     </div>
                                     </div>
                                 </div>
@@ -232,7 +232,7 @@
                         <div class="card horizontal">sssssssss</div> -->
                         <!-- red action button -->
                         <div class="fixed-action-btn down">
-                                <a class="btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
+                                <a class="top-menu btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
                                     <i class="large material-icons">mode_edit</i>
                                 </a>
                                 <ul>

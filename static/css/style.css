@@ -139,4 +139,16 @@ nav ul li {
 .card-action {
   text-align: center;
 }
+
+.my-page-content {
+  margin-top: 20px;
+}
+
+.my-page-menu {
+  margin-top: 8px;
+}
+
+.my-page-btn {
+  width: 170px;
+}
 /*# sourceMappingURL=style.css.map */
