@@ -16,6 +16,18 @@ $(document).ready(function(){
         $('.modal').modal();
         e.preventDefault();
     })
+
+    // Copy post link to clipboard
+    $(".copy-post-link").click(function(){
+        value = $(this).attr("value")
+
+        // stackoverflow.com/questions/47207355/copy-to-clipboard-using-jquery/47207504
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(value).select();
+        document.execCommand("copy");
+        $temp.remove();
+    })
     
     /// allow to use tab in textarea 
     /// code sample https://stackoverflow.com/questions/6140632/how-to-handle-tab-in-textarea
