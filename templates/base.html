@@ -62,12 +62,10 @@
         <!-- flash messages -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
-                {% for message in messages %}
                     <div class="flash-message flashes z-depth-2">
-                        <h4 class="center-align">{{ message }}</h4><br>
-                        <img src="https://img.icons8.com/ultraviolet/120/000000/ok.png"/>
+                        <h4 class="center-align">{{ messages[0] }}</h4><br>
+                        <img src="{{ messages[1] }}"/>
                     </div>
-                {% endfor %}
             {% endif %}
         {% endwith %}
 

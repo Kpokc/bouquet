@@ -41,6 +41,7 @@ $(document).ready(function(){
         $(section).siblings().css("display","none")
     })
 
+    // hide flash message
     setTimeout(function() {
         $('.flash-message').fadeOut('slow');
     }, 1000);

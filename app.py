@@ -181,7 +181,8 @@ def add_post():
             "img_src": request.form.get("img_src"),
         }
         mongo.db.post.insert_one(post)
-        flash("Post Successfully Added!")
+        flash("Post Added!")
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
         return redirect(url_for("welcome"))
 
     categories = mongo.db.categories.find()
@@ -208,9 +209,9 @@ def edit_post(post_id):
             "img_src": request.form.get("img_src")
         }
         mongo.db.post.update({"_id": ObjectId(post_id)}, post)
-        flash("Post was Updated!")
+        flash("Post Updated!")
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
 
-        print(post_id)
         return redirect(url_for("read_post", post_id=post_id))
 
     post = mongo.db.post.find_one(
@@ -246,7 +247,8 @@ def delete_post(post_id):
     mongo.db.complaint.remove({
         "post_id": str(ObjectId(post_id))
     })
-    flash("Post was Deleted!")
+    flash("Post Deleted!")
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
     return redirect(url_for("welcome"))
 
 
@@ -478,6 +480,8 @@ def comment(post_id):
             "date" : today.strftime("%B %d, %Y"),
             "time": now
         })
+        flash("Comment Added!")
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
         mongo.db.comments.insert_one(comment)
 
         return redirect(url_for("read_post", post_id=post_id))
@@ -504,6 +508,8 @@ def edit_comment(comment_id):
             "date" : old_comment["date"],
             "time": old_comment["time"]
         })
+        flash("Comment Updated!")
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
         mongo.db.comments.update({"_id": ObjectId(comment_id)}, comment)
 
     post_id = mongo.db.comments.find_one(
@@ -528,7 +534,8 @@ def delete_comment(comment_id):
     mongo.db.comments.remove({
         "_id":ObjectId(comment_id)
     })
-    
+    flash("Comment Deleted!")
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
     return redirect(url_for("read_post", post_id=comment["post_id"]))
 
 
@@ -574,12 +581,15 @@ def login():
                 session["user"] = request.form.get("username")
                 a = request.form.get("username")
                 flash("Welcome {}".format(request.form.get("username")))
+                flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
                 return redirect(url_for("welcome", username=session["user"]))
             else:
                 flash("Incorrect Username and/or Password!")
+                flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error pick
                 return redirect(url_for("login"))
         else:
             flash("Incorrect Username and/or Password!")
+            flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error pick
             return redirect(url_for("login"))
 
     return render_template("login.html")
@@ -597,6 +607,7 @@ def signup():
 
         if get_user:
             flash("User already exists!")
+            flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error pick
             return redirect(url_for("signup"))
 
         signup = {
@@ -607,7 +618,8 @@ def signup():
 
         #Add user into cookie
         session["user"] = request.form.get("username")
-        flash("We are glad that you joined us!")
+        flash("Thanks for joining!")
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
         return redirect(url_for("welcome"))
 
     return render_template("signup.html")
@@ -618,7 +630,8 @@ def logout():
     """
         Log out
     """
-    flash("You have been logged out!")
+    flash("Logged Out!")
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
     session.pop("user")
     return redirect(url_for("welcome"))
 
