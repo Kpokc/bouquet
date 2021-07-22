@@ -98,6 +98,7 @@ def read_post(post_id):
     tab = "&nbsp;" * 8
     post_to_read["content"] = post_to_read["content"].replace('\t', tab)
 
+
     posts = list(mongo.db.post.find().sort("time", -1))
     likes = list(mongo.db.likes.find())
     comments = list(mongo.db.comments.find())
@@ -252,13 +253,12 @@ def delete_post(post_id):
     return redirect(url_for("welcome"))
 
 
-@app.route("/like/<post_id>", methods=["GET","POST"])
-def like(post_id):
+@app.route("/like/<post_id>/<page>", methods=["GET","POST"])
+def like(post_id, page):
     """
         Like post
     """
     insert = True
-
     dislikes = list(mongo.db.dislikes.find())
     likes = list(mongo.db.likes.find())
 
@@ -305,14 +305,34 @@ def like(post_id):
             "post_id": post_id
         })
         mongo.db.likes.insert_one(like)
+    
+    # Get user info by his sessions name 
+    username = mongo.db.user.find_one(
+        {"username": session["user"]}
+    )
 
-    # return nothing
+    # Check if comment or post was liked
+    post = mongo.db.comments.find_one(
+        {"_id": ObjectId(post_id)}
+    )
+    # if comment then get post id from comment row
+    if post:
+        post_id = post["post_id"]
+    
+
+    if page == "welcome":
+        return redirect(url_for("welcome"))
+    if page == "post":
+         return redirect(url_for("read_post", post_id=post_id))
+    if page == "mypage":
+         return redirect(url_for("mypage", username=username))
+
     return ('', 204)
 
 
 
-@app.route("/dislike/<post_id>", methods=["GET","POST"])
-def dislike(post_id):
+@app.route("/dislike/<post_id>/<page>", methods=["GET","POST"])
+def dislike(post_id, page):
     """
         Dislike post
     """
@@ -366,10 +386,82 @@ def dislike(post_id):
         })
         mongo.db.dislikes.insert_one(dislike)
     
+    # Get user info by his sessions name 
+    username = mongo.db.user.find_one(
+        {"username": session["user"]}
+    )
+
+    # Check if comment or post was liked
+    post = mongo.db.comments.find_one(
+        {"_id": ObjectId(post_id)}
+    )
+    # if comment then get post id from comment row
+    if post:
+        post_id = post["post_id"]
+    
+
+    if page == "welcome":
+        return redirect(url_for("welcome"))
+    if page == "post":
+         return redirect(url_for("read_post", post_id=post_id))
+    if page == "mypage":
+         return redirect(url_for("mypage", username=username))
 
     # return nothing
     return ('', 204)
 
+
+@app.route("/pinned/<post_id>/<page>", methods=["GET","POST"])
+def pinned(post_id, page):
+    """
+        Pin post
+    """
+    insert = True
+    
+    pinned = list(mongo.db.pinned.find())
+    
+    #Check if there is data in the pined table. 
+    if len(pinned) > 0:
+        for pin in pinned:
+            # Check if this post has been pined by current user.
+            if pin["username"] == session["user"] and pin["post_id"] == post_id:
+                # Delete from pinned.
+                mongo.db.pinned.delete_one({
+                    "_id": ObjectId(pin["_id"])
+                })
+                insert = False
+
+
+    if insert == True:
+        # Add to pinned if not in the table.
+        pin = ({
+            "username": session["user"],
+            "post_id": post_id
+        })
+        mongo.db.pinned.insert_one(pin)
+    
+    # Get user info by his sessions name 
+    username = mongo.db.user.find_one(
+        {"username": session["user"]}
+    )
+
+    # Check if comment or post was liked
+    post = mongo.db.comments.find_one(
+        {"_id": ObjectId(post_id)}
+    )
+    # if comment then get post id from comment row
+    if post:
+        post_id = post["post_id"]
+
+    if page == "welcome":
+        return redirect(url_for("welcome"))
+    if page == "post":
+         return redirect(url_for("read_post", post_id=post_id))
+    if page == "mypage":
+         return redirect(url_for("mypage", username=username))
+
+    # return nothing
+    return ('', 204)
 
 
 @app.template_filter('check_pin')
@@ -427,39 +519,6 @@ def check(s):
                     like_id = "ok"
 
     return like_id
-
-
-@app.route("/pinned/<post_id>", methods=["GET","POST"])
-def pinned(post_id):
-    """
-        Pin post
-    """
-    insert = True
-    
-    pinned = list(mongo.db.pinned.find())
-    
-    #Check if there is data in the pined table. 
-    if len(pinned) > 0:
-        for pin in pinned:
-            # Check if this post has been pined by current user.
-            if pin["username"] == session["user"] and pin["post_id"] == post_id:
-                # Delete from pinned.
-                mongo.db.pinned.delete_one({
-                    "_id": ObjectId(pin["_id"])
-                })
-                insert = False
-
-
-    if insert == True:
-        # Add to pinned if not in the table.
-        pin = ({
-            "username": session["user"],
-            "post_id": post_id
-        })
-        mongo.db.pinned.insert_one(pin)
-
-    # return nothing
-    return ('', 204)
 
 
 @app.route("/comment/<post_id>", methods=["GET","POST"])
