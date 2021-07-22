@@ -443,7 +443,6 @@ def pinned(post_id):
         for pin in pinned:
             # Check if this post has been pined by current user.
             if pin["username"] == session["user"] and pin["post_id"] == post_id:
-                print(pin["_id"])
                 # Delete from pinned.
                 mongo.db.pinned.delete_one({
                     "_id": ObjectId(pin["_id"])
@@ -524,12 +523,10 @@ def delete_comment(comment_id):
     """
         Delete comment
     """
-    print(comment_id)
     comment = mongo.db.comments.find_one(
         {"_id": ObjectId(comment_id)}
     )
 
-    print(comment["post_id"])
     #Delete post
     mongo.db.comments.remove({
         "_id":ObjectId(comment_id)
@@ -564,6 +561,88 @@ def mypage(username):
                                         pinned=pinned, comments=comments)
 
     return redirect(url_for("login"))
+
+
+@app.route("/delete_comment_mypage/<comment_id>", methods=["GET","POST"])
+def delete_comment_mypage(comment_id):
+    """
+        Delete comment from "My Page"
+    """
+    username = mongo.db.user.find_one(
+        {"username": session["user"]})
+
+    #Delete post
+    mongo.db.comments.remove({
+        "_id":ObjectId(comment_id)
+    })
+    flash("Comment Deleted!")
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+    return redirect(url_for("mypage", username=username))
+
+
+@app.route("/edit_comment_mypage/<comment_id>", methods=["GET","POST"])
+def edit_comment_mypage(comment_id):
+    """
+        Edit comment
+    """
+    if request.method == "POST":
+        # Get user info by his sessions name 
+        user_id = mongo.db.user.find_one(
+            {"username": session["user"]}
+        )
+        old_comment = mongo.db.comments.find_one(
+            {"_id": ObjectId(comment_id) }
+        )
+
+        comment = ({
+            "user_id": str(user_id["_id"]),
+            "post_id": old_comment["post_id"],
+            "comment": request.form.get("comment"),
+            "date" : old_comment["date"],
+            "time": old_comment["time"]
+        })
+        flash("Comment Updated!")
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+        mongo.db.comments.update({"_id": ObjectId(comment_id)}, comment)
+
+    post_id = mongo.db.comments.find_one(
+        {"_id": ObjectId(comment_id)}
+    )
+
+    return redirect(url_for("mypage", username=user_id))
+
+
+@app.route("/delete_post_mypage/<post_id>")
+def delete_post_mypage(post_id):
+    """
+        Delete post
+    """
+    user_id = mongo.db.user.find_one(
+        {"username": session["user"]}
+    )
+    # Delete post
+    mongo.db.post.remove({
+        "_id":ObjectId(post_id)
+    })
+    # Deleted likes posts
+    mongo.db.likes.remove({
+        "post_id": str(ObjectId(post_id))
+    })
+    # Deleted dislikes posts
+    mongo.db.dislikes.remove({
+        "post_id": str(ObjectId(post_id))
+    })
+    # Delete related comments
+    mongo.db.comments.remove({
+        "post_id": str(ObjectId(post_id))
+    })
+    # Delete related complaint
+    mongo.db.complaint.remove({
+        "post_id": str(ObjectId(post_id))
+    })
+    flash("Post Deleted!")
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+    return redirect(url_for("mypage", username=user_id))
 
 
 @app.route("/login", methods=["GET","POST"])

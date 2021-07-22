@@ -78,7 +78,7 @@
                                                     <h5>Delete Post?</h5>
                                                     <div class="row">
                                                         <a class="comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">No</a>
-                                                        <a href="{{ url_for('delete_post', post_id=post._id) }}" class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                                        <a href="{{ url_for('delete_post_mypage', post_id=post._id) }}" class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
                                                     </div>
                                                     </div>
                                                 </div>
@@ -361,7 +361,7 @@
                                                         <h4>Edit</h4>
                                                             <!-- edit comment form -->
                                                             <div class="row">
-                                                                <form class="col s12" method="POST" action="{{ url_for('edit_comment', comment_id=comment._id) }}">
+                                                                <form class="col s12" method="POST" action="{{ url_for('edit_comment_mypage', comment_id=comment._id) }}">
                                                                     <div class="input-field col s12">
                                                                         <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
                                                                         <textarea id="comment" name="comment" class="materialize-textarea teal-text text-darken-4" minlength="5" maxlength="3000" required>{{ comment.comment }}</textarea>
@@ -385,7 +385,7 @@
                                                 <h5>Delete Comment?</h5>
                                                 <div class="row">
                                                     <a class="top-menu comment-btn waves-effect waves-light btn-small blue-grey darken-1">No</a>
-                                                    <a href="{{ url_for('delete_comment', comment_id=comment._id) }}" class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                                    <a href="{{ url_for('delete_comment_mypage', comment_id=comment._id) }}" class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
                                                 </div>
                                                 </div>
                                             </div>
@@ -438,7 +438,7 @@
 
                                                 {% else %}
                                                     <!-- Dislike -->
-                                                    <li><a href="{{ url_for('dislike', post_id=pcomment._id|string) }}" class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                    <li><a href="{{ url_for('dislike', post_id=comment._id|string) }}" class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
                                                 {% endif%}
 
 
@@ -479,5 +479,9 @@
       </div>
     </div>
   </div>
-        
+    <script>
+        var htmlContents = document.documentElement.innerHTML;
+        localStorage.setItem('myBook', JSON.stringify(htmlContents ));
+        localStorage.getItem('myBook');
+    </script>
 {% endblock %}
