@@ -337,7 +337,7 @@
                    
                         {% for comment in comments%}
                             {% if comment.user_id == username._id|string %}
-                            <div class="card horizontal">
+                            <div class="card horizontal hoverable">
                             <div class="card-stacked">
                                 {% for user in users%}
                                     {% if comment.user_id == user._id|string %}

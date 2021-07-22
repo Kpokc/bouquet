@@ -140,6 +140,10 @@ nav ul li {
   text-align: center;
 }
 
+code {
+  background-color: #eaeaea;
+}
+
 .my-page-content {
   margin-top: 20px;
 }
@@ -161,7 +165,7 @@ nav ul li {
   z-index: 2100;
   background-color: #fbfbfb;
   border-radius: 5px;
-  border: 2px solid #bdb9b9;
+  border: 1px solid #bdb9b9;
   min-height: 200px;
   text-align: center;
   padding: 8px;
