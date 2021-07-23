@@ -1,6 +1,6 @@
 <aside>
-        <div class="col l4 m12 s12">
-            <ul class="collection z-depth-1">
+    <div class="col l4 m12 s12">
+        <ul class="collection z-depth-1">
             <!-- Add most liked post -->
             {% for post in posts %}
                 {% if post._id|string == most_liked %}
@@ -36,7 +36,6 @@
                                         </div>
                                     {% endif %}
                                 {% endfor %}
-                                    
                             </div>
                         </li>
                     </a>
@@ -66,12 +65,12 @@
                                                 </p>
                                             </div>
                                             <div class="col l9 m9 s9">
-                                                {% for user in users %}
-                                                    {% if user._id|string == post.user_id %}
-                                                        <p>
-                                                            <span style="float:left;">{{ user.username }}</span> 
-                                                            <span style="float:right;">{{ post.date }}</span>
-                                                        </p>
+                                                    {% for user in users %}
+                                                        {% if user._id|string == post.user_id %}
+                                                            <p>
+                                                                <span style="float:left;">{{ user.username }}</span> 
+                                                                <span style="float:right;">{{ post.date }}</span>
+                                                            </p>
                                                     {% endif %}
                                                 {% endfor %}
                                             </div>
@@ -92,22 +91,22 @@
                             <div class="row" style="margin-bottom: 0px;">
                                 {% for category in categories %}
                                     {% if post.category == category._id|string %}
-                                        <div class="col l3 m3 s3">
-                                            <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                                    <div class="col l3 m3 s3">
+                                        <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
+                                    </div>
+                                    <div class="recommended-title">
+                                        <div class="col l9 m9 s9">
+                                            <p>
+                                                <span class="title" style="text-transform: uppercase;"><small>{{ category.title }}</small></span>
+                                            </p>
                                         </div>
-                                        <div class="recommended-title">
-                                            <div class="col l9 m9 s9">
-                                                <p>
-                                                    <span class="title" style="text-transform: uppercase;"><small>{{ category.title }}</small></span>
-                                                </p>
-                                            </div>
-                                            <div class="col l9 m9 s9">
-                                                <p>
-                                                    <span class="title">{{ post.title }}</span>
-                                                </p>
-                                            </div>
-                                            <div class="col l9 m9 s9">
-                                                {% for user in users %}
+                                        <div class="col l9 m9 s9">
+                                            <p>
+                                                <span class="title">{{ post.title }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="col l9 m9 s9">
+                                            {% for user in users %}
                                                     {% if user._id|string == post.user_id %}
                                                         <p>
                                                             <span style="float:left;">{{ user.username }}</span> 
@@ -115,8 +114,8 @@
                                                         </p>
                                                     {% endif %}
                                                 {% endfor %}
-                                            </div>
                                         </div>
+                                    </div>
                                     {% endif %}
                                 {% endfor %}
                             </div>
@@ -124,6 +123,6 @@
                     </a>
                 {% endif %}
             {% endfor %}
-            </ul>
-        </div>
-    </aside>
+        </ul>
+    </div>
+</aside>
