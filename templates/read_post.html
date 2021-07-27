@@ -31,17 +31,17 @@
                <p>
                   {% for user in users %}
                     {% if post_to_read.user_id == user._id|string %}
-                        {{ user.username }}<br>
+                        {{ user.username }}
                     {% endif %}
                   {% endfor %}
                   <span style="float:right;">{{ post_to_read.date }}</span>
                </p>
             </div>
             <div class="card-action">
-               <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('welcome') }}"><i class="back-btn material-icons left">send</i>Home</a>
+               <a class="read-post-btn readtop-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('welcome') }}"><i class="back-btn material-icons left">send</i>Home</a>
                <!-- Modal Trigger -->
                {% if session.user %}
-                    <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Comment</a>
+                    <a class="read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Comment</a>
                     <!-- Add Comment Modal -->
                     <div id="modal1" class="modal">
                         <div class="modal-content">
@@ -68,9 +68,9 @@
                             {% if user._id|string == post_to_read.user_id %}
                                 {% if user.username == session.user %}
                                 <!-- Edit Post -->
-                                <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post_to_read._id) }}">Edit Post</a>
+                                <a class="read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post_to_read._id) }}">Edit Post</a>
                                 <!-- Delete Post Modal -->
-                                <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal2">Delete Post</a>
+                                <a class="read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal2">Delete Post</a>
                                 <div id="modal2" class="modal">
                                     <div class="modal-content">
                                         <h5>Delete Post?</h5>
@@ -153,14 +153,14 @@
          </div>
       </div>
       <!-- Comment section -->
-      <div class="col l10 s10 m10 offset-l1 offset-s1 offset-m1">
+      <div class="col l10 s12 m10 offset-l1 offset-s0 offset-m1">
          {% for comment in comments%}
          {% if comment.post_id == post_to_read._id|string %}
          <div class="card horizontal">
             <div class="card-stacked">
                {% for user in users%}
                     {% if comment.user_id == user._id|string %}
-                        <p>{{ user.username }} <span>{{ comment.date }}</span></p>
+                        <p>{{ user.username }} @ <span>{{ comment.date }}</span></p>
                     {% endif %}
                {% endfor %}
                <hr>
@@ -172,8 +172,8 @@
                   {% for user in users %}
                         {% if user._id|string == comment.user_id %}
                             {% if user.username == session.user %}
-                                <a href="#{{comment._id|string}}"  class="top-menu waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edit</a>
-                                <!-- Edite Comment Modal -->
+                                <a href="#{{comment._id|string}}"  class="read-post-comment-btn top-menu waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edit</a>
+                                <!-- Edit Comment Modal -->
                                 <div id="{{comment._id|string}}" class="modal">
                                     <div class="modal-content">
                                         <h4>Edit</h4>
@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                                 <!-- Delete Comment Modal -->
-                                <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal3">Delete</a>
+                                <a class="read-post-comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal3">Delete</a>
                                 <div id="modal3" class="modal">
                                     <div class="modal-content">
                                         <h5>Delete Comment?</h5>
@@ -223,7 +223,7 @@
                                 <!-- Below pass to liked username and post id  -->
                                 {% set liked = session.user %}
                                 {% set liked = liked + "/" + comment._id|string %}
-                                <!-- sned request to check if user had pinned this post  -->
+                                <!-- send request to check if user had pinned this post  -->
                                 {% if liked | check_like == "ok" %}
                                     <!-- Like -->
                                     <li><a href="{{ url_for('like', post_id=comment._id, page=page) }}" class="active-btn btn-floating waves-effect waves-light btn"><i class="far fa-thumbs-up like-hand"></i></a></li>

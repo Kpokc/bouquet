@@ -45,6 +45,12 @@ nav ul li {
   }
 }
 
+@media only screen and (max-width: 568px) {
+  .fixed-action-btn {
+    right: -42px;
+  }
+}
+
 .container {
   width: 90%;
   margin-top: 25px;
@@ -89,6 +95,11 @@ nav ul li {
   }
 }
 
+.card-image img {
+  width: 80px;
+  margin-top: 20px;
+}
+
 .card.horizontal .card-stacked {
   padding-top: 5px;
   padding-right: 25px;
@@ -103,6 +114,13 @@ nav ul li {
 @media only screen and (max-width: 568px) {
   .homepage-card-content {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .card .card-content {
+    padding: 0px;
+    padding-top: 10px;
   }
 }
 
@@ -132,6 +150,10 @@ nav ul li {
   .card-author {
     margin-top: 10px;
   }
+}
+
+.read-post-comment-btn {
+  width: 45%;
 }
 
 .active-btn {
@@ -204,8 +226,20 @@ nav ul li {
   text-align: center;
 }
 
+@media only screen and (max-width: 568px) {
+  .card-action {
+    padding: 15px 2px !important;
+  }
+}
+
 code {
   background-color: #eaeaea;
+}
+
+@media only screen and (max-width: 568px) {
+  .read-post-btn {
+    width: 66%;
+  }
 }
 
 .my-page-content {

@@ -48,6 +48,9 @@ nav ul li {
     @media only screen and (max-width: 768px){
         bottom: -45px;
     }
+    @media only screen and (max-width: 568px){
+        right: -42px;
+    }
 }
 
 .container {
@@ -90,6 +93,10 @@ nav ul li {
 
 .card-image {
     @include mobile-display-none;
+    img {
+        width: 80px;
+        margin-top: 20px;
+    }
 }
 
 .card.horizontal .card-stacked {
@@ -102,6 +109,13 @@ nav ul li {
 
 .homepage-card-content {
     @include mobile-display-none;
+}
+
+.card .card-content {
+    @media only screen and (max-width: 568px){
+        padding: 0px;
+        padding-top: 10px;
+    }
 }
 
 .homepage-post-btn {
@@ -123,6 +137,10 @@ nav ul li {
     @media only screen and (max-width: 568px){
         margin-top:10px;
     }
+}
+
+.read-post-comment-btn  {
+    width: 45%;
 }
 
 // if post or comment liked / disliked / pinned
@@ -201,10 +219,19 @@ nav ul li {
 
 .card-action {
     text-align: center;
+    @media only screen and (max-width: 568px){
+        padding: 15px 2px !important;
+    }
 }
 
 code {
     background-color: #eaeaea;
+}
+
+.read-post-btn {
+    @media only screen and (max-width: 568px){
+        width: 66%;
+    }
 }
 
 // \. Read post page
