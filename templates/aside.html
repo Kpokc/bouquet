@@ -42,7 +42,7 @@
                 {% endif %}
             {% endfor %}
             <hr>
-            <!-- Add most comented post -->
+            <!-- Add most commented post -->
             {% for post in posts %}
                 {% if post._id|string == most_commented %}
                     <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
