@@ -1,3 +1,9 @@
+@mixin mobile-display-none {
+    @media only screen and (max-width: 568px){
+        display: none;
+    }
+  }
+
 * {
     margin: 0;
     padding: 0;
@@ -66,6 +72,9 @@ nav ul li {
 
 .card.horizontal {
     margin-bottom: 65px;
+    @media only screen and (max-width: 568px){
+        margin-bottom: 40px;
+    }
 }
 
 // Category image
@@ -79,9 +88,41 @@ nav ul li {
     width: 100px;
 }
 
+.card-image {
+    @include mobile-display-none;
+}
+
 .card.horizontal .card-stacked {
     padding-top: 5px;
     padding-right: 25px;
+    @media only screen and (max-width: 568px){
+        padding-left: 25px;
+    }
+}
+
+.homepage-card-content {
+    @include mobile-display-none;
+}
+
+.homepage-post-btn {
+    @include mobile-display-none;
+}
+
+.homepage-post-btn-mobile {
+    display: none;
+    @media only screen and (max-width: 568px){
+        display: block;
+    }
+}
+
+.fixed-action-btn-mobile {
+    @include mobile-display-none;
+}
+
+.card-author {
+    @media only screen and (max-width: 568px){
+        margin-top:10px;
+    }
 }
 
 // if post or comment liked / disliked / pinned
@@ -202,6 +243,10 @@ code {
     min-height: 200px;
     text-align: center;
     padding: 8px;
+    @media only screen and (max-width: 768px){
+        top: 35%;
+        width: 85%;
+    }
     h4 {
         padding: 8px;
     }

@@ -25,7 +25,7 @@
                             <hr class="card-line">
                             <strong>{{ post.title }}</strong>
                         </div>
-                        <div class="card-content" style="word-wrap: break-word;">
+                        <div class="card-content homepage-card-content" style="word-wrap: break-word;">
                             <p id="text-to-read">{{ post.content }}</p>
                         </div>
                         <div class="card-author">
@@ -44,9 +44,13 @@
                                 {% if user._id|string == post.user_id %}
                                     {% if user.username == session.user %}
                                         <!-- Edit Post -->
-                                        <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post._id) }}">Edit Post</a>
+                                        <a class="homepage-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post._id) }}">Edit Post</a>
+                                        <!-- Edit Post mobile btn-->
+                                        <a class="homepage-post-btn-mobile top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post._id) }}">Edit</a>
                                         <!-- Delete Post Modal -->
-                                        <a class="top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Delete Post</a>
+                                        <a class="homepage-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Delete Post</a>
+                                        <!-- Edit Post mobile btn-->
+                                        <a class="homepage-post-btn-mobile top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Delete</a>
                                         <div id="modal1" class="modal">
                                             <div class="modal-content">
                                             <h5>Delete Post?</h5>
@@ -60,7 +64,7 @@
                                 {% endif %}
                             {% endfor %}
                         <!-- red action button -->
-                        <div class="fixed-action-btn">
+                        <div class="fixed-action-btn fixed-action-btn-mobile">
                             <a class="top-menu btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
                                 <i class="large material-icons">mode_edit</i>
                             </a>

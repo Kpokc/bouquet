@@ -67,6 +67,12 @@ nav ul li {
   margin-bottom: 65px;
 }
 
+@media only screen and (max-width: 568px) {
+  .card.horizontal {
+    margin-bottom: 40px;
+  }
+}
+
 .card.horizontal .card-image {
   max-width: 80%;
   padding-left: 25px;
@@ -77,9 +83,55 @@ nav ul li {
   width: 100px;
 }
 
+@media only screen and (max-width: 568px) {
+  .card-image {
+    display: none;
+  }
+}
+
 .card.horizontal .card-stacked {
   padding-top: 5px;
   padding-right: 25px;
+}
+
+@media only screen and (max-width: 568px) {
+  .card.horizontal .card-stacked {
+    padding-left: 25px;
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .homepage-card-content {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .homepage-post-btn {
+    display: none;
+  }
+}
+
+.homepage-post-btn-mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 568px) {
+  .homepage-post-btn-mobile {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .fixed-action-btn-mobile {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .card-author {
+    margin-top: 10px;
+  }
 }
 
 .active-btn {
@@ -188,6 +240,13 @@ code {
   min-height: 200px;
   text-align: center;
   padding: 8px;
+}
+
+@media only screen and (max-width: 768px) {
+  .flash-message {
+    top: 35%;
+    width: 85%;
+  }
 }
 
 .flash-message h4 {

@@ -9,21 +9,21 @@
                             <div class="row" style="margin-bottom: 0px;">
                                 {% for category in categories %}
                                     {% if post.category == category._id|string %}
-                                        <div class="col l3 m3 s3">
+                                        <div class="col l3 m3 s3 card-image">
                                             <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
                                         </div>
                                         <div class="recommended-title">
-                                            <div class="col l9 m9 s9">
+                                            <div class="col l9 m9 s12">
                                                 <p>
                                                     <span class="title" style="text-transform: uppercase;"><small>{{ category.title }}</small></span>
                                                 <p>
                                             </div>
-                                            <div class="col l9 m9 s9">
+                                            <div class="col l9 m9 s12">
                                                 <p>
-                                                    <span class="title">{{ post.title }}</span>
+                                                    <b><span class="title">{{ post.title }}</span></b>
                                                 </p>
                                             </div>
-                                            <div class="col l9 m9 s9">
+                                            <div class="col l9 m9 s12">
                                                 {% for user in users %}
                                                     {% if user._id|string == post.user_id %}
                                                         <p>
@@ -50,7 +50,7 @@
                             <div class="row" style="margin-bottom: 0px;">
                                 {% for category in categories %}
                                     {% if post.category == category._id|string %}
-                                        <div class="col l3 m3 s3">
+                                        <div class="col l3 m3 s3 card-image">
                                             <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
                                         </div>
                                         <div class="recommended-title">
@@ -61,10 +61,10 @@
                                             </div>
                                             <div class="col l9 m9 s9">
                                                 <p> 
-                                                    <span class="title">{{ post.title }}</span>
+                                                    <b><span class="title">{{ post.title }}</span></b>
                                                 </p>
                                             </div>
-                                            <div class="col l9 m9 s9">
+                                            <div class="col l9 m9 s12">
                                                     {% for user in users %}
                                                         {% if user._id|string == post.user_id %}
                                                             <p>
@@ -91,7 +91,7 @@
                             <div class="row" style="margin-bottom: 0px;">
                                 {% for category in categories %}
                                     {% if post.category == category._id|string %}
-                                    <div class="col l3 m3 s3">
+                                    <div class="col l3 m3 s3 card-image">
                                         <img src="{{ category.img_src }}" alt="{{ category.title }}"/>
                                     </div>
                                     <div class="recommended-title">
@@ -102,10 +102,10 @@
                                         </div>
                                         <div class="col l9 m9 s9">
                                             <p>
-                                                <span class="title">{{ post.title }}</span>
+                                                <b><span class="title">{{ post.title }}</span></b>
                                             </p>
                                         </div>
-                                        <div class="col l9 m9 s9">
+                                        <div class="col l9 m9 s12">
                                             {% for user in users %}
                                                     {% if user._id|string == post.user_id %}
                                                         <p>
