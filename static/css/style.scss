@@ -50,6 +50,7 @@ nav ul li {
     }
     @media only screen and (max-width: 568px){
         right: -42px;
+        bottom: -40px;
     }
 }
 
@@ -126,6 +127,7 @@ nav ul li {
     display: none;
     @media only screen and (max-width: 568px){
         display: block;
+        margin: 3px;
     }
 }
 
@@ -186,6 +188,7 @@ nav ul li {
 }
 
 .edit-post-btn {
+    margin: 3px;
     width: 140px;
 }
 
@@ -217,6 +220,10 @@ nav ul li {
     margin-left: 20px;
 }
 
+.hide-arrow {
+    @include mobile-display-none;
+}
+
 .card-action {
     text-align: center;
     @media only screen and (max-width: 568px){
@@ -237,6 +244,11 @@ code {
 // \. Read post page
 
 // My Page
+.my-page-menu {
+    @media only screen and (max-width: 768px){
+        margin-bottom: 30px;
+    }
+}
 
 .my-page-content {
     margin-top: 20px;
@@ -252,6 +264,11 @@ code {
 
 .my-page-btn {
     width: 170px;
+}
+
+.element.style {
+    opacity: 1;
+    transform: scale(1) translateY(0px) translateX(10px);
 }
 
 // \. My page

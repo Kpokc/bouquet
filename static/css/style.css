@@ -48,6 +48,7 @@ nav ul li {
 @media only screen and (max-width: 568px) {
   .fixed-action-btn {
     right: -42px;
+    bottom: -40px;
   }
 }
 
@@ -137,6 +138,7 @@ nav ul li {
 @media only screen and (max-width: 568px) {
   .homepage-post-btn-mobile {
     display: block;
+    margin: 3px;
   }
 }
 
@@ -194,6 +196,7 @@ nav ul li {
 }
 
 .edit-post-btn {
+  margin: 3px;
   width: 140px;
 }
 
@@ -222,6 +225,12 @@ nav ul li {
   margin-left: 20px;
 }
 
+@media only screen and (max-width: 568px) {
+  .hide-arrow {
+    display: none;
+  }
+}
+
 .card-action {
   text-align: center;
 }
@@ -242,6 +251,12 @@ code {
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .my-page-menu {
+    margin-bottom: 30px;
+  }
+}
+
 .my-page-content {
   margin-top: 20px;
 }
@@ -259,6 +274,12 @@ code {
 
 .my-page-btn {
   width: 170px;
+}
+
+.element.style {
+  opacity: 1;
+  -webkit-transform: scale(1) translateY(0px) translateX(10px);
+          transform: scale(1) translateY(0px) translateX(10px);
 }
 
 .flash-message {
