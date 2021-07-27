@@ -39,6 +39,12 @@ nav ul li {
   bottom: -40px;
 }
 
+@media only screen and (max-width: 768px) {
+  .fixed-action-btn {
+    bottom: -45px;
+  }
+}
+
 .container {
   width: 90%;
   margin-top: 25px;
@@ -127,6 +133,12 @@ nav ul li {
   text-align: center;
 }
 
+@media only screen and (max-width: 768px) {
+  .modal {
+    width: 73%;
+  }
+}
+
 .modal a {
   margin-top: 15px;
   width: 100px;
@@ -150,6 +162,13 @@ code {
 
 .my-page-menu {
   margin-top: 8px;
+}
+
+@media only screen and (max-width: 768px) {
+  .my-page-menu {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .my-page-btn {
