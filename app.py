@@ -51,26 +51,27 @@ def welcome():
     # list of comments id
     most_commented_post = most_liked_post
 
+    # count likes for each post
     for number in range(len(most_liked_post)):
         for like in likes:
             if like["post_id"] == most_liked_post[number][0]:
                 most_liked_post[number][1] += 1
 
-
+    # Sort likes by second column
     most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
-    # print(most_liked_post[len(most_liked_post)-1][0])
     most_liked = most_liked_post[len(most_liked_post)-1][0]
 
-
+    # count comments for each post
     for number in range(len(most_commented_post)):
         for comment in comments:
             if comment["post_id"] == most_commented_post[number][0]:
                 most_commented_post[number][1] += 1
 
-
+    # sort comments by second column
     most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
     most_commented = most_commented_post[len(most_commented_post)-1][0]
 
+    # get random post 
     show_random_post = random.choice(most_commented_post)
     random_post = show_random_post[0]
 
@@ -88,15 +89,16 @@ def search():
     """
         Search troughout posts title or content
     """
+    # get search word from form
     query = request.form.get("query")
     posts = list(mongo.db.post.find())
 
+    # find word in post or title, if found add post to found list
     found = []
     for post in posts:
         if query in post["content"] or query in post["title"]:
             found.append(post)
 
-    #print(found.sort("time", -1))
     likes = list(mongo.db.likes.find())
     comments = list(mongo.db.comments.find())
 
@@ -112,9 +114,8 @@ def search():
         most_liked_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
 
-    # list of comments id
+    # below same code as in welcome route
     most_commented_post = most_liked_post
-
     for number in range(len(most_liked_post)):
         for like in likes:
             if like["post_id"] == most_liked_post[number][0]:
@@ -122,15 +123,12 @@ def search():
 
 
     most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
-    # print(most_liked_post[len(most_liked_post)-1][0])
     most_liked = most_liked_post[len(most_liked_post)-1][0]
-
 
     for number in range(len(most_commented_post)):
         for comment in comments:
             if comment["post_id"] == most_commented_post[number][0]:
                 most_commented_post[number][1] += 1
-
 
     most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
     most_commented = most_commented_post[len(most_commented_post)-1][0]
@@ -138,14 +136,12 @@ def search():
     show_random_post = random.choice(most_commented_post)
     random_post = show_random_post[0]
 
-
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
     dislikes = list(mongo.db.dislikes.find())
     pinned = list(mongo.db.pinned.find())
     return render_template("search.html", posts=found, categories=categories, users=users, likes=likes, dislikes=dislikes, 
                                         pinned=pinned, most_liked=most_liked, most_commented=most_commented, random_post=random_post)
-    return ('', 204)
 
 
 @app.route("/read_post/<post_id>")
@@ -187,8 +183,8 @@ def read_post(post_id):
         most_liked_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
     
+    # below same code as in welcome route
     most_commented_post = most_liked_post
-
     for number in range(len(most_liked_post)):
         for like in likes:
             if like["post_id"] == most_liked_post[number][0]:
@@ -196,7 +192,6 @@ def read_post(post_id):
     
 
     most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
-    # print(most_liked_post[len(most_liked_post)-1][0])
     most_liked = most_liked_post[len(most_liked_post)-1][0]
 
     for number in range(len(most_commented_post)):
@@ -208,11 +203,9 @@ def read_post(post_id):
     most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
     most_commented = most_commented_post[len(most_commented_post)-1][0]
 
-
     show_random_post = random.choice(most_commented_post)
     random_post = show_random_post[0]
                 
-
     # (nl to br) replace new line with page break
     post["content"] = post["content"].replace('\n', '<br />')
     # \t to tab (8 spaces)
@@ -237,6 +230,8 @@ def add_post():
         user_id = mongo.db.user.find_one(
             {"username": session["user"]}
         )
+
+        #prepare query variable
         post = {
             "user_id": str(user_id["_id"]), # add user id
             "category": request.form.get("category"),
@@ -246,9 +241,10 @@ def add_post():
             "time": now,
             "img_src": request.form.get("img_src"),
         }
+        # add post to db 
         mongo.db.post.insert_one(post)
         flash("Post Added!")
-        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
         return redirect(url_for("welcome"))
 
     categories = mongo.db.categories.find()
@@ -265,6 +261,7 @@ def edit_post(post_id):
         user_id = mongo.db.user.find_one(
             {"username": session["user"]}
         )
+        #prepare query variable
         post = {
             "user_id": str(user_id["_id"]), # add user id
             "category": request.form.get("category"),
@@ -276,10 +273,12 @@ def edit_post(post_id):
         }
         mongo.db.post.update({"_id": ObjectId(post_id)}, post)
         flash("Post Updated!")
-        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
 
+        #redirect to reade recently added post
         return redirect(url_for("read_post", post_id=post_id))
 
+    # redirect to edit post page
     post = mongo.db.post.find_one(
         {"_id": ObjectId(post_id)}
     )
@@ -314,7 +313,7 @@ def delete_post(post_id):
         "post_id": str(ObjectId(post_id))
     })
     flash("Post Deleted!")
-    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
     return redirect(url_for("welcome"))
 
 
@@ -346,13 +345,11 @@ def like(post_id, page):
             else:
                 insert = True
     
-
     if insert == False:
         # Delete like from db
         mongo.db.likes.delete_one({
             "_id": ObjectId(like_id)
         })
-
 
     # Check if user had disliked this post before if so delete
     if len(dislikes) > 0:
@@ -361,7 +358,6 @@ def like(post_id, page):
                 mongo.db.dislikes.delete_one({
                     "_id": ObjectId(dislike["_id"])
                 })
-
 
     if insert == True and len(likes) > 0:
         # Add to likes if table is empty.
@@ -384,7 +380,7 @@ def like(post_id, page):
     if post:
         post_id = post["post_id"]
     
-
+    # return to page where like btn clicked
     if page == "welcome":
         return redirect(url_for("welcome"))
     if page == "post":
@@ -392,8 +388,8 @@ def like(post_id, page):
     if page == "mypage":
          return redirect(url_for("mypage", username=username))
 
+    # return nothing
     return ('', 204)
-
 
 
 @app.route("/dislike/<post_id>/<page>", methods=["GET","POST"])
@@ -406,7 +402,6 @@ def dislike(post_id, page):
     dislikes = list(mongo.db.dislikes.find())
     likes = list(mongo.db.likes.find())
 
-
     if len(dislikes) == 0:
         # Add to dislikes if table is empty.
         dislike = ({
@@ -415,7 +410,6 @@ def dislike(post_id, page):
         })
         mongo.db.dislikes.insert_one(dislike)
 
-
     # Check if user had liked this post before if so delete
     if len(likes) > 0:
         for like in likes:
@@ -423,7 +417,6 @@ def dislike(post_id, page):
                 mongo.db.likes.delete_one({
                     "_id": ObjectId(like["_id"])
                 })
-
 
     # Check if there is data in the dislikes table. 
     if len(dislikes) > 0:
@@ -435,14 +428,12 @@ def dislike(post_id, page):
             else:
                 insert = True
     
-
     if insert == False:
         # Delete like from db
         mongo.db.dislikes.delete_one({
             "_id": ObjectId(dislike_id)
         })
     
-
     if insert == True and len(dislikes) > 0:
         # Add to dislikes if table is empty.
         dislike = ({
@@ -464,7 +455,7 @@ def dislike(post_id, page):
     if post:
         post_id = post["post_id"]
     
-
+    # redirect to page where dislike btn clicked
     if page == "welcome":
         return redirect(url_for("welcome"))
     if page == "post":
@@ -518,6 +509,7 @@ def pinned(post_id, page):
     if post:
         post_id = post["post_id"]
 
+    # redirect to page where pinned btn clicked
     if page == "welcome":
         return redirect(url_for("welcome"))
     if page == "post":
@@ -544,7 +536,7 @@ def check(s):
             if pin["username"] == s[0:s.find("/")]:
                 if pin["post_id"] == s[s.find("/")+1:len(s)]:
                     pin_id = "ok"
-
+    # if id ok btn color blue else standart
     return pin_id
 
 
@@ -563,7 +555,7 @@ def check(s):
             if like["username"] == s[0:s.find("/")]:
                 if like["post_id"] == s[s.find("/")+1:len(s)]:
                     like_id = "ok"
-
+    # if id ok btn color blue else standart
     return like_id
 
 
@@ -582,7 +574,7 @@ def check(s):
             if like["username"] == s[0:s.find("/")]:
                 if like["post_id"] == s[s.find("/")+1:len(s)]:
                     like_id = "ok"
-
+    # if id ok btn color blue else standart
     return like_id
 
 
@@ -604,7 +596,7 @@ def comment(post_id):
             "time": now
         })
         flash("Comment Added!")
-        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
         mongo.db.comments.insert_one(comment)
 
         return redirect(url_for("read_post", post_id=post_id))
@@ -624,6 +616,7 @@ def edit_comment(comment_id):
             {"_id": ObjectId(comment_id) }
         )
 
+        # prepare comment variable
         comment = ({
             "user_id": str(user_id["_id"]),
             "post_id": old_comment["post_id"],
@@ -632,13 +625,13 @@ def edit_comment(comment_id):
             "time": old_comment["time"]
         })
         flash("Comment Updated!")
-        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
         mongo.db.comments.update({"_id": ObjectId(comment_id)}, comment)
 
     post_id = mongo.db.comments.find_one(
         {"_id": ObjectId(comment_id)}
     )
-
+    # redirect to commented post
     return redirect(url_for("read_post", post_id=post_id["post_id"]))
 
 
@@ -656,7 +649,8 @@ def delete_comment(comment_id):
         "_id":ObjectId(comment_id)
     })
     flash("Comment Deleted!")
-    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
+    # redirect to post where comment was deleted
     return redirect(url_for("read_post", post_id=comment["post_id"]))
 
 
@@ -701,6 +695,7 @@ def delete_comment_mypage(comment_id):
     })
     flash("Comment Deleted!")
     flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+    # redirect to my page
     return redirect(url_for("mypage", username=username))
 
 
@@ -726,13 +721,13 @@ def edit_comment_mypage(comment_id):
             "time": old_comment["time"]
         })
         flash("Comment Updated!")
-        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+        flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
         mongo.db.comments.update({"_id": ObjectId(comment_id)}, comment)
 
     post_id = mongo.db.comments.find_one(
         {"_id": ObjectId(comment_id)}
     )
-
+    # redirect to my page
     return redirect(url_for("mypage", username=user_id))
 
 
@@ -765,7 +760,8 @@ def delete_post_mypage(post_id):
         "post_id": str(ObjectId(post_id))
     })
     flash("Post Deleted!")
-    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
+    # redirect to my page
     return redirect(url_for("mypage", username=user_id))
 
 
@@ -784,15 +780,15 @@ def login():
                 session["user"] = request.form.get("username")
                 a = request.form.get("username")
                 flash("Welcome {}".format(request.form.get("username")))
-                flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+                flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
                 return redirect(url_for("welcome", username=session["user"]))
             else:
                 flash("Incorrect Username and/or Password!")
-                flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error pick
+                flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error img
                 return redirect(url_for("login"))
         else:
             flash("Incorrect Username and/or Password!")
-            flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error pick
+            flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error img
             return redirect(url_for("login"))
 
     return render_template("login.html")
@@ -810,7 +806,7 @@ def signup():
 
         if get_user:
             flash("User already exists!")
-            flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error pick
+            flash("https://img.icons8.com/color/144/000000/cancel--v1.png") # error img
             return redirect(url_for("signup"))
 
         signup = {
@@ -834,7 +830,7 @@ def logout():
         Log out
     """
     flash("Logged Out!")
-    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success pick
+    flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
     session.pop("user")
     return redirect(url_for("welcome"))
 
