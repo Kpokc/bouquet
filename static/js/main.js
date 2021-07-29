@@ -1,6 +1,14 @@
 $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
-    $('.fixed-action-btn').floatingActionButton({direction: 'left'});
+    if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
+    {
+        $('.fixed-action-btn').floatingActionButton({direction: 'top'});
+    }
+    else 
+    {
+        $('.fixed-action-btn').floatingActionButton({direction: 'left'});
+    }
+    
     $('select').formSelect();
     $('.modal').modal();
     
