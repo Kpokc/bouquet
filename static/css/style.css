@@ -3,6 +3,7 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -11,6 +12,10 @@ body {
 
 a {
   color: inherit;
+}
+
+.navbar-fixed {
+  z-index: 3100;
 }
 
 .top-main-menu {

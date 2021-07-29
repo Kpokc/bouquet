@@ -8,6 +8,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -19,6 +20,11 @@ a {
 }
 
 // Top Menu to Center *
+
+.navbar-fixed {
+    z-index: 3100;
+}
+
 .top-main-menu {
     text-align: center;
     .brand-logo {
