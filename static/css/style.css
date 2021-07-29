@@ -276,6 +276,12 @@ code {
   width: 170px;
 }
 
+.element.style {
+  opacity: 1;
+  -webkit-transform: scale(1) translateY(0px) translateX(15px) !important;
+          transform: scale(1) translateY(0px) translateX(15px) !important;
+}
+
 .flash-message {
   position: absolute;
   top: 25%;
@@ -300,5 +306,9 @@ code {
 
 .flash-message h4 {
   padding: 8px;
+}
+
+.search-background {
+  background-color: #ffffff;
 }
 /*# sourceMappingURL=style.css.map */

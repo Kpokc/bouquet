@@ -266,6 +266,11 @@ code {
     width: 170px;
 }
 
+.element.style {
+    opacity: 1;
+    transform: scale(1) translateY(0px) translateX(15px)!important;
+}
+
 // \. My page
 
 // Flash message
@@ -289,4 +294,9 @@ code {
     h4 {
         padding: 8px;
     }
+}
+
+// Search
+.search-background {
+    background-color: #ffffff;
 }

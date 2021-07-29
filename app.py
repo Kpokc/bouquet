@@ -83,6 +83,71 @@ def welcome():
                                         pinned=pinned, most_liked=most_liked, most_commented=most_commented, random_post=random_post)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    """
+        Search troughout posts title or content
+    """
+    query = request.form.get("query")
+    posts = list(mongo.db.post.find())
+
+    found = []
+    for post in posts:
+        if query in post["content"] or query in post["title"]:
+            found.append(post)
+
+    #print(found.sort("time", -1))
+    likes = list(mongo.db.likes.find())
+    comments = list(mongo.db.comments.find())
+
+    # list of likes id
+    most_liked_post = []
+    i = 0
+    for post in posts:
+        # (nl to br) replace new line with page break
+        post["content"] = post["content"].replace('\n', '<br />')
+        # \t to tab (8 spaces)
+        tab = "&nbsp;" * 8
+        post["content"] = post["content"].replace('\t', tab)
+        most_liked_post.insert(i, [str(post["_id"]), 0])
+        i =+ 1
+
+    # list of comments id
+    most_commented_post = most_liked_post
+
+    for number in range(len(most_liked_post)):
+        for like in likes:
+            if like["post_id"] == most_liked_post[number][0]:
+                most_liked_post[number][1] += 1
+
+
+    most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
+    # print(most_liked_post[len(most_liked_post)-1][0])
+    most_liked = most_liked_post[len(most_liked_post)-1][0]
+
+
+    for number in range(len(most_commented_post)):
+        for comment in comments:
+            if comment["post_id"] == most_commented_post[number][0]:
+                most_commented_post[number][1] += 1
+
+
+    most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
+    most_commented = most_commented_post[len(most_commented_post)-1][0]
+
+    show_random_post = random.choice(most_commented_post)
+    random_post = show_random_post[0]
+
+
+    categories = list(mongo.db.categories.find())
+    users = list(mongo.db.user.find())
+    dislikes = list(mongo.db.dislikes.find())
+    pinned = list(mongo.db.pinned.find())
+    return render_template("search.html", posts=found, categories=categories, users=users, likes=likes, dislikes=dislikes, 
+                                        pinned=pinned, most_liked=most_liked, most_commented=most_commented, random_post=random_post)
+    return ('', 204)
+
+
 @app.route("/read_post/<post_id>")
 def read_post(post_id):
     """

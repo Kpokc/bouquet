@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Horizontal card -->
+<div class="row">
+    <div class="col l8 m12 s12 offset-l2">
+        {% for post in posts %}
+        <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
+                <div class="card horizontal hoverable">
+                    <div class="card-image">
+                        {% for category in categories %}
+                            {% if post.category == category._id|string %}
+                                <img src="{{ category.img_src }}" alt="{{ category.title }}" class="card-img"/>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-title">
+                            <small>
+                            {% for category in categories %}
+                                {% if post.category == category._id|string %}
+                                    {{ category.title|upper }}
+                                {% endif %}
+                            {% endfor %}
+                            </small><br>
+                            <hr class="card-line">
+                            <strong>{{ post.title }}</strong>
+                        </div>
+                        <div class="card-content homepage-card-content" style="word-wrap: break-word;">
+                            <p id="text-to-read">{{ post.content }}</p>
+                        </div>
+                        <div class="card-author">
+                            <p>
+                                {% for user in users %}
+                                    {% if post.user_id == user._id|string %}
+                                        {{ user.username }}
+                                    {% endif %}
+                                {% endfor %}
+                                <span style="float:right;">{{ post.date }}</span>
+                            </p>
+                        </div>
+                        <hr class="card-line">
+                        <div class="card-action">
+                            {% for user in users %}
+                                {% if user._id|string == post.user_id %}
+                                    {% if user.username == session.user %}
+                                        <!-- Edit Post -->
+                                        <a class="homepage-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post._id) }}">Edit Post</a>
+                                        <!-- Edit Post mobile btn-->
+                                        <a class="homepage-post-btn-mobile top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post._id) }}">Edit</a>
+                                        <!-- Delete Post Modal -->
+                                        <a class="homepage-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Delete Post</a>
+                                        <!-- Edit Post mobile btn-->
+                                        <a class="homepage-post-btn-mobile top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger" href="#modal1">Delete</a>
+                                        <div id="modal1" class="modal">
+                                            <div class="modal-content">
+                                            <h5>Delete Post?</h5>
+                                                <div class="row">
+                                                    <a class="comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">No</a>
+                                                    <a href="{{ url_for('delete_post', post_id=post._id) }}" class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        <!-- red action button -->
+                        <div class="fixed-action-btn fixed-action-btn-mobile">
+                            <a class="top-menu btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
+                                <i class="large material-icons">mode_edit</i>
+                            </a>
+                            <ul>
+                                {% if session.user %}
+                                    {% set page = "welcome" %}
+
+                                    <!-- Check if liked-->
+                                    {% if likes|length > 0 %}
+                                        <!-- Below pass to liked username and post id  -->
+                                        {% set liked = session.user %}
+                                        {% set liked = liked + "/" + post._id|string %}
+                                        <!-- sned request to check if user had pinned this post  -->
+                                        {% if liked | check_like == "ok" %}
+                                            <!-- Like -->
+                                            <li><a href="{{ url_for('like', post_id=post._id, page=page) }}" class="active-btn btn-floating waves-effect waves-light btn"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                        {% else %}
+                                            <!-- Like -->
+                                            <li><a href="{{ url_for('like', post_id=post._id, page=page) }}" class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                        {% endif%}
+                                    {% else %}
+                                        <!-- Like -->
+                                        <li><a href="{{ url_for('like', post_id=post._id, page=page) }}" class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-up like-hand"></i></a></li>
+                                    {% endif%}
+
+                                    <!-- Check if disliked-->
+                                    {% if dislikes|length > 0 %}
+                                        <!-- Below pass to disliked username and post id  -->
+                                        {% set disliked = session.user %}
+                                        {% set disliked = disliked + "/" + post._id|string %}
+                                        <!-- sned request to check if user had pinned this post  -->
+                                        {% if disliked | check_dislike == "ok" %}
+                                            <!-- Dislike -->
+                                            <li><a href="{{ url_for('dislike', post_id=post._id, page=page) }}" class="active-btn btn-floating waves-effect waves-light btn"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                        {% else %}
+                                            <!-- Dislike -->
+                                            <li><a href="{{ url_for('dislike', post_id=post._id, page=page) }}" class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                        {% endif%}
+                                    {% else %}
+                                        <!-- Dislike -->
+                                        <li><a href="{{ url_for('dislike', post_id=post._id, page=page) }}" class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                    {% endif%}
+
+                                    <!-- Check if pinned-->
+                                    {% if pinned|length > 0 %}
+                                        <!-- Below pass to pinpost username and post id  -->
+                                        {% set pinpost = session.user %}
+                                        {% set pinpost = pinpost + "/" + post._id|string %}
+                                        <!-- sned request to check if user had pinned this post  -->
+                                        {% if pinpost | check_pin == "ok" %}
+                                            <!-- Pin/Unpin -->
+                                            <li><a href="{{ url_for('pinned',post_id=post._id, page=page) }}" class="active-btn btn-floating waves-effect waves-light btn"><i class="fas fa-thumbtack"></i></a></li>
+                                        {% else %}
+                                            <!-- Pin/Unpin -->
+                                            <li><a href="{{ url_for('pinned',post_id=post._id, page=page) }}" class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="not-pinned fas fa-thumbtack"></i></a></li>
+                                        {% endif%}
+                                    {% else %}
+                                        <!-- Pin/Unpin -->
+                                        <li><a href="{{ url_for('pinned',post_id=post._id, page=page) }}" class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="not-pinned fas fa-thumbtack"></i></a></li>
+                                    {% endif%}
+                                {% endif %}
+                                <!-- Copy post link -->
+                                <li><a value="http://localhost:5000/{{ url_for('read_post', post_id=post._id) }}" class="copy-post-link top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i class="far fa-copy"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
