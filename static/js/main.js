@@ -1,16 +1,17 @@
 $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
-    if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
-    {
-        $('.fixed-action-btn').floatingActionButton({direction: 'top'});
-    }
-    else 
-    {
-        $('.fixed-action-btn').floatingActionButton({direction: 'left'});
-    }
-    
     $('select').formSelect();
     $('.modal').modal();
+    // Check device screen and change action btn direction
+    //https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device
+    if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
+        {
+            $('.fixed-action-btn').floatingActionButton({direction: 'top'});
+        }
+    else 
+        {
+            $('.fixed-action-btn').floatingActionButton({direction: 'left'});
+        }
     
     // convert text to html (nl to br) python lines 37, 55
     $(".card-content").children("#text-to-read").each(function(){
@@ -78,8 +79,6 @@ $(document).ready(function(){
             e.preventDefault();
         }
     });
-    //////////////////////////////////////////////////////
-
 
     // Get length of posts content and hide some
     $(".card-content").each(function(){
@@ -98,6 +97,7 @@ $(document).ready(function(){
         }
     })
 
+    // Code institute
     validateMaterializeSelect();
       function validateMaterializeSelect() {
           let classValid = { "border-bottom": "1px solid #4caf50", "box-shadow": "0 1px 0 0 #4caf50" };
