@@ -384,9 +384,9 @@ def like(post_id, page):
     if page == "welcome":
         return redirect(url_for("welcome"))
     if page == "post":
-         return redirect(url_for("read_post", post_id=post_id))
+        return redirect(url_for("read_post", post_id=post_id))
     if page == "mypage":
-         return redirect(url_for("mypage", username=username))
+        return redirect(url_for("mypage", username=username))
 
     # return nothing
     return ('', 204)
@@ -459,9 +459,9 @@ def dislike(post_id, page):
     if page == "welcome":
         return redirect(url_for("welcome"))
     if page == "post":
-         return redirect(url_for("read_post", post_id=post_id))
+        return redirect(url_for("read_post", post_id=post_id))
     if page == "mypage":
-         return redirect(url_for("mypage", username=username))
+        return redirect(url_for("mypage", username=username))
 
     # return nothing
     return ('', 204)
@@ -513,9 +513,9 @@ def pinned(post_id, page):
     if page == "welcome":
         return redirect(url_for("welcome"))
     if page == "post":
-         return redirect(url_for("read_post", post_id=post_id))
+        return redirect(url_for("read_post", post_id=post_id))
     if page == "mypage":
-         return redirect(url_for("mypage", username=username))
+        return redirect(url_for("mypage", username=username))
 
     # return nothing
     return ('', 204)
@@ -541,7 +541,7 @@ def check(s):
 
 
 @app.template_filter('check_like')
-def check(s):
+def check2(s):
     """
         this filter is checking if post was pinned by current user
     """
@@ -560,7 +560,7 @@ def check(s):
 
 
 @app.template_filter('check_dislike')
-def check(s):
+def check3(s):
     """
         this filter is checking if post was pinned by current user
     """
@@ -723,10 +723,7 @@ def edit_comment_mypage(comment_id):
         flash("Comment Updated!")
         flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
         mongo.db.comments.update({"_id": ObjectId(comment_id)}, comment)
-
-    post_id = mongo.db.comments.find_one(
-        {"_id": ObjectId(comment_id)}
-    )
+    
     # redirect to my page
     return redirect(url_for("mypage", username=user_id))
 
@@ -778,7 +775,7 @@ def login():
         if get_user:
             if check_password_hash(get_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username")
-                a = request.form.get("username")
+                #a = request.form.get("username")
                 flash("Welcome {}".format(request.form.get("username")))
                 flash("https://img.icons8.com/ultraviolet/120/000000/ok.png") # success img
                 return redirect(url_for("welcome", username=session["user"]))
