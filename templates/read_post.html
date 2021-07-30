@@ -16,11 +16,19 @@
          <div class="card-stacked">
             <div class="card-title post-title">
                <small>
-               {% for category in categories %}
-                    {% if post_to_read.category == category._id|string %}
-                        {{ category.title|upper }}
-                    {% endif %}
-               {% endfor %}
+                <span>
+                    {% for category in categories %}
+                        {% if post_to_read.category == category._id|string %}
+                            {{ category.title|upper }}
+                        {% endif %}
+                    {% endfor %}
+                    <span class="like-dislike" style="float:right;">
+                        <i class="far fa-thumbs-down dislike-hand"></i> {{ post_to_read._id|string | check_dislikes}}
+                    </span>
+                    <span class="like-dislike" style="float:right;">
+                        <i class="far fa-thumbs-up like-hand"></i> {{ post_to_read._id|string | check_likes}}
+                    </span>
+                </span>
                </small><br>
                <strong>{{ post_to_read.title }}</strong>
             </div>

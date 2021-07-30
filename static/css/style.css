@@ -75,6 +75,11 @@ nav ul li {
   word-break: break-word;
 }
 
+.like-dislike {
+  margin-right: 10px;
+  margin-top: 7px;
+}
+
 .card.horizontal {
   margin-bottom: 65px;
 }

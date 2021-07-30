@@ -84,6 +84,36 @@ def welcome():
                                         pinned=pinned, most_liked=most_liked, most_commented=most_commented, random_post=random_post)
 
 
+@app.template_filter('check_likes')
+def check_likes(s):
+    """
+        this filter returns total count of likes for each post
+    """
+    like_count = 0
+    likes = list(mongo.db.likes.find())
+    
+    for like in likes:
+        if like["post_id"] == s:
+            like_count += 1
+
+    return like_count
+
+
+@app.template_filter('check_dislikes')
+def check_dislikes(s):
+    """
+        this filter returns total count of dislikes for each post
+    """
+    dislike_count = 0
+    dislikes = list(mongo.db.dislikes.find())
+    
+    for dislike in dislikes:
+        if dislike["post_id"] == s:
+            dislike_count += 1
+
+    return dislike_count
+
+
 @app.route("/search", methods=["GET", "POST"])
 def search():
     """

@@ -37,12 +37,21 @@
                             <div class="card-stacked">
                                 <div class="card-title">
                                     <small>
-                                        {% for category in categories %}
-                                        {% if post.category == category._id|string %}
-                                        {{ category.title|upper }}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </small><br>
+                                        <span>
+                                            {% for category in categories %}
+                                                {% if post.category == category._id|string %}
+                                                    {{ category.title|upper }}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <span class="like-dislike" style="float:right;">
+                                                <i class="far fa-thumbs-down dislike-hand"></i> {{ post._id|string | check_dislikes}}
+                                            </span>
+                                            <span class="like-dislike" style="float:right;">
+                                                <i class="far fa-thumbs-up like-hand"></i> {{ post._id|string | check_likes}}
+                                            </span>
+                                        </span>
+                                    </small>
+                                    <br>
                                     <hr class="card-line">
                                     <strong>{{ post.title }}</strong>
                                 </div>
@@ -197,12 +206,21 @@
                             <div class="card-stacked">
                                 <div class="card-title">
                                     <small>
-                                        {% for category in categories %}
-                                        {% if post.category == category._id|string %}
-                                        {{ category.title|upper }}
-                                        {% endif %}
-                                        {% endfor %}
-                                    </small><br>
+                                        <span>
+                                            {% for category in categories %}
+                                                {% if post.category == category._id|string %}
+                                                    {{ category.title|upper }}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <span class="like-dislike" style="float:right;">
+                                                <i class="far fa-thumbs-down dislike-hand"></i> {{ post._id|string | check_dislikes}}
+                                            </span>
+                                            <span class="like-dislike" style="float:right;">
+                                                <i class="far fa-thumbs-up like-hand"></i> {{ post._id|string | check_likes}}
+                                            </span>
+                                        </span>
+                                    </small>
+                                    <br>
                                     <hr class="card-line">
                                     <strong>{{ post.title }}</strong>
                                 </div>
