@@ -113,7 +113,8 @@ nav ul li {
 
 .card.horizontal .card-stacked {
   padding-top: 5px;
-  padding-right: 25px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 @media only screen and (max-width: 568px) {

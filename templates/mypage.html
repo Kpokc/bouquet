@@ -362,9 +362,20 @@
                             <a href="{{ url_for('read_post', post_id=comment.post_id) }}" class="{{comment._id|string}}">
                             {% for user in users%}
                             {% if comment.user_id == user._id|string %}
-                            <p>{{ user.username }} <span>{{ comment.date }}</span></p>
+                            <p>{{ user.username }} @ <span>{{ comment.date }}</span>
                             {% endif %}
                             {% endfor %}
+                            <span class="title" style="text-transform: uppercase; float: right;">
+                                <small>
+                                    <span class="like-dislike">
+                                        <i class="far fa-thumbs-up like-hand"></i> {{ comment._id|string | check_likes}}
+                                    </span>
+                                    <span class="like-dislike">
+                                        <i class="far fa-thumbs-down dislike-hand"></i> {{ comment._idstring | check_dislikes}}
+                                    </span>
+                                </small>
+                            </span>
+                            </p>
                             <hr>
                             <div class="card-content">
                                 <p>{{ comment.comment}}</p>
