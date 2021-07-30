@@ -23,6 +23,9 @@
                         {% endif %}
                     {% endfor %}
                     <span class="like-dislike" style="float:right;">
+                        <i class="far fa-comment"></i> {{ post_to_read._id|string | check_comments}}
+                    </span>
+                    <span class="like-dislike" style="float:right;">
                         <i class="far fa-thumbs-down dislike-hand"></i> {{ post_to_read._id|string | check_dislikes}}
                     </span>
                     <span class="like-dislike" style="float:right;">

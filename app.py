@@ -114,6 +114,21 @@ def check_dislikes(s):
     return dislike_count
 
 
+@app.template_filter('check_comments')
+def check_comments(s):
+    """
+        this filter returns total count of comments for each post
+    """
+    comments_count = 0
+    comments = list(mongo.db.comments.find())
+    
+    for comment in comments:
+        if comment["post_id"] == s:
+            comments_count += 1
+
+    return comments_count
+
+
 @app.route("/search", methods=["GET", "POST"])
 def search():
     """
@@ -126,7 +141,7 @@ def search():
     # find word in post or title, if found add post to found list
     found = []
     for post in posts:
-        if query in post["content"] or query in post["title"]:
+        if query.lower() in post["content"].lower() or query.lower() in post["title"].lower():
             found.append(post)
 
     likes = list(mongo.db.likes.find())

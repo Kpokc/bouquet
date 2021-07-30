@@ -24,6 +24,9 @@
                                                             <span class="like-dislike">
                                                                 <i class="far fa-thumbs-down dislike-hand"></i> {{ post._id|string | check_dislikes}}
                                                             </span>
+                                                            <span class="like-dislike">
+                                                                <i class="far fa-comment"></i> {{ post._id|string | check_comments}}
+                                                            </span>
                                                         </small>
                                                     </span>
                                                 <p>
@@ -67,7 +70,19 @@
                                             <div class="col l9 m9 s12">
                                                 <p>
                                                     <span class="title" style="text-transform: uppercase;"><small>{{ category.title }}</small></span>
-                                                    <span class="title" style="text-transform: uppercase; float: right;"><small>Most Commented</small></span>
+                                                    <span class="title" style="text-transform: uppercase; float: right;">
+                                                        <small>
+                                                            <span class="like-dislike">
+                                                                <i class="far fa-thumbs-up like-hand"></i> {{ post._id|string | check_likes}}
+                                                            </span>
+                                                            <span class="like-dislike">
+                                                                <i class="far fa-thumbs-down dislike-hand"></i> {{ post._id|string | check_dislikes}}
+                                                            </span>
+                                                            <span class="like-dislike">
+                                                                <i class="far fa-comment"></i> {{ post._id|string | check_comments}}
+                                                            </span>
+                                                        </small>
+                                                    </span>
                                                 </p>
                                             </div>
                                             <div class="col l9 m9 s12">
@@ -116,6 +131,9 @@
                                                         </span>
                                                         <span class="like-dislike">
                                                             <i class="far fa-thumbs-down dislike-hand"></i> {{ post._id|string | check_dislikes}}
+                                                        </span>
+                                                        <span class="like-dislike">
+                                                            <i class="far fa-comment"></i> {{ post._id|string | check_comments}}
                                                         </span>
                                                     </small>
                                                 </span>
