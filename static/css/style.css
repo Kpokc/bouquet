@@ -18,6 +18,10 @@ a {
   z-index: 3100;
 }
 
+#mobile-demo {
+  margin-top: 60px;
+}
+
 .top-main-menu {
   text-align: center;
 }
@@ -295,7 +299,7 @@ code {
 
 .flash-message {
   position: absolute;
-  top: 25%;
+  top: 45%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);

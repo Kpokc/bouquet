@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="center-align light-teal-text">Contact Us</h3>
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="https://formsubmit.co/summerloafers@gmail.com">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_webhook" value="http://192.168.0.106:5000/">
+        <input type="hidden" name="_autoresponse" value="Thank You!">
+        <div class="card-panel">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <input id="name" name="name" type="text" class="validate teal-text text-darken-4" minlength="5" maxlength="25" required>
+                    <label for="name">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">email</i>
+                    <input id="email" name="email" type="email" class="validate teal-text text-darken-4" minlength="5" maxlength="25"" required>
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                   <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
+                   <textarea id="content" name="message" class="materialize-textarea teal-text text-darken-4" minlength="5" maxlength="3000" required></textarea>
+                   <label for="content"><span class="text-area-span">Use <b>< code > ... < /code ></b> tag for code samples!!!</span></label>
+                </div>
+             </div>
+            <div class="row">
+                <button id="form-btn" type="submit" class="top-menu col s12 btn-large blue-grey darken-1">
+                Send
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

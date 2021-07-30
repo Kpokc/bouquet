@@ -866,6 +866,15 @@ def signup():
     return render_template("signup.html")
 
 
+@app.route("/contact")
+def contact():
+    """
+        Contact
+    """
+    
+    return render_template("contact.html")
+
+
 @app.route("/logout")
 def logout():
     """
