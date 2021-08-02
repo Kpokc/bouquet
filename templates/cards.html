@@ -53,7 +53,7 @@
                         <hr class="card-line">
                         <div class="card-action">
                             {% for user in users %}
-                                {% if user._id|string == post.user_id %}
+                                {% if user._id|string == post.user_id or user.username == "admin" %}
                                     {% if user.username == session.user %}
                                         <!-- Edit Post -->
                                         <a class="homepage-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post._id) }}">Edit Post</a>

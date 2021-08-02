@@ -1,5 +1,5 @@
 <h1 align="center">DEV Blog</h1>
-<h1 align="center"><img src="dbschema/devresp.png" /></h1>
+<h1 align="center"><img src="https://github.com/Kpokc/bouquet/blob/master/dbschema/devresp.PNG"/></h1>
 
 -[Live Website](https://edible-bouquets.herokuapp.com/)
 

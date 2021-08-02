@@ -77,7 +77,7 @@
                         </div>
                     </div>
                     {% for user in users %}
-                            {% if user._id|string == post_to_read.user_id %}
+                            {% if user._id|string == post_to_read.user_id  or user.username == "admin" %}
                                 {% if user.username == session.user %}
                                 <!-- Edit Post -->
                                 <a class="edit-post-btn read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1" href="{{ url_for('edit_post', post_id=post_to_read._id) }}">Edit Post</a>
@@ -193,7 +193,7 @@
                <hr>
                <div class="card-action">
                   {% for user in users %}
-                        {% if user._id|string == comment.user_id %}
+                        {% if user._id|string == comment.user_id  or user.username == "admin" %}
                             {% if user.username == session.user %}
                                 <a href="#{{comment._id|string}}"  class="edit-post-btn top-menu waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edit</a>
                                 <!-- Edit Comment Modal -->
