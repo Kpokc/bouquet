@@ -17,19 +17,19 @@ $(document).ready(function(){
     // convert text to html (nl to br) python lines 37, 55
     $(".card-content").children("#text-to-read").each(function(){
         var div = $(this);
-        div.html(div.text())
-    })
+        div.html(div.text());
+    });
 
     // If comment/delete aborted, clear textarea and close modal
     $(".comment-btn").click(function(e){
         $("#comment").val("");
         $('.modal').modal("close");
         e.preventDefault();
-    })
+    });
 
     // Copy post link to clipboard
     $(".copy-post-link").click(function(){
-        value = $(this).attr("value")
+        value = $(this).attr("value");
 
         // stackoverflow.com/questions/47207355/copy-to-clipboard-using-jquery/47207504
         var $temp = $("<input>");
@@ -37,19 +37,19 @@ $(document).ready(function(){
         $temp.val(value).select();
         document.execCommand("copy");
         $temp.remove();
-    })
+    });
 
     // My page show/hide sections
     $(".my-page-btn").click(function(){
-        var get_id = $(this).attr("id")
-        var section = document.getElementsByClassName(get_id)
-        $(section).css("display","block")
+        var get_id = $(this).attr("id");
+        var section = document.getElementsByClassName(get_id);
+        $(section).css("display","block");
         // if section is empty
         if($(section).html().length < 1000){
-            $(section).html("<h4>Sorry No Results!</h4>")
+            $(section).html("<h4>Sorry No Results!</h4>");
         }
-        $(section).siblings().css("display","none")
-    })
+        $(section).siblings().css("display","none");
+    });
 
     // hide flash message
     setTimeout(function() {
@@ -69,9 +69,7 @@ $(document).ready(function(){
             var value = $this.val();
     
             // set textarea value to: text before caret + tab + text after caret
-            $this.val(value.substring(0, start)
-                        + "\t"
-                        + value.substring(end));
+            $this.val(value.substring(0, start) + "\t" + value.substring(end));
     
             // put caret at right position again (add one for the tab)
             this.selectionStart = this.selectionEnd = start + 1;
@@ -84,7 +82,7 @@ $(document).ready(function(){
     // Get length of posts content and hide some
     $(".card-content").each(function(){
 
-        var id_atribute = $(this).attr("id")
+        var id_atribute = $(this).attr("id");
 
         // If post is not opened for reading hide text
         if (id_atribute != "read") {
@@ -93,10 +91,10 @@ $(document).ready(function(){
             var content_length = $(this).text().length;
 
             if (content_length > 165) {
-                $(this).text(content + "...")
+                $(this).text(content + "...");
         }
         }
-    })
+    });
 
     // Code institute
     validateMaterializeSelect();

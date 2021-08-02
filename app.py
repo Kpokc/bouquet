@@ -284,7 +284,6 @@ def add_post():
             "content": request.form.get("content"),
             "date" : today.strftime("%B %d, %Y"),
             "time": now,
-            "img_src": request.form.get("img_src"),
         }
         # add post to db 
         mongo.db.post.insert_one(post)
@@ -314,7 +313,6 @@ def edit_post(post_id):
             "content": request.form.get("content"),
             "date" : today.strftime("%B %d, %Y"),
             "time": now,
-            "img_src": request.form.get("img_src")
         }
         mongo.db.post.update({"_id": ObjectId(post_id)}, post)
         flash("Post Updated!")
