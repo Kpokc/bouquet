@@ -44,23 +44,23 @@ This site also provides an option to create your own account and add a post.
     1. Copy link of a post.
 
 - ####  Admin/Site Owner
-    1. As a site owner I want to read all the recipe.
-    1. As a site owner I want to add, edit and delete my recipe.
-    1. As a site owner I can delete others recipe from mongo DB.
+    1. As a site owner I want to read all the posts.
+    1. As a site owner I want to add, edit and delete my posts.
+    1. As a site owner I can delete others posts from mongo DB.
     1. As a site owner I want manage categories.I want to add, edit and delete the category from Mongo DB.
-    1. As a site owner I want to recieve the feedback of users.
-    1. Copy link of a post.
+    1. As a site owner I want to receive the feedback of users.
+    1. Copy link of a post, like, dislike and pin any post.
     
 - #### User
     1. I want to check the posts without login or sign up on site.
     1. I want to get posts by search option.
     1. I want to contact the site owner by sending message without login or sign up.
     1. I want to request the site owner to add new category.
-    1. Copy link of a post.
+    1. Copy link of a post, like, dislike and pin any post.
 
 - #### User who wants to post recipe
     1. I want to create mypage by sign up.
-    1. I want to easliy login and check mypage.
+    1. I want to easily login and check mypage.
     1. I want to add new post and available to all users of site.
     1. I want to edit and delete my post or my comment.
     1. I want to pin posts to read them later.
@@ -78,12 +78,12 @@ This site also provides an option to create your own account and add a post.
 
 ### Icons
 
-- In this project, icons provided by Font Awesome and Materialize.
+- [fontawesome.com](https://fontawesome.com/)
+- [materializecss.com](https://materializecss.com/icons.html)
 
 ### Images
 
-- #### 
-    -[Images wehere taken: http://img.icons8.com/](http://img.icons8.com/)
+- [img.icons8.com](https://img.icons8.com/)
 
 ### Defensive Design
 
@@ -92,13 +92,14 @@ This site also provides an option to create your own account and add a post.
     - The category has to be chosen.
     - The title must be provided by user.
     - The content (text) must be provided by user.
+    - Code samples to be placed between "<code></code>" tags
 
 - #### The add and edit comment:
     - The content (text) must be provided by user.
 
 - #### A post or comment can't be deleted by just one click. 
     If someone clicks on the delete button, there wil be a pop up modal with a confirmation
-        if someone is sure to delete the post or comment.
+    if someone is sure to delete the post or comment.
 
 ### Mockups
 
@@ -134,17 +135,18 @@ This site also provides an option to create your own account and add a post.
 - Home Page
     - This page has header, footer and search box, this page has also list of all posts with related images.The header has navigation bar. The image brings the user's attention and inviting the user to explore the post and copy post link.
     (If loged in/ sign up) can like, dislike, add, comment, copy link, pin post.
-    On the right hand side user can get access to most liked, most commented and random post.
+    On the right hand side user can get access to most liked, most commented and random post. Represent how mane likes or dislikes post or comment has.
 
 - Read Post Page
     - User can read post fully. Alsow can like, dislike, pin, delete post. Can copy link of the current post. Aswel as comment post, edit delete, like dislike comment.
     On the right hand side user can get access to most liked, most commented and random post.
+    Represent how mane likes or dislikes post or comment has.
 
 - Contact Page
     - This page contains a form where users can give feedback and ask questions. It has another form where users can request for newsletter by simply subscribe it. 
 
 - MyPage 
-    - Using Mypage user can get access to his posts, his comments and pinned posts. Alsow like, dislike, edit, delete his posts and comments. Unpin posts.
+    - Using Mypage user can get access to his posts, his comments and pinned posts. Alsow like, dislike, edit, delete his posts and comments. Unpin posts. Represents how mane likes or dislikes post or comment has.
 
 - Search page. 
     -User retrieve all post where title and/or content has requested     word.
@@ -159,10 +161,10 @@ This site also provides an option to create your own account and add a post.
     - This page will log user out.
 
 ### Future Features
-  - Represent how mane likes or dislikes post or comment has.
-  - When like, dislike, pin button clicked - implement ajax request to update related buttons color and python functions in the background.
-  - Implement dynamicly preload posts depending on a mouse down scrolle.
-  - Implement comlaints.
+
+  - When like, dislike, pin button clicked - implement ajax request to update related buttons color and python functions in the background of the website. Without reloading the page.
+  - Implement dynamically reload posts depending on a mouse down scroll.
+  - Implement complaints functionality.
 
 <a name="technologies"></a>
 ## Technologies Used
@@ -224,7 +226,7 @@ Validate by direct input
   - Test result : No syntax errors detected
 
 ### Usability Testing
-  - This website is with friends to check on different device and accessbility.
+  - This website is with friends to check on different device and accessibility.
 
 ### Compatibility Testing
   - #### Browser Compatibility
@@ -238,9 +240,9 @@ Validate by direct input
     - I easily understand the purpose and the layout of the site without additional instructions needed.
     - The main page is simple and clear with a search box and list of all posts. 
     - All pages of website has navigation bar. 
-    - With navigation bar I can easily access diiferent page and go anywhere from present page and come back.
+    - With navigation bar I can easily access different page and go anywhere from present page and come back.
         - Home Page
-            - Home page provides the search box to search the specific posts and list of all posts of site.I can like / dislike / pin / copy link of any page. Alsow edit my post.
+            - Home page provides the search box to search the specific posts and list of all posts of site.I can like / dislike / pin / copy link of any post. Alsow edit, delete, like, dislike my comments.
         - Contact Page
             - Contact page provides me contact form for feedback or query.
         - Login Page
@@ -265,7 +267,7 @@ Validate by direct input
 
 - #### User who wants to get recipe 
     - I get the list of all posts.
-    - I get the specificpost by search option.
+    - I get the specific post by search option.
     - I can contact site owner by contact form and also can give feedback.
     - I can like / dislike / comment or copy a link of any post.
     - I can also create my account on website by sign up form.
@@ -288,7 +290,7 @@ Validate by direct input
   3. Create the environment variables
      - Create a .gitignore file in the root directory of the project.
      - Add the env.py file in the .gitignore.
-     - Create the file env.py. This will contain all the envornment variables.
+     - Create the file env.py. This will contain all the environment variables.
         - Import os
         - os.environ.setdefault("IP", "your code")
         - os.environ.setdefault("PORT", "your code")
@@ -341,7 +343,7 @@ Validate by direct input
  
 ### Content :
 
-- All code was written by the Ruby Srivastava.
+- All code was written by the Pavel Makarov.
 
 - To write up a README file the most helpful documents were
     - Code Institute [SampleREADME](https://github.com/Code-Institute-Solutions/SampleREADME)
@@ -358,5 +360,5 @@ Validate by direct input
 ### Acknowledgements :
 
 - Thanks to my fellow student and tutors on slack channel who helped me in some way.
-- Thanks to my mentor Maranatha Ilesalnmi for helping me throughout the project and giving me important suggestions and feedback of my work.
+- Thanks to my mentor for helping me throughout the project and giving me important suggestions and feedback of my work.
  

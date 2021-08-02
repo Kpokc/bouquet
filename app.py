@@ -60,7 +60,7 @@ def welcome():
     # Sort likes by second column
     most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
     most_liked = most_liked_post[len(most_liked_post)-1][0]
-
+    print(most_commented_post)
     # count comments for each post
     for number in range(len(most_commented_post)):
         for comment in comments:
