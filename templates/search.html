@@ -2,7 +2,7 @@
 {% block content %}
 <!-- Horizontal card -->
 <div class="row">
-    <div class="col l8 m12 s12 offset-l2">
+    <div class="col l8 m12 s12">
         {% for post in posts %}
         <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
                 <div class="card horizontal hoverable">
@@ -136,5 +136,7 @@
         </a>
         {% endfor %}
     </div>
+    <!-- aside posts -->
+    {% include "aside.html" %}
 </div>
 {% endblock %}

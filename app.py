@@ -38,6 +38,8 @@ def welcome():
 
     # list of likes id
     most_liked_post = []
+    # list of comments id
+    most_commented_post = []
     i = 0
     for post in posts:
         # (nl to br) replace new line with page break
@@ -46,10 +48,8 @@ def welcome():
         tab = "&nbsp;" * 8
         post["content"] = post["content"].replace('\t', tab)
         most_liked_post.insert(i, [str(post["_id"]), 0])
+        most_commented_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
-
-    # list of comments id
-    most_commented_post = most_liked_post
 
     # count likes for each post
     for number in range(len(most_liked_post)):
@@ -60,12 +60,13 @@ def welcome():
     # Sort likes by second column
     most_liked_post = sorted(most_liked_post, key=lambda x:x[1])
     most_liked = most_liked_post[len(most_liked_post)-1][0]
-    print(most_commented_post)
+
     # count comments for each post
     for number in range(len(most_commented_post)):
         for comment in comments:
             if comment["post_id"] == most_commented_post[number][0]:
                 most_commented_post[number][1] += 1
+                print(most_commented_post)
 
     # sort comments by second column
     most_commented_post = sorted(most_commented_post, key=lambda x:x[1])
@@ -74,7 +75,6 @@ def welcome():
     # get random post 
     show_random_post = random.choice(most_commented_post)
     random_post = show_random_post[0]
-
 
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
@@ -149,6 +149,8 @@ def search():
 
     # list of likes id
     most_liked_post = []
+    # list of comments id
+    most_commented_post = []
     i = 0
     for post in posts:
         # (nl to br) replace new line with page break
@@ -157,10 +159,10 @@ def search():
         tab = "&nbsp;" * 8
         post["content"] = post["content"].replace('\t', tab)
         most_liked_post.insert(i, [str(post["_id"]), 0])
+        most_commented_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
 
     # below same code as in welcome route
-    most_commented_post = most_liked_post
     for number in range(len(most_liked_post)):
         for like in likes:
             if like["post_id"] == most_liked_post[number][0]:
@@ -180,6 +182,7 @@ def search():
 
     show_random_post = random.choice(most_commented_post)
     random_post = show_random_post[0]
+    print(random_post)
 
     categories = list(mongo.db.categories.find())
     users = list(mongo.db.user.find())
@@ -216,7 +219,10 @@ def read_post(post_id):
         tab = "&nbsp;" * 8
         comment["comment"] = comment["comment"].replace('\t', tab)
 
+    # list of likes id
     most_liked_post = []
+    # list of comments id
+    most_commented_post = []
     i = 0
     for post in posts:
         # (nl to br) replace new line with page break
@@ -226,10 +232,10 @@ def read_post(post_id):
         post["content"] = post["content"].replace('\t', tab)
 
         most_liked_post.insert(i, [str(post["_id"]), 0])
+        most_commented_post.insert(i, [str(post["_id"]), 0])
         i =+ 1
     
     # below same code as in welcome route
-    most_commented_post = most_liked_post
     for number in range(len(most_liked_post)):
         for like in likes:
             if like["post_id"] == most_liked_post[number][0]:
