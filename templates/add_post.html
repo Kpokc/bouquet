@@ -10,7 +10,7 @@
             <select name="category" id="category" class="validate" required>
                <option value="" disabled selected>Select Category</option>
                {% for category in categories %}
-               <option value="{{ category._id }}">{{ category.title.upper() }}</option>
+                  <option value="{{ category._id }}">{{ category.title.upper() }}</option>
                {% endfor %}
             </select>
             <label for="category">Category</label>

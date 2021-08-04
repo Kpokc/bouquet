@@ -9,7 +9,7 @@
 
 This project is made for people who likes development. Who have some experience or articles to share, or who is looking how to solve some specific IT problems.
 This website is made with the personal experience of site owner who likes to share his own solution or solutions he has found during the development. 
-For site owner and users it is good ability to build a strong IT comunity.
+For site owner and users it is good ability to build a strong IT community.
 It is designed to be responsive on all devices and easy to navigate for users and owner.
 
 
@@ -142,6 +142,9 @@ This site also provides an option to create your own account and add a post.
     On the right hand side user can get access to most liked, most commented and random post.
     Represent how mane likes or dislikes post or comment has.
 
+- Add Post Page
+    - User can select category. Must provide title and post content. If there is a code samples in the content, user must use <code></code> tags to wrp it.
+
 - Contact Page
     - This page contains a form where users can give feedback and ask questions. It has another form where users can request for newsletter by simply subscribe it. 
 
@@ -181,6 +184,7 @@ This site also provides an option to create your own account and add a post.
 
   - [Font Awesome](https://fontawesome.com/) - Font Awesome is used to add social icons for socila links.
   - [Google Fonts](https://fonts.google.com/) - Google Fonts is used to import 'Roboto'.
+  - [formsubmit.co](https://formsubmit.co/) - Connect your form to our form endpoint and we’ll email you the submissions.
   - [Git](https://git-scm.com/) - Git is used to allow for tracking of any changes in the code and for the version control.
   - [GitPod](https://www.gitpod.io/) - GitPod, connected to GitHub, hosted the coding space and allowed the project to be committed to the Github repository.
   - [Github](https://github.com/) - GitHub is used to host the project files and publish the live website by using Git Pages.
@@ -356,6 +360,8 @@ Validate by direct input
         - [materializecss.com](https://materializecss.com/icons.html)
 - Images
         - [img.icons8.com](https://img.icons8.com/)
+-  Website content
+         -  Google search, https://w3schools.com/, stackoverflow.com
 
 ### Acknowledgements :
 

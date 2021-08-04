@@ -4,9 +4,11 @@
 <div class="row">
     <div class="col l8 m12 s12">
         {% for post in posts %}
-        <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
+            <!-- get link to read the post -->
+            <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
                 <div class="card horizontal hoverable">
                     <div class="card-image">
+                        <!-- get post basic img -->
                         {% for category in categories %}
                             {% if post.category == category._id|string %}
                                 <img src="{{ category.img_src }}" alt="{{ category.title }}" class="card-img"/>
@@ -17,11 +19,13 @@
                         <div class="card-title">
                             <small>
                                 <span>
+                                    <!-- get post title -->
                                     {% for category in categories %}
                                         {% if post.category == category._id|string %}
                                             {{ category.title|upper }}
                                         {% endif %}
                                     {% endfor %}
+                                    <!-- get post likes / dislikes / comments total count-->
                                     <span class="like-dislike" style="float:right;">
                                         <i class="far fa-comment"></i> {{ post._id|string | check_comments}}
                                     </span>
@@ -35,6 +39,7 @@
                             </small>                            
                             <br>
                             <hr class="card-line">
+                            <!-- get post title -->
                             <strong>{{ post.title }}</strong>
                         </div>
                         <div class="card-content homepage-card-content" style="word-wrap: break-word;">
@@ -42,6 +47,7 @@
                         </div>
                         <div class="card-author">
                             <p>
+                                <!-- get post username and post date -->
                                 {% for user in users %}
                                     {% if post.user_id == user._id|string %}
                                         {{ user.username }}
@@ -52,6 +58,7 @@
                         </div>
                         <hr class="card-line">
                         <div class="card-action">
+                            <!-- check if user is logged and this is his post, if so add options to edit or delete -->
                             {% for user in users %}
                                 {% if user._id|string == post.user_id or user.username == "admin" %}
                                     {% if user.username == session.user %}

@@ -4,9 +4,11 @@
             <!-- Add most liked post -->
             {% for post in posts %}
                 {% if post._id|string == most_liked %}
+                    <!-- url to read most liked post -->
                     <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
                         <li class="collection-item avatar hoverable">
                             <div class="row" style="margin-bottom: 0px;">
+                                <!-- get post basic img -->
                                 {% for category in categories %}
                                     {% if post.category == category._id|string %}
                                         <div class="col l3 m3 s3 card-image">
@@ -15,16 +17,20 @@
                                         <div class="recommended-title">
                                             <div class="col l9 m9 s12">
                                                 <p>
+                                                    <!-- get post category -->
                                                     <span class="title" style="text-transform: uppercase;"><small>{{ category.title }}</small></span>
                                                     <span class="title" style="text-transform: uppercase; float: right;">
                                                         <small>
                                                             <span class="like-dislike">
+                                                                <!-- get total likes -->
                                                                 <i class="far fa-thumbs-up like-hand"></i> {{ post._id|string | check_likes}}
                                                             </span>
                                                             <span class="like-dislike">
+                                                                <!-- get total dislikes -->
                                                                 <i class="far fa-thumbs-down dislike-hand"></i> {{ post._id|string | check_dislikes}}
                                                             </span>
                                                             <span class="like-dislike">
+                                                                <!-- get total comments -->
                                                                 <i class="far fa-comment"></i> {{ post._id|string | check_comments}}
                                                             </span>
                                                         </small>
@@ -33,6 +39,7 @@
                                             </div>
                                             <div class="col l9 m9 s12">
                                                 <p>
+                                                    <!-- get post title -->
                                                     <b><span class="title">{{ post.title }}</span></b>
                                                 </p>
                                             </div>
@@ -40,6 +47,7 @@
                                                 {% for user in users %}
                                                     {% if user._id|string == post.user_id %}
                                                         <p>
+                                                            <!-- get user name and date post was sent -->
                                                             <span style="float:left;">{{ user.username }}</span> 
                                                             <span style="float:right;">{{ post.date }}</span>
                                                         </p>
@@ -58,9 +66,11 @@
             <!-- Add most commented post -->
             {% for post in posts %}
                 {% if post._id|string == most_commented %}
+                    <!-- url to read most liked post -->
                     <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
                         <li class="collection-item avatar hoverable">
                             <div class="row" style="margin-bottom: 0px;">
+                                <!-- get post basic img -->
                                 {% for category in categories %}
                                     {% if post.category == category._id|string %}
                                         <div class="col l3 m3 s3 card-image">
@@ -69,16 +79,20 @@
                                         <div class="recommended-title">
                                             <div class="col l9 m9 s12">
                                                 <p>
+                                                    <!-- get post category -->
                                                     <span class="title" style="text-transform: uppercase;"><small>{{ category.title }}</small></span>
                                                     <span class="title" style="text-transform: uppercase; float: right;">
                                                         <small>
                                                             <span class="like-dislike">
+                                                                <!-- get total likes -->
                                                                 <i class="far fa-thumbs-up like-hand"></i> {{ post._id|string | check_likes}}
                                                             </span>
                                                             <span class="like-dislike">
+                                                                <!-- get total dislikes -->
                                                                 <i class="far fa-thumbs-down dislike-hand"></i> {{ post._id|string | check_dislikes}}
                                                             </span>
                                                             <span class="like-dislike">
+                                                                <!-- get total comments -->
                                                                 <i class="far fa-comment"></i> {{ post._id|string | check_comments}}
                                                             </span>
                                                         </small>
@@ -87,6 +101,7 @@
                                             </div>
                                             <div class="col l9 m9 s12">
                                                 <p> 
+                                                    <!-- get post title -->
                                                     <b><span class="title">{{ post.title }}</span></b>
                                                 </p>
                                             </div>
@@ -94,6 +109,7 @@
                                                     {% for user in users %}
                                                         {% if user._id|string == post.user_id %}
                                                             <p>
+                                                                <!-- get user name and date post was sent -->
                                                                 <span style="float:left;">{{ user.username }}</span> 
                                                                 <span style="float:right;">{{ post.date }}</span>
                                                             </p>
@@ -112,9 +128,11 @@
             <!-- Add random post -->
             {% for post in posts %}
                 {% if post._id|string == random_post %}
+                    <!-- url to read most liked post -->
                     <a href="{{ url_for('read_post', post_id=post._id) }}" class="{{post._id|string}}">
                         <li class="collection-item avatar hoverable">
                             <div class="row" style="margin-bottom: 0px;">
+                                <!-- get post basic img -->
                                 {% for category in categories %}
                                     {% if post.category == category._id|string %}
                                     <div class="col l3 m3 s3 card-image">
@@ -123,16 +141,20 @@
                                     <div class="recommended-title">
                                         <div class="col l9 m9 s12">
                                             <p>
+                                                <!-- get post category -->
                                                 <span class="title" style="text-transform: uppercase;"><small>{{ category.title }}</small></span>
                                                 <span class="title" style="text-transform: uppercase; float: right;">
                                                     <small>
                                                         <span class="like-dislike">
+                                                            <!-- get total likes -->
                                                             <i class="far fa-thumbs-up like-hand"></i> {{ post._id|string | check_likes}}
                                                         </span>
                                                         <span class="like-dislike">
+                                                            <!-- get total dislikes -->
                                                             <i class="far fa-thumbs-down dislike-hand"></i> {{ post._id|string | check_dislikes}}
                                                         </span>
                                                         <span class="like-dislike">
+                                                            <!-- get total comments -->
                                                             <i class="far fa-comment"></i> {{ post._id|string | check_comments}}
                                                         </span>
                                                     </small>
@@ -141,6 +163,7 @@
                                         </div>
                                         <div class="col l9 m9 s12">
                                             <p>
+                                                <!-- get post title -->
                                                 <b><span class="title">{{ post.title }}</span></b>
                                             </p>
                                         </div>
@@ -148,6 +171,7 @@
                                             {% for user in users %}
                                                     {% if user._id|string == post.user_id %}
                                                         <p>
+                                                            <!-- get user name and date post was sent -->
                                                             <span style="float:left;">{{ user.username }}</span> 
                                                             <span style="float:right;">{{ post.date }}</span>
                                                         </p>
