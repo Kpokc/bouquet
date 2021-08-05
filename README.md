@@ -7,7 +7,7 @@
  
  ## About
 
-This project is made for people who likes development. Who have some experience or articles to share, or who is looking how to solve some specific IT problems.
+This project is made for people who likes development. Who have some experience or articles to share, or who is looking how to solve some specific IT and development issues.
 This website is made with the personal experience of site owner who likes to share his own solution or solutions he has found during the development. 
 For site owner and users it is good ability to build a strong IT community.
 It is designed to be responsive on all devices and easy to navigate for users and owner.
@@ -32,7 +32,7 @@ It is designed to be responsive on all devices and easy to navigate for users an
 ### User Stories
 
 This website gives the information about different IT / development solutions posted by site owner and other users. 
-Any one who is interested in IT / development and wants to share issues or share how to resolev problems then this website is perfect for him. 
+Any one who is interested in IT / development and wants to share their issues to find solutions. Or find / share options how to resolve problems. Then this website is perfect for him.
 This site also provides an option to create your own account and add a post.
 
 - #### Generic User
@@ -41,30 +41,30 @@ This site also provides an option to create your own account and add a post.
     1. I want the site is responsive on all device as I usually use phone for doing all such type of stuff.
     1. I want to be able to use the website on any device so I can keep it handy.
     1. I want to use the navigation at all times and have it readily available so I can quickly navigate from one page to another.
-    1. Copy link of a post.
+    1. I want to add, edit, delete my posts and comments.
+    1. Copy link of a post, to share it with friends. Like, dislike and pin any post.
 
 - ####  Admin/Site Owner
     1. As a site owner I want to read all the posts.
     1. As a site owner I want to add, edit and delete my posts.
-    1. As a site owner I can delete others posts from mongo DB.
-    1. As a site owner I want manage categories.I want to add, edit and delete the category from Mongo DB.
+    1. As a site owner I can delete, edit others posts.
+    1. As a site owner I can delete, edit others comments.
     1. As a site owner I want to receive the feedback of users.
     1. Copy link of a post, like, dislike and pin any post.
     
 - #### User
     1. I want to check the posts without login or sign up on site.
     1. I want to get posts by search option.
-    1. I want to contact the site owner by sending message without login or sign up.
-    1. I want to request the site owner to add new category.
-    1. Copy link of a post, like, dislike and pin any post.
+    1. I want to contact the site owner by sending message.
+    1. Copy link of a post, to share it with friends.
 
-- #### User who wants to post recipe
+- #### User who wants to post
     1. I want to create mypage by sign up.
     1. I want to easily login and check mypage.
     1. I want to add new post and available to all users of site.
     1. I want to edit and delete my post or my comment.
-    1. I want to pin posts to read them later.
-    1. I want to like or dislike any comment.
+    1. I want to pin post to read it later.
+    1. I want to like or dislike any post or comment.
     1. I want to like, dislike, pin any post.
     1. I want to contact the site owner.
     1. Copy link of a post.
@@ -98,14 +98,16 @@ This site also provides an option to create your own account and add a post.
     - The content (text) must be provided by user.
 
 - #### A post or comment can't be deleted by just one click. 
-    If someone clicks on the delete button, there wil be a pop up modal with a confirmation
+    If someone clicks on the delete button, there wil be a pop up modal window with a confirmation
     if someone is sure to delete the post or comment.
 
 ### Mockups
 
 - #### Mockups were created using https://wireframe.cc/.
-    -[Wireframes PDF](https://github.com/Kpokc/bouquet/blob/master/wireframe/wireframes.pdf)
-    -[Wireframes Cloud](https://wireframe.cc/pro/pp/a53120502454175)
+- 
+    - [Wireframes PDF](https://github.com/Kpokc/bouquet/blob/master/wireframe/wireframes.pdf)
+
+    - [Wireframes Cloud](https://wireframe.cc/pro/pp/a53120502454175)
     
 <a name="features"></a>
 ## Features
@@ -114,16 +116,20 @@ This site also provides an option to create your own account and add a post.
 
 - #### Common Features Across All Pages
 
-    - Header allows user to easily navigate across all pages
+      - Header allows user to easily navigate across all pages
       - The header itself is positioned to always be visible (fixed to top) at the top of the screen (mobile and desktop) which allows visitors to find it quickly.
       - The brand logo is positioned on the left and is visible on all pages.
       - Navigation links is more visible when hovered over. This lets the visitor know that it is clickable.
       - Navigation links collapse in a home menu when viewed on mobile device.
       - Allows to like and dislike, pin any post. Like and dislike any comment.
       - Allows to copy link of a post.
+      - Each post has totals of its likes, dislikes and comments.
     
     - Buttons/Links
       - All buttons are styled in the way to provide consistency across the page.
+      - Like, dislike, pin buttons will turn into light blue color if clicked.
+      - Like and dislike buttons linked - each post can only be liked or disliked and only one post per user.
+      - Each post can be only pinned or unpinned, button will turns light blue if pinned.  
     
     - Flash messages
       - Messages displayed at the top of the page to provide the user confirmation of actions and disappear in one second.
@@ -133,23 +139,23 @@ This site also provides an option to create your own account and add a post.
 
 ### Specific to Pages
 - Home Page
-    - This page has header, footer and search box, this page has also list of all posts with related images.The header has navigation bar. The image brings the user's attention and inviting the user to explore the post and copy post link.
-    (If loged in/ sign up) can like, dislike, add, comment, copy link, pin post.
-    On the right hand side user can get access to most liked, most commented and random post. Represent how mane likes or dislikes post or comment has.
+    - This page has header, footer and search box, this page has also list of all posts with related images.The header has navigation bar. The image brings the user's attention and inviting the user to explore the post.
+    (If logged in/ sign up) can like, dislike, pin, copy link, edit, delete post. Each post has its total likes, dislikes, comments shown at top-right of a post.
+    Each post content (main text) shorten up to 165 characters.
+    On the right hand side user can get access to most liked, most commented and random post.
 
 - Read Post Page
-    - User can read post fully. Alsow can like, dislike, pin, delete post. Can copy link of the current post. Aswel as comment post, edit delete, like dislike comment.
+    - User can read post and comments. Alsow can like, dislike, pin or comment post. Delete, edit his post and comment or comments. Can copy link of the current post. Usr can like, dislike comments.
     On the right hand side user can get access to most liked, most commented and random post.
-    Represent how mane likes or dislikes post or comment has.
 
 - Add Post Page
-    - User can select category. Must provide title and post content. If there is a code samples in the content, user must use <code></code> tags to wrp it.
+    - User can select category. Must provide title and post content. User can can use TAB and ENTER buttons within textarea field. If there is a code samples in the content, user must use <code></code> tags to wrap it.
 
 - Contact Page
-    - This page contains a form where users can give feedback and ask questions. It has another form where users can request for newsletter by simply subscribe it. 
+    - This page contains a form where users can give feedback and ask questions. 
 
 - MyPage 
-    - Using Mypage user can get access to his posts, his comments and pinned posts. Alsow like, dislike, edit, delete his posts and comments. Unpin posts. Represents how mane likes or dislikes post or comment has.
+    - Using Mypage user can get access to all his posts and his comments, and pinned posts. Alsow like, dislike, edit, delete his posts and comments. Unpin posts.
 
 - Search page. 
     -User retrieve all post where title and/or content has requested     word.
@@ -166,7 +172,7 @@ This site also provides an option to create your own account and add a post.
 ### Future Features
 
   - When like, dislike, pin button clicked - implement ajax request to update related buttons color and python functions in the background of the website. Without reloading the page.
-  - Implement dynamically reload posts depending on a mouse down scroll.
+  - Implement dynamically upload posts depending on a mouse down scroll.
   - Implement complaints functionality.
 
 <a name="technologies"></a>
@@ -265,18 +271,16 @@ Validate by direct input
     - I can add new post.
     - I can edit and delete my post or comment anytime.
     - I can delete any post / comment from my website.
-    - I can add new category.
-    - I can edit and delete existing categories.
     - I can get feedback and queries of users by mail.
 
-- #### User who wants to get recipe 
+- #### User who wants to read a post 
     - I get the list of all posts.
     - I get the specific post by search option.
     - I can contact site owner by contact form and also can give feedback.
     - I can like / dislike / comment or copy a link of any post.
     - I can also create my account on website by sign up form.
     
-- #### User who wants to post recipe
+- #### User who wants to post
     - I can easily add post after login.
     - I can edit and delete my post / comment from website anytime. I can like or dislike any post or comment.
     - I can see all posts of website but can not edit and delete others posts.
@@ -289,7 +293,7 @@ Validate by direct input
   2. Create a database in MongoDB
      - Signup or login to your MongoDB account.
      - Create a cluster and a database.
-     - Create five collections in the db: categories, recipes, feedback, newsletter, users.
+     - Create seven collections in the db: categories, dislikes, likes, post, pinned, user, comments.
      - Add string values for the collections. See my database section how the database is set up for this project.
   3. Create the environment variables
      - Create a .gitignore file in the root directory of the project.
