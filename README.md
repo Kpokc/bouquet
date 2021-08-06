@@ -116,6 +116,7 @@ This site also provides an option to create your own account and add a post.
 
 - #### Common Features Across All Pages
 
+    - All pages
       - Header allows user to easily navigate across all pages
       - The header itself is positioned to always be visible (fixed to top) at the top of the screen (mobile and desktop) which allows visitors to find it quickly.
       - The brand logo is positioned on the left and is visible on all pages.
