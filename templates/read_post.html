@@ -7,9 +7,9 @@
             {% if post_to_read.img_src != " " %}
             <div class="card-image">
                 {% for category in categories %}
-                {% if post_to_read.category == category._id|string %}
-                <img src="{{ category.img_src }}" alt="{{ category.title }}" />
-                {% endif %}
+                    {% if post_to_read.category == category._id|string %}
+                        <img src="{{ category.img_src }}" alt="{{ category.title }}" />
+                    {% endif %}
                 {% endfor %}
             </div>
             {% endif %}
@@ -18,9 +18,9 @@
                     <small>
                         <span>
                             {% for category in categories %}
-                            {% if post_to_read.category == category._id|string %}
-                            {{ category.title|upper }}
-                            {% endif %}
+                                {% if post_to_read.category == category._id|string %}
+                                    {{ category.title|upper }}
+                                {% endif %}
                             {% endfor %}
                             <span class="like-dislike" style="float:right;">
                                 <i class="far fa-comment"></i> {{ post_to_read._id|string | check_comments}}
@@ -33,7 +33,8 @@
                                 <i class="far fa-thumbs-up like-hand"></i> {{ post_to_read._id|string | check_likes}}
                             </span>
                         </span>
-                    </small><br>
+                    </small>
+                    <br>
                     <strong>{{ post_to_read.title }}</strong>
                 </div>
                 <div id="read" class="card-content" style="word-wrap: break-word;">
@@ -42,9 +43,9 @@
                 <div class="card-author">
                     <p>
                         {% for user in users %}
-                        {% if post_to_read.user_id == user._id|string %}
-                        {{ user.username }}
-                        {% endif %}
+                            {% if post_to_read.user_id == user._id|string %}
+                                {{ user.username }}
+                            {% endif %}
                         {% endfor %}
                         <span style="float:right;">{{ post_to_read.date }}</span>
                     </p>
@@ -55,58 +56,58 @@
                         <i class="hide-arrow back-btn material-icons left">send</i>Home</a>
                     <!-- Modal Trigger -->
                     {% if session.user %}
-                    <a class="edit-post-btn read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger"
-                        href="#modal1">Comment</a>
-                    <!-- Add Comment Modal -->
-                    <div id="modal1" class="modal">
-                        <div class="modal-content">
-                            <h4>Comment</h4>
-                            <!-- add comment form -->
-                            <div class="row">
-                                <form class="col s12" method="POST"
-                                    action="{{ url_for('comment', post_id=post_to_read._id) }}">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
-                                        <textarea id="comment" name="comment"
-                                            class="materialize-textarea teal-text text-darken-4" minlength="5"
-                                            maxlength="3000" required></textarea>
-                                        <label for="comment">Your Comment</label>
+                        <a class="edit-post-btn read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger"
+                            href="#modal1">Comment</a>
+                        <!-- Add Comment Modal -->
+                        <div id="modal1" class="modal">
+                            <div class="modal-content">
+                                <h4>Comment</h4>
+                                <!-- add comment form -->
+                                <div class="row">
+                                    <form class="col s12" method="POST"
+                                        action="{{ url_for('comment', post_id=post_to_read._id) }}">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
+                                            <textarea id="comment" name="comment"
+                                                class="materialize-textarea teal-text text-darken-4" minlength="5"
+                                                maxlength="3000" required></textarea>
+                                            <label for="comment">Your Comment</label>
+                                        </div>
+                                        <button
+                                            class="edit-post-btn comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">Cancel
+                                            <i class="hide-arrow material-icons left back-btn">send</i>
+                                        </button>
+                                        <button
+                                            class="edit-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1"
+                                            type="submit" name="action">Comment
+                                            <i class="hide-arrow material-icons right">send</i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% for user in users %}
+                            {% if user._id|string == post_to_read.user_id or user.username == "admin" %}
+                                {% if user.username == session.user %}
+                                    <!-- Edit Post -->
+                                    <a class="edit-post-btn read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1"
+                                        href="{{ url_for('edit_post', post_id=post_to_read._id) }}">Edit Post</a>
+                                    <!-- Delete Post Modal -->
+                                    <a class="edit-post-btn read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger"
+                                        href="#modal2">Delete Post</a>
+                                    <div id="modal2" class="modal">
+                                        <div class="modal-content">
+                                            <h5>Delete Post?</h5>
+                                            <div class="row">
+                                                <a class="comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">No</a>
+                                                <a href="{{ url_for('delete_post', post_id=post_to_read._id) }}"
+                                                    class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button
-                                        class="edit-post-btn comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">Cancel
-                                        <i class="hide-arrow material-icons left back-btn">send</i>
-                                    </button>
-                                    <button
-                                        class="edit-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1"
-                                        type="submit" name="action">Comment
-                                        <i class="hide-arrow material-icons right">send</i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    {% for user in users %}
-                    {% if user._id|string == post_to_read.user_id or user.username == "admin" %}
-                    {% if user.username == session.user %}
-                    <!-- Edit Post -->
-                    <a class="edit-post-btn read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1"
-                        href="{{ url_for('edit_post', post_id=post_to_read._id) }}">Edit Post</a>
-                    <!-- Delete Post Modal -->
-                    <a class="edit-post-btn read-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger"
-                        href="#modal2">Delete Post</a>
-                    <div id="modal2" class="modal">
-                        <div class="modal-content">
-                            <h5>Delete Post?</h5>
-                            <div class="row">
-                                <a class="comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">No</a>
-                                <a href="{{ url_for('delete_post', post_id=post_to_read._id) }}"
-                                    class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% endif %}
-                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                     <!-- red action button -->
                     <div class="fixed-action-btn">
@@ -116,76 +117,76 @@
                         <ul>
                             {% if session.user %}
     
-                            {% set page = "post" %}
-    
-                            {% if likes|length > 0 %}
-                            <!-- Below pass to liked username and post id  -->
-                            {% set liked = session.user %}
-                            {% set liked = liked + "/" + post_to_read._id|string %}
-                            <!-- sned request to check if user had pinned this post  -->
-                            {% if liked | check_like == "ok" %}
-                            <!-- Like -->
-                            <li><a href="{{ url_for('like', post_id=post_to_read._id, page=page ) }}"
-                                    class="active-btn btn-floating waves-effect waves-light btn"><i
-                                        class="far fa-thumbs-up like-hand"></i></a></li>
-                            {% else %}
-                            <!-- Like -->
-                            <li><a href="{{ url_for('like', post_id=post_to_read._id, page=page ) }}"
-                                    class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                        class="far fa-thumbs-up like-hand"></i></a></li>
-                            {% endif%}
-                            {% else %}
-                            <!-- Like -->
-                            <li><a href="{{ url_for('like', post_id=post_to_read._id, page=page ) }}"
-                                    class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                        class="far fa-thumbs-up like-hand"></i></a></li>
-                            {% endif%}
-    
-                            {% if dislikes|length > 0 %}
-                            <!-- Below pass to disliked username and post id  -->
-                            {% set disliked = session.user %}
-                            {% set disliked = disliked + "/" + post_to_read._id|string %}
-                            <!-- sned request to check if user had pinned this post  -->
-                            {% if disliked | check_dislike == "ok" %}
-                            <!-- Dislike -->
-                            <li><a href="{{ url_for('dislike', post_id=post_to_read._id, page=page) }}"
-                                    class="active-btn btn-floating waves-effect waves-light btn"><i
-                                        class="far fa-thumbs-down dislike-hand"></i></a></li>
-                            {% else %}
-                            <!-- Dislike -->
-                            <li><a href="{{ url_for('dislike', post_id=post_to_read._id, page=page) }}"
-                                    class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                        class="far fa-thumbs-down dislike-hand"></i></a></li>
-                            {% endif%}
-                            {% else %}
-                            <!-- Dislike -->
-                            <li><a href="{{ url_for('dislike', post_id=post_to_read._id, page=page) }}"
-                                    class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                        class="far fa-thumbs-down dislike-hand"></i></a></li>
-                            {% endif%}
-    
-                            {% if pinned|length > 0 %}
-                            <!-- Below pass to pinpost username and post id  -->
-                            {% set pinpost = session.user %}
-                            {% set pinpost = pinpost + "/" + post_to_read._id|string %}
-                            <!-- sned request to check if user had pinned this post  -->
-                            {% if pinpost | check_pin == "ok" %}
-                            <!-- Pin/Unpin -->
-                            <li><a href="{{ url_for('pinned',post_id=post_to_read._id, page=page) }}"
-                                    class="active-btn btn-floating waves-effect waves-light btn"><i
-                                        class="fas fa-thumbtack"></i></a></li>
-                            {% else %}
-                            <!-- Pin/Unpin -->
-                            <li><a href="{{ url_for('pinned',post_id=post_to_read._id, page=page) }}"
-                                    class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                        class="not-pinned fas fa-thumbtack"></i></a></li>
-                            {% endif%}
-                            {% else %}
-                            <!-- Pin/Unpin -->
-                            <li><a href="{{ url_for('pinned',post_id=post_to_read._id, page=page) }}"
-                                    class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                        class="not-pinned fas fa-thumbtack"></i></a></li>
-                            {% endif%}
+                                {% set page = "post" %}
+        
+                                {% if likes|length > 0 %}
+                                    <!-- Below pass to liked username and post id  -->
+                                    {% set liked = session.user %}
+                                    {% set liked = liked + "/" + post_to_read._id|string %}
+                                    <!-- sned request to check if user had pinned this post  -->
+                                    {% if liked | check_like == "ok" %}
+                                        <!-- Like -->
+                                        <li><a href="{{ url_for('like', post_id=post_to_read._id, page=page ) }}"
+                                                class="active-btn btn-floating waves-effect waves-light btn"><i
+                                                    class="far fa-thumbs-up like-hand"></i></a></li>
+                                    {% else %}
+                                        <!-- Like -->
+                                        <li><a href="{{ url_for('like', post_id=post_to_read._id, page=page ) }}"
+                                                class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                    class="far fa-thumbs-up like-hand"></i></a></li>
+                                    {% endif%}
+                                {% else %}
+                                    <!-- Like -->
+                                    <li><a href="{{ url_for('like', post_id=post_to_read._id, page=page ) }}"
+                                            class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                class="far fa-thumbs-up like-hand"></i></a></li>
+                                {% endif%}
+        
+                                {% if dislikes|length > 0 %}
+                                    <!-- Below pass to disliked username and post id  -->
+                                    {% set disliked = session.user %}
+                                    {% set disliked = disliked + "/" + post_to_read._id|string %}
+                                    <!-- sned request to check if user had pinned this post  -->
+                                    {% if disliked | check_dislike == "ok" %}
+                                        <!-- Dislike -->
+                                        <li><a href="{{ url_for('dislike', post_id=post_to_read._id, page=page) }}"
+                                                class="active-btn btn-floating waves-effect waves-light btn"><i
+                                                    class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                    {% else %}
+                                        <!-- Dislike -->
+                                        <li><a href="{{ url_for('dislike', post_id=post_to_read._id, page=page) }}"
+                                                class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                    class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                    {% endif%}
+                                {% else %}
+                                    <!-- Dislike -->
+                                    <li><a href="{{ url_for('dislike', post_id=post_to_read._id, page=page) }}"
+                                            class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                {% endif%}
+        
+                                {% if pinned|length > 0 %}
+                                    <!-- Below pass to pinpost username and post id  -->
+                                    {% set pinpost = session.user %}
+                                    {% set pinpost = pinpost + "/" + post_to_read._id|string %}
+                                    <!-- sned request to check if user had pinned this post  -->
+                                    {% if pinpost | check_pin == "ok" %}
+                                        <!-- Pin/Unpin -->
+                                        <li><a href="{{ url_for('pinned',post_id=post_to_read._id, page=page) }}"
+                                                class="active-btn btn-floating waves-effect waves-light btn"><i
+                                                    class="fas fa-thumbtack"></i></a></li>
+                                    {% else %}
+                                        <!-- Pin/Unpin -->
+                                        <li><a href="{{ url_for('pinned',post_id=post_to_read._id, page=page) }}"
+                                                class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                    class="not-pinned fas fa-thumbtack"></i></a></li>
+                                    {% endif%}
+                                {% else %}
+                                    <!-- Pin/Unpin -->
+                                    <li><a href="{{ url_for('pinned',post_id=post_to_read._id, page=page) }}"
+                                            class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                class="not-pinned fas fa-thumbtack"></i></a></li>
+                                {% endif%}
                             {% endif %}
                             <!-- Copy post link -->
                             <li><a value="https://edible-bouquets.herokuapp.com/{{ url_for('read_post', post_id=post_to_read._id) }}"
@@ -199,143 +200,143 @@
         <!-- Comment section -->
         <div class="col l10 s12 m10 offset-l1 offset-s0 offset-m1">
             {% for comment in comments%}
-            {% if comment.post_id == post_to_read._id|string %}
-            <div class="card horizontal">
-                <div class="card-stacked">
-                    {% for user in users%}
-                    {% if comment.user_id == user._id|string %}
-                    <p>{{ user.username }} @ <span>{{ comment.date }}</span>
-                        {% endif %}
-                        {% endfor %}
-                        <span class="title" style="text-transform: uppercase; float: right;">
-                            <small>
-                                <span class="like-dislike">
-                                    <i class="far fa-thumbs-up like-hand"></i> {{ comment._id|string | check_likes}}
-                                </span>
-                                <span class="like-dislike">
-                                    <i class="far fa-thumbs-down dislike-hand"></i> {{ comment._idstring | check_dislikes}}
-                                </span>
-                            </small>
-                        </span>
-                    </p>
-                    <hr>
-                    <div class="card-content">
-                        <p id="text-to-read">{{ comment.comment}}</p>
-                    </div>
-                    <hr>
-                    <div class="card-action">
-                        {% for user in users %}
-                        {% if user._id|string == comment.user_id or user.username == "admin" %}
-                        {% if user.username == session.user %}
-                        <a href="#{{comment._id|string}}"
-                            class="edit-post-btn top-menu waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edit</a>
-                        <!-- Edit Comment Modal -->
-                        <div id="{{comment._id|string}}" class="modal">
-                            <div class="modal-content">
-                                <h4>Edit</h4>
-                                <!-- edit comment form -->
-                                <div class="row">
-                                    <form class="col s12" method="POST"
-                                        action="{{ url_for('edit_comment', comment_id=comment._id) }}">
-                                        <div class="input-field col s12">
-                                            <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
-                                            <textarea id="comment" name="comment"
-                                                class="materialize-textarea teal-text text-darken-4" minlength="5"
-                                                maxlength="3000" required>{{ comment.comment }}</textarea>
-                                            <label for="comment">Your Comment</label>
-                                        </div>
-                                        <button
-                                            class="edit-post-btn comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">Cancel
-                                            <i class="hide-arrow material-icons left back-btn">send</i>
-                                        </button>
-                                        <button
-                                            class="edit-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1"
-                                            type="submit" name="action">Edit
-                                            <i class="hide-arrow material-icons right">send</i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Delete Comment Modal -->
-                        <a class="edit-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger"
-                            href="#modal3">Delete</a>
-                        <div id="modal3" class="modal">
-                            <div class="modal-content">
-                                <h5>Delete Comment?</h5>
-                                <div class="row">
-                                    <a
-                                        class="top-menu comment-btn waves-effect waves-light btn-small blue-grey darken-1">No</a>
-                                    <a href="{{ url_for('delete_comment', comment_id=comment._id) }}"
-                                        class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endif %}
-                        {% endfor %}
-                        <!-- red action button -->
-                        <div class="fixed-action-btn down">
-                            <a class="top-menu btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
-                                <i class="large material-icons">mode_edit</i>
-                            </a>
-                            <ul>
-                                {% if session.user %}
-    
-                                {% set page = "post" %}
-    
-                                {% if likes|length > 0 %}
-                                <!-- Below pass to liked username and post id  -->
-                                {% set liked = session.user %}
-                                {% set liked = liked + "/" + comment._id|string %}
-                                <!-- send request to check if user had pinned this post  -->
-                                {% if liked | check_like == "ok" %}
-                                <!-- Like -->
-                                <li><a href="{{ url_for('like', post_id=comment._id, page=page) }}"
-                                        class="active-btn btn-floating waves-effect waves-light btn"><i
-                                            class="far fa-thumbs-up like-hand"></i></a></li>
-                                {% else %}
-                                <!-- Like -->
-                                <li><a href="{{ url_for('like', post_id=comment._id, page=page) }}"
-                                        class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                            class="far fa-thumbs-up like-hand"></i></a></li>
-                                {% endif%}
-                                {% else %}
-                                <!-- Like -->
-                                <li><a href="{{ url_for('like', post_id=comment._id, page=page) }}"
-                                        class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                            class="far fa-thumbs-up like-hand"></i></a></li>
-                                {% endif%}
-    
-                                {% if dislikes|length > 0 %}
-                                <!-- Below pass to disliked username and post id  -->
-                                {% set disliked = session.user %}
-                                {% set disliked = disliked + "/" + comment._id|string %}
-                                <!-- sned request to check if user had pinned this post  -->
-                                {% if disliked | check_dislike == "ok" %}
-                                <!-- Dislike -->
-                                <li><a href="{{ url_for('dislike', post_id=comment._id, page=page) }}"
-                                        class="active-btn btn-floating waves-effect waves-light btn"><i
-                                            class="far fa-thumbs-down dislike-hand"></i></a></li>
-                                {% else %}
-                                <!-- Dislike -->
-                                <li><a href="{{ url_for('dislike', post_id=comment._id, page=page) }}"
-                                        class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                            class="far fa-thumbs-down dislike-hand"></i></a></li>
-                                {% endif%}
-                                {% else %}
-                                <!-- Dislike -->
-                                <li><a href="{{ url_for('dislike', post_id=comment._id, page=page) }}"
-                                        class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
-                                            class="far fa-thumbs-down dislike-hand"></i></a></li>
-                                {% endif%}
+                {% if comment.post_id == post_to_read._id|string %}
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            {% for user in users%}
+                            {% if comment.user_id == user._id|string %}
+                            <p>{{ user.username }} @ <span>{{ comment.date }}</span>
                                 {% endif %}
-                            </ul>
+                                {% endfor %}
+                                <span class="title" style="text-transform: uppercase; float: right;">
+                                    <small>
+                                        <span class="like-dislike">
+                                            <i class="far fa-thumbs-up like-hand"></i> {{ comment._id|string | check_likes}}
+                                        </span>
+                                        <span class="like-dislike">
+                                            <i class="far fa-thumbs-down dislike-hand"></i> {{ comment._idstring | check_dislikes}}
+                                        </span>
+                                    </small>
+                                </span>
+                            </p>
+                            <hr>
+                            <div class="card-content">
+                                <p id="text-to-read">{{ comment.comment}}</p>
+                            </div>
+                            <hr>
+                            <div class="card-action">
+                                {% for user in users %}
+                                    {% if user._id|string == comment.user_id or user.username == "admin" %}
+                                        {% if user.username == session.user %}
+                                            <a href="#{{comment._id|string}}"
+                                                class="edit-post-btn top-menu waves-effect waves-light btn-small modal-trigger blue-grey darken-1">Edit</a>
+                                            <!-- Edit Comment Modal -->
+                                            <div id="{{comment._id|string}}" class="modal">
+                                                <div class="modal-content">
+                                                    <h4>Edit</h4>
+                                                    <!-- edit comment form -->
+                                                    <div class="row">
+                                                        <form class="col s12" method="POST"
+                                                            action="{{ url_for('edit_comment', comment_id=comment._id) }}">
+                                                            <div class="input-field col s12">
+                                                                <i class="material-icons prefix teal-text text-darken-4">insert_comment</i>
+                                                                <textarea id="comment" name="comment"
+                                                                    class="materialize-textarea teal-text text-darken-4" minlength="5"
+                                                                    maxlength="3000" required>{{ comment.comment }}</textarea>
+                                                                <label for="comment">Your Comment</label>
+                                                            </div>
+                                                            <button
+                                                                class="edit-post-btn comment-btn top-menu waves-effect waves-light btn-small blue-grey darken-1">Cancel
+                                                                <i class="hide-arrow material-icons left back-btn">send</i>
+                                                            </button>
+                                                            <button
+                                                                class="edit-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1"
+                                                                type="submit" name="action">Edit
+                                                                <i class="hide-arrow material-icons right">send</i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Delete Comment Modal -->
+                                            <a class="edit-post-btn top-menu waves-effect waves-light btn-small blue-grey darken-1 modal-trigger"
+                                                href="#modal3">Delete</a>
+                                            <div id="modal3" class="modal">
+                                                <div class="modal-content">
+                                                    <h5>Delete Comment?</h5>
+                                                    <div class="row">
+                                                        <a
+                                                            class="top-menu comment-btn waves-effect waves-light btn-small blue-grey darken-1">No</a>
+                                                        <a href="{{ url_for('delete_comment', comment_id=comment._id) }}"
+                                                            class="top-menu waves-effect waves-light btn-small blue-grey darken-1">Yes</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                <!-- red action button -->
+                                <div class="fixed-action-btn down">
+                                    <a class="top-menu btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
+                                        <i class="large material-icons">mode_edit</i>
+                                    </a>
+                                    <ul>
+                                        {% if session.user %}
+            
+                                            {% set page = "post" %}
+                
+                                            {% if likes|length > 0 %}
+                                                <!-- Below pass to liked username and post id  -->
+                                                {% set liked = session.user %}
+                                                {% set liked = liked + "/" + comment._id|string %}
+                                                <!-- send request to check if user had pinned this post  -->
+                                                {% if liked | check_like == "ok" %}
+                                                    <!-- Like -->
+                                                    <li><a href="{{ url_for('like', post_id=comment._id, page=page) }}"
+                                                            class="active-btn btn-floating waves-effect waves-light btn"><i
+                                                                class="far fa-thumbs-up like-hand"></i></a></li>
+                                                {% else %}
+                                                    <!-- Like -->
+                                                    <li><a href="{{ url_for('like', post_id=comment._id, page=page) }}"
+                                                            class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                                class="far fa-thumbs-up like-hand"></i></a></li>
+                                                {% endif%}
+                                            {% else %}
+                                                <!-- Like -->
+                                                <li><a href="{{ url_for('like', post_id=comment._id, page=page) }}"
+                                                        class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                            class="far fa-thumbs-up like-hand"></i></a></li>
+                                            {% endif%}
+                
+                                            {% if dislikes|length > 0 %}
+                                                <!-- Below pass to disliked username and post id  -->
+                                                {% set disliked = session.user %}
+                                                {% set disliked = disliked + "/" + comment._id|string %}
+                                                <!-- sned request to check if user had pinned this post  -->
+                                                {% if disliked | check_dislike == "ok" %}
+                                                    <!-- Dislike -->
+                                                    <li><a href="{{ url_for('dislike', post_id=comment._id, page=page) }}"
+                                                            class="active-btn btn-floating waves-effect waves-light btn"><i
+                                                                class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                {% else %}
+                                                    <!-- Dislike -->
+                                                    <li><a href="{{ url_for('dislike', post_id=comment._id, page=page) }}"
+                                                            class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                                class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                                {% endif%}
+                                            {% else %}
+                                                <!-- Dislike -->
+                                                <li><a href="{{ url_for('dislike', post_id=comment._id, page=page) }}"
+                                                        class="top-menu btn-floating waves-effect waves-light btn blue-grey darken-1"><i
+                                                            class="far fa-thumbs-down dislike-hand"></i></a></li>
+                                            {% endif%}
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            {% endif %}
+                {% endif %}
             {% endfor %}
         </div>
     </div>

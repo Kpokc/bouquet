@@ -211,7 +211,7 @@ This site also provides an option to create your own account and add a post.
 ### Functionality Testing
   - #### Navigation bar
      - The navigation bar stays at the top of the page on all screen sizes.
-            - When the nav links clicks it opens the relevent page in same window with same header footer.
+            - When the nav links clicks it opens the relevant page in same window with same header footer.
   - #### Links
   - All internal links is tested to make sure that all pages are correctly connected.
     
@@ -371,4 +371,3 @@ Validate by direct input
 
 - Thanks to my fellow student and tutors on slack channel who helped me in some way.
 - Thanks to my mentor for helping me throughout the project and giving me important suggestions and feedback of my work.
- 
